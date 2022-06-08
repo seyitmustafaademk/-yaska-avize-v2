@@ -1,0 +1,70 @@
+@use 'global' as g;
+@use 'mixin' as m;
+
+
+.contact-wrapper {
+    margin-top: 85px;
+    .contact-top-info-inner {
+        padding: 50px 0px;
+        margin: 10px 0px;
+        box-shadow: 0 0 10px #ccc;
+        cursor: pointer;
+        i {
+            color: g.$gold;
+            font-weight: bold;
+        }
+        i,h3,span {
+            @include m.transition();
+            &:hover {
+                color: g.$softBlue!important;
+            }
+        }
+    }
+    .contact-info-form-inner {
+        input,select {
+            font-size: 14px;
+        }
+    }
+
+    
+}
+
+
+.contact-info-fixed-button {
+    z-index: 99;
+    position: fixed;
+    right: 30px;
+    bottom: 100px;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    .fixed-item {
+        background: g.$softBlue;
+        width: 60px;
+        height: 60px;
+        margin: 20px 0px;
+        text-align: center;
+        border-radius: 50%;
+        line-height: 2.5;
+        color: white;
+        @include m.transition();
+        &:hover {
+            background: g.$gold;
+            transform: scale(1.1);
+            a {
+                color: white;
+            }
+        }
+    }
+}
+
+@media(max-width:576px) {
+    .contact-info-fixed-button {
+        display: none;
+    }
+    .contact-info-map {
+        iframe {
+            height: 650px;
+        }
+    }
+}

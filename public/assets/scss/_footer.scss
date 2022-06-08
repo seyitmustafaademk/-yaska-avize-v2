@@ -1,0 +1,125 @@
+@use 'global' as g;
+@use 'mixin' as m;
+
+
+footer {
+    .footer-wrapper {
+        .info-new-wrapper {
+            a {
+                &:hover {
+                color: g.$gold;
+            }
+        }
+        }
+        position: relative;    
+        .bottom-wrapper {
+            ul {
+                padding-top: 20px;
+                li {
+                    text-transform: uppercase;
+                    padding-bottom: 10px;
+                    font-size: .9rem;
+                    a {
+                        font-weight: bold;
+                        &:hover, &.active {
+                            color: g.$gold;
+                        }
+                    }
+                }
+            }
+            .footer-title {
+                position: relative;
+                text-transform: uppercase;
+                &::after {
+                    position: absolute;
+                    content: '';
+                    bottom: -8px;
+                    left: 0;
+                    margin: auto;
+                    width: 100px;
+                    background: g.$gold;
+                    height: 6px;
+                }
+            }
+        }
+    
+        .footer-bottom {
+            width: 100%;
+            text-align: center;
+            background:g.$dark;
+            padding: 10px 0px;
+            color: g.$white;
+            span {
+                color: g.$gold;
+            }
+        }
+    }
+
+}
+
+
+@media(max-width:767.98px) {
+    footer {
+        text-align: center;
+        .footer-title {
+            &::after {
+                transform: translate(50%, -50%);
+                bottom: -14px!important;
+            }
+        }
+    }
+}
+
+@media(min-width:768px) and (max-width:1197.98px){
+.footer-title {
+    color: g.$gold;
+    &::after {
+        position: unset!important;
+    }
+}
+}
+
+
+.footer-wrapper2 {
+    background: #0f0e0e;
+    color: white;
+    .bottom-wrapper {
+        ul {
+            padding-top: 20px;
+            li {
+                text-transform: uppercase;
+                padding-bottom: 10px;
+                font-size: .9rem;
+                a {
+                    &:hover, &.active {
+                        color: g.$softBlue;
+                    }
+                }
+            }
+        }
+        .footer-title {
+            position: relative;
+            &::after {
+                position: absolute;
+                content: '';
+                bottom: -8px;
+                left: 0;
+                width: 100px;
+                background: g.$softBlue;
+                height: 6px;
+            }
+        }
+    }
+
+    .footer-bottom {
+        width: 100%;
+        text-align: center;
+        background:g.$darkBlue;
+        padding: 10px 0px;
+        color: g.$white;
+        span {
+            color: g.$white;
+            font-weight: bolder;
+        }
+    }
+}

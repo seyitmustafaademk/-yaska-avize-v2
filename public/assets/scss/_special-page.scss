@@ -1,0 +1,35 @@
+@use 'global' as g;
+@use 'mixin' as m;
+
+
+.testimonial-body {
+    &-item {
+        margin: 25px 0px;
+        &-top {
+            display: flex;
+            padding: 5px 0px;
+            span {
+                font-size: 14.5px;
+            }
+        }
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        width: 400px;
+        max-width: 100%;
+        padding: 20px;
+        border-radius: 15px;
+        min-height: 220px;
+    }
+}
+
+.buttonSpecialwrapper {
+    button {
+        border: 1px solid #c2c2c2;
+        background: g.$darkBlue;
+        color: white;
+        border-radius: 5px;
+        &:focus {
+            background: white;
+            color: g.$dark;
+        }
+    }
+}

@@ -1,0 +1,275 @@
+@use 'global'as g;
+@use 'mixin'as m;
+
+
+
+/*
+
+-> Payment1 
+
+-> Payment2
+
+-> Payment3
+
+-> Payment4
+
+-> Responsive
+
+*/
+
+
+.payment-wrapper {
+
+    label,
+    input,
+    select,
+    option {
+        text-align: left !important;
+    }
+
+    padding-top: 30px;
+
+    // Payment Global
+    .circle-seppet {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .dark-blue {
+        background-color: #1d3876;
+    }
+
+    .rounded-circle {
+        border-radius: 50% !important;
+    }
+
+    .line-seppet {
+        width: 30px;
+        height: 1px;
+        background: #cec8c8;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .paymentSidebar-inner {
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    }
+
+    .mainBtn {
+        background: g.$darkBlue;
+        border: 1px solid g.$darkBlue;
+
+        &:hover {
+            background: #162c61;
+        }
+    }
+
+    // END Payment Global
+
+    // Payment-1 
+    .payment-item {
+        width: 100%;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        margin: 20px 0px;
+    }
+
+    .promoCode {
+        &::placeholder {
+            font-size: 14px;
+            font-weight: bold;
+        }
+    }
+
+    // END Payment-1
+
+
+    // Payment-2
+
+    .payment-second-wrap {
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        padding: 40px;
+
+        form {
+            padding-top: 20px;
+
+            label {
+                font-size: 15px !important;
+                font-weight: normal;
+                color: #8d8c8c;
+                // text-align: start!important;
+                text-align: left !important;
+            }
+
+            &::placeholder {
+                font-size: 14px;
+            }
+        }
+    }
+
+    // END Payment-2
+
+    // Payment-3
+
+    .payment3-wrap {
+        .accordion-item {
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            padding: 30px;
+            margin: 30px 0px;
+
+            .accordion-button {
+                font-size: 2rem;
+                font-weight: bold;
+
+                span {
+                    padding-left: 20px;
+                    font-size: .8rem;
+                }
+            }
+        }
+
+        .willFlip {
+            height: 250px;
+            width: 400px;
+            max-width: 100%;
+            position: relative;
+            z-index: 99999;
+            color: white;
+            background-color: transparent;
+            border: none;
+            margin: auto;
+        }
+
+        .cardInfo {
+            .form-group {
+                margin: 10px 0px;
+
+                input,
+                select {
+                    background: #f2f2f2;
+                    height: 50px;
+                }
+
+                label {
+                    margin-bottom: 4px;
+                    font-weight: bold;
+                }
+
+            }
+        }
+
+        .front {
+            background-color: #223280;
+            border-radius: 5px;
+            box-shadow: 3px 10px 20px 0px rgb(73, 79, 111);
+            padding: 15px;
+
+            input {
+                background-color: transparent !important;
+                color: white;
+                font-size: 16px;
+                border: none;
+                padding-left: 0;
+                padding-right: 0;
+
+                &::placeholder {
+                    color: #fff;
+                }
+            }
+        }
+
+        .back {
+            background-color: #223280;
+            border-radius: 5px;
+            box-shadow: 3px 10px 20px 0px rgb(73, 79, 111);
+        }
+
+
+        .content-date-input {
+            position: relative;
+        }
+
+        #cardHolderValue {
+            text-overflow: ellipsis;
+        }
+
+        .card-bar {
+            margin-top: 10%;
+            background: #ffffff52;
+            height: 40px;
+        }
+
+        .inputFakeFont {
+            font-size: 23px !important;
+            transition: 0.3s;
+            filter: blur(50);
+            animation: bounce;
+            padding: 3px;
+        }
+
+    }
+
+
+    // END Payment-3
+
+
+    // Payment 4
+
+    .payment4-wrap {
+        table {
+            tr {
+                td {
+                    padding: 15px 0px;
+
+                    &:nth-child(odd) {
+                        font-weight: bold;
+                    }
+
+                }
+            }
+        }
+    }
+
+    // END Payment4
+}
+
+
+// Payment Responsive
+
+@media(max-width:576px) {
+    .payment-item {
+        h6 {
+            font-size: 14px;
+        }
+    }
+
+    .payment-second-wrap {
+        padding: 10px 0px !important;
+        box-shadow: none !important;
+    }
+
+    .payment3-wrap {
+        .accordion-item {
+            padding: 15px !important;
+
+            .accordion-header {
+                .accordion-button {
+                    font-size: 20px;
+                    text-transform: uppercase;
+                }
+            }
+
+            box-shadow: none;
+            padding: 25px 0px;
+            margin: 15px 0px !important;
+
+            .accordion-body {
+                padding: 0 !important;
+            }
+        }
+    }
+
+}

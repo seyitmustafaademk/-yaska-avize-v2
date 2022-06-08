@@ -1,0 +1,102 @@
+@use 'global' as g;
+@use 'mixin' as m;
+
+
+.blogSidebar-inner {
+    .category {
+        color: g.$gold;
+        ul li {
+            color: g.$dark;
+            padding-bottom: 20px;
+            text-transform: uppercase;
+            a {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-weight: bold;
+                font-size: 14.5px;
+                &:hover {
+                    color: g.$softBlue;
+                }
+            }
+        }
+    }
+
+    .last-news {
+        color: g.$gold;
+        .news-order {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0px;
+            p {
+                line-height: 1.3;
+                margin-bottom: 0;
+                color: g.$dark;
+            }
+            img {
+                border-radius: 10px;
+                height: 75px;
+                width: 135px;
+            }
+            span {
+                padding-top: 10px;
+            }
+        }
+
+    }
+
+    .popular-tags {
+        color: g.$gold!important;
+    }
+
+}
+
+
+.detail-wrap-text {
+    background: #161c2d;
+    h3 {
+        font-style: italic;
+    }
+    p {
+        position: relative;
+        color: g.$dark;
+        font-size: 18px;
+        padding-top: 10px;
+        padding-left: 60px;
+        &::before {
+            position: absolute;
+            content: '';
+            top: 56%;
+            left: 0;
+            height: 3px;
+            width: 50px;
+            background: g.$darkBlue;
+        }
+    }
+}
+
+
+.btn-outline-light {
+    &.active {
+        background: white;
+        color: black;
+    }
+
+}
+
+@media(min-width:576px) and (max-width:1199px) {
+    .news-order-wrap {
+        display: flex;
+        justify-content: space-between;
+        .news-order {
+            display: flex;
+            flex-direction: column;
+            .news-text {
+                margin-left: 0!important;
+                padding-top: 10px;
+            }
+        }
+
+    }
+}

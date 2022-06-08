@@ -1,0 +1,236 @@
+@use 'global'as g;
+@use 'mixin'as m;
+
+
+
+section.hero {
+    position: relative;
+
+    .overlay {
+        position: absolute;
+        content: '';
+        background: rgba($color: #000000, $alpha: .4);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 2;
+    }
+
+    .home-hero-form {
+        background: rgba(31, 25, 29, 0.85);
+        border-radius: 5px;
+        width: 370px;
+        max-width: 100%;
+        padding: 50px;
+
+        label {
+            font-size: 12px;
+            font-weight: 500;
+            padding-bottom: 2px;
+            letter-spacing: 1px;
+        }
+
+        input {
+            border: 0 !important;
+            background: transparent !important;
+            padding: 5px 0px;
+            color: white !important;
+            font-size: 14px;
+        }
+
+        select {
+            padding: 5px 0px;
+            color: white !important;
+        }
+    }
+}
+
+
+section.special-design {
+    z-index: -1;
+}
+
+.mainBtn {
+    @include m.button(g.$gold, g.$white, g.$hoverColor);
+    padding: 20px;
+    width: 200px;
+    border-radius: none !important;
+
+}
+
+
+section.popular-product {
+    background: g.$dark;
+
+    a.nav-link {
+        padding: 10px;
+        background: transparent;
+        color: g.$white;
+
+        &.active {
+            background: transparent;
+            border: 1px solid g.$gold;
+        }
+    }
+
+    .tab-pane {
+        video {
+            width: 100%;
+            max-width: 100%;
+            z-index: 2;
+        }
+
+        .mainBtn {
+            &:hover {
+                color: g.$gold;
+                border: 2px solid g.$gold;
+            }
+        }
+    }
+
+    p.fs-4 {
+        color: g.$gold;
+    }
+}
+
+section.special-design2 {
+    background: #fff4f4;
+}
+
+
+section.photo-gallery {
+    background: #fff4f4;
+
+    img {
+        cursor: pointer;
+        @include m.transition();
+        // &:hover {
+        //     overflow: hidden;
+        // }
+    }
+
+
+
+    // .scrollStyle {
+    //     overflow-x: scroll;
+    //     &::-webkit-scrollbar {
+    //         width: .5em;
+    //     }
+
+    //     &::-webkit-scrollbar-track {
+    //         box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+
+    //     }
+
+    //     &::-webkit-scrollbar-thumb {
+    //         background-color: g.$gold;
+    //         border-radius: 100px;
+
+    //     }
+    // }
+}
+
+section.murset {
+    .btn {
+        &:hover {
+            color: g.$gold;
+        }
+    }
+
+}
+
+
+section.reference {
+    background: g.$dark;
+
+    .reference-wrapper {
+        img {
+            cursor: pointer;
+            filter: brightness(70%);
+            @include m.transition();
+
+            &:hover {
+                filter: none;
+            }
+        }
+    }
+}
+
+section.faq {
+    background: g.$dark;
+}
+
+section.three-designs {
+    .item-content {
+        @include m.transition();
+        overflow: hidden;
+        cursor: pointer;
+
+        img {
+            @include m.transition();
+        }
+
+        &-inner {
+            @include m.transition();
+            margin: 0 auto;
+            background: rgba($color: #000000, $alpha: .5);
+            width: 100%;
+            max-width: 90%;
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding: 60px 0px;
+
+        }
+
+        &:hover {
+            img {
+                @include m.transition();
+                transform: scale(1.06);
+                overflow: hidden;
+            }
+
+        }
+    }
+
+}
+
+
+.ma-arrow {
+    position: absolute;
+    left: 50px;
+    bottom: 65px;
+    z-index: 999;
+    width: 18px;
+    cursor: pointer;
+    animation: marrow 1.2s infinite;
+}
+
+@media (min-width: 992px) {
+    .ma-arrow {
+        display: initial;
+    }
+}
+
+@keyframes marrow {
+    from {
+        height: 15px;
+    }
+
+    to {
+        height: 0px;
+    }
+}
+
+.swiper-example-next i, .swiper-example-prev i {
+&:hover {
+    color: g.$gold!important;
+}
+}
