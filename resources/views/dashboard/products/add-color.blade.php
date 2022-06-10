@@ -23,7 +23,7 @@
                     <div class="row justify-content-between">
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" name="color_name" id="color_name" placeholder="name@example.com" required>
+                                <input type="text" class="form-control rounded-4 px-2" name="color_name" id="color_name" placeholder="name@example.com" required>
                                 <label for="floatingInput">Renk Adı</label>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                     <div class="row justify-content-start align-items-center mt-3">
                         <div class="col-6">
                             <div class="form-group float-right w-100">
-                                <button type="submit" class="btn btn-primary text-white text-black w-100">Kaydet</button>
+                                <button type="submit" class="btn btn-primary text-white text-black w-100 rounded-pill py-3">Kaydet</button>
                             </div>
                         </div>
                     </div>

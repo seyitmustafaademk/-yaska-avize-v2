@@ -6,49 +6,136 @@
 @endsection
 @section('footer-bottom')
 <script>
-    //Date picker
-    $('#reservationdate').datetimepicker({
-        format: 'L'
-    });
-</script>
-<script>
-    $("#product-form").submit(function(event) {
-        event.preventDefault();
-        var post_url = $(this).attr("action");
-        var request_method = $(this).attr("method");
-        //var form_data = $(this).serialize();
-        var form = $("#product-form")[0];
-        var form_data = new FormData(form);
-        var r_message = $('#added-product-message');
+    var _step_form_dots = $('.step-form-dots');
+    function ChangeStepDots(p_dot_index) {
+        _step_form_dots.each( function (index, element){
 
-        $.ajax({
-            url: post_url,
-            type: request_method,
-            data: form_data,
-            processData: false, // Important!
-            contentType: false,
-            cache: false,
-            success: function(response) {
-                if (response.status_code == 'success') {
-                    r_message.css('color', 'green');
-                    toastr.success(response.status_message, 'Başarılı')
-                    setTimeout(function() {
-                        window.location.href = "{{ route('admin.add-product-detail') }}/" + response.pid;
-                    }, 0);
-                } else {
-                    toastr.error(response.status_message, 'Başarısız!')
-                }
-            },
-            error: function(response) {
-                toastr.error('Bir hata oluştu!', 'HATA!')
-            }
         });
-    });
+
+
+        for( i=0; i < _step_form_dots.length; i++ ){
+        console.log( _step_form_dots[i] );
+            if( _step_form_dots[0].dataset.index === p_dot_index ){
+            }
+        }
+    }
+    ChangeStepDots(4)
 </script>
 @endsection
 
 @section('content')
-<div class="row">
+
+    <section class="step-wrapper">
+        <div class="container">
+            <div class="step-order d-flex justify-content-center align-items-center">
+                <a class="step-form-dots active" data-index="1"></a>
+                <a class="step-form-dots" data-index="2"></a>
+                <a class="step-form-dots" data-index="3"></a>
+                <a class="step-form-dots" data-index="4"></a>
+                <a class="step-form-dots" data-index="5"></a>
+            </div>
+
+            <form action="" class="py-4">
+                <div class="step-form m-auto text-center position-relative" id="step-form-1">
+                    <div class="step-title text-center py-4">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="bi bi-arrow-left fs-1 position-absolute start-0"></i>
+                            <h1 class="p-3" id="step-form-title">Kategori Seç</h1>
+                            <i class="bi bi-arrow-right fs-1 position-absolute end-0"></i>
+                        </div>
+                        <hr style="width: 50%; margin:0 auto; height: 3px; opacity: 1;">
+                    </div>
+
+                    <button type="submit" class="btn btn-step w-100">Antika</button>
+                    <button type="submit" class="btn btn-step w-100">Modern</button>
+                    <button type="submit" class="btn btn-step w-100">Parça</button>
+
+                    <div class="logo pt-5 mt-5 text-center">
+                        <img src="{{ asset('admin-assets/img/admin-svg/kristalkulturson-01.svg') }}" alt="" width="110">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+
+    <div class="step-content">
+        <!-- Step1 -->
+        <div class="step1-tab" data-index="1" data-title="Kategori Seçimi">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class="font-weight-normal">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class="font-weight-normal">Email address</label>
+            </div>
+            <div>
+                <input type="file" class="form-control form-control-lg font-weight-normal" id="formFileLg">
+            </div>
+        </div>
+        <!-- Step1 -->
+        <div class="step1-tab" data-index="2" data-title="Ürün Detayları">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class="font-weight-normal">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class="font-weight-normal">Email address</label>
+            </div>
+            <div>
+                <input type="file" class="form-control form-control-lg font-weight-normal" id="formFileLg">
+            </div>
+        </div>
+        <!-- Step1 -->
+        <div class="step1-tab" data-index="3" data-title="Ürün Ek Detayları">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class="font-weight-normal">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class="font-weight-normal">Email address</label>
+            </div>
+            <div>
+                <input type="file" class="form-control form-control-lg font-weight-normal" id="formFileLg">
+            </div>
+        </div>
+        <!-- Step1 -->
+        <div class="step1-tab" data-index="4" data-title="Kargo Bilgileri">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class="font-weight-normal">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class="font-weight-normal">Email address</label>
+            </div>
+            <div>
+                <input type="file" class="form-control form-control-lg font-weight-normal" id="formFileLg">
+            </div>
+        </div>
+        <!-- Step1 -->
+        <div class="step1-tab" data-index="5" data-title="Ürün Açıklaması">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class="font-weight-normal">Email address</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput" class="font-weight-normal">Email address</label>
+            </div>
+            <div>
+                <input type="file" class="form-control form-control-lg font-weight-normal" id="formFileLg">
+            </div>
+        </div>
+
+    </div>
+
+
+{{--<div class="row">
     <div class="col-md-12 mb-5">
         <form id="product-form" action="{{ route('admin.add-product-post') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -200,17 +287,18 @@
             </div>
         </form>
     </div>
-</div>
+</div>--}}
 @endsection
 
-<script>
-    function category_control() {
-        var select = document.getElementById('category');
-        var category = select.options[select.selectedIndex].text;
-        if (category == 'Antika') {
-            document.getElementById("date_text").innerHTML = ' <select name="date_of_manufacture" id="date_of_manufacture" class="form-control select2" style="width: 100%;"><?php for ($i = date('Y'); $i--; 1800 < $i) { ?><option value="<?php echo $i ?>"><?php echo $i ?></option><?php } ?></select>';
-        } else {
-            document.getElementById("date_text").innerHTML = '<input required type="date" name="date_of_manufacture" id="date_of_manufacture" class="form-control datetimepicker-input" data-target="#reservationdate" />';
-        }
-    }
-</script>
+
+{{-----------------------------------------------------------------------------------------------------}}
+{{-----------------------------------------------------------------------------------------------------}}
+{{-----------------------------------------------------------------------------------------------------}}
+{{-----------------------------------------------------------------------------------------------------}}
+{{-----------------------------------------------------------------------------------------------------}}
+{{-----------------------------------------------------------------------------------------------------}}
+{{-----------------------------------------------------------------------------------------------------}}
+{{-----------------------------------------------------------------------------------------------------}}
+{{-----------------------------------------------------------------------------------------------------}}
+{{-----------------------------------------------------------------------------------------------------}}
+{{-----------------------------------------------------------------------------------------------------}}

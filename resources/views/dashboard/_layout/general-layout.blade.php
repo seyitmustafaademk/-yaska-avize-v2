@@ -23,8 +23,11 @@ $unread_messages = \App\Models\Contact::query()->where('read', '=', 0)->count();
     <link rel="stylesheet" href="{{ asset('admin-assets/css/adminlte.min.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     @yield('head-bottom')
+    <title>{{ $__title }}</title>
 </head>
-<body class="hold-transition sidebar-mini">
+{{--<body class="hold-transition sidebar-mini">--}}
+sidebar-mini control-sidebar-slide-open layout-navbar-fixed
+<body class="hold-transition sidebar-mini control-sidebar-slide-open layout-navbar-fixed text-sm">
 <div class="wrapper">
 
     {{-- Navbar --}}
@@ -34,7 +37,7 @@ $unread_messages = \App\Models\Contact::query()->where('read', '=', 0)->count();
     @include('dashboard._layout.static.sidebar')
 
     {{-- Content Wrapper. Contains page content --}}
-    <div class="content-wrapper bg-gradient-white">
+    <div class="content-wrapper bg-gradient-white p-4">
         {{-- Content Header (Page header) --}}
         <div class="content-header">
             <div class="container-fluid">

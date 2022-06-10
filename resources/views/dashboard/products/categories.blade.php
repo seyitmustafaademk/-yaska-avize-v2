@@ -14,11 +14,13 @@
                 @method('PUT')
                 @csrf
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" name="category_name" id="category_name" placeholder="name@example.com" required>
+                    <input type="text" class="form-control rounded-4 px-2" name="category_name" id="category_name" placeholder="name@example.com" required>
                     <label for="category_name">Kategori Adı</label>
                 </div>
                 <div class="form-group float-right w-100">
-                    <button type="submit" id="add-product-btn" class="btn btn-info text-black w-100">Kaydet</button>
+                    <div class="form-group float-right w-100">
+                        <button type="submit" id="add-product-btn" class="btn btn-primary text-white text-black w-100 rounded-pill py-3">Kaydet</button>
+                    </div>
                 </div>
             </form>
             <form id="delete-category-form" action="{{ route('admin.product.delete-category') }}" method="POST">

@@ -157,7 +157,6 @@
                         <p class="fs-09 diameter-text">Differenzbe•euertgem. €{{ $products->cargo_price }} USCG zzgl. <a href="#" class="ps-3 text-decoration-underline text-dark">Versand</a> <br>
                             Sofort verfOgloar, Lieferzeit {{ $products->cargo_time  }} Tage
                         </p>
-
                         <div>
                             <a class="btn btnPricing text-uppercase cart-btn pointer"><i class="bi bi-basket2-fill pe-2"></i>add to card</a>
                             <a href="https://wa.me/+491775652848" class="btn btnCustomer btn-outline-dark text-uppercase ms-lg-3 mt-3 mt-lg-0"><i class="bi bi-send pe-2"></i> saticiya sor</a>

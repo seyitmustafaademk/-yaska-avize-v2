@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 use PhpParser\Node\Stmt\TryCatch;
 
 class Category_Controller extends Controller

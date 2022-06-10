@@ -55,7 +55,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     // Ürün Silme
     Route::get('/delete-product/{id}', [Products_Controller::class, 'DeleteProduct'])->name('admin.delete-product');
     // Ürün Ekleme
-    Route::get('/add-product-first', [AddProduct_Controller::class, 'ShowPageFirst'])->name('admin.add-product-first');
+//    Route::get('/add-product-first', [AddProduct_Controller::class, 'ShowPageFirst'])->name('admin.add-product-first');
     Route::get('/add-product', [AddProduct_Controller::class, 'ShowPage'])->name('admin.add-product');
     Route::post('/add-product', [AddProduct_Controller::class, 'AddProduct'])->name('admin.add-product-post');
 

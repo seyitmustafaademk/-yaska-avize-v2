@@ -73,3 +73,43 @@
     font-size: 12px;
     color: #777;
 }
+
+
+ul {
+    list-style-type: none!important;
+}
+
+.step-wrapper {
+    padding: 100px 0!important;
+}
+.step-wrapper .step-form-dots {
+    margin: 0 20px!important;
+    height: 20px!important;
+    width: 20px!important;
+    border-radius:50%!important;
+    border: 2px solid #000!important;
+    background-color: white!important;
+    position: relative!important;
+}
+.step-wrapper .step-form-dots.active {
+    background-color: blue!important;
+    border-color: blue!important;
+}
+
+.step-form {
+    width: 400px!important;
+    max-width: 100%!important;
+}
+
+.btn-step {
+    background-color: blue!important;
+    margin: 10px 0!important;
+    color: white !important;
+    padding: 20px 0!important;
+    text-transform: uppercase!important;
+    font-size: 0.9rem!important;
+    font-weight: 500!important;
+}
+.btn-step:hover {
+    background-color: navy!important;
+}
