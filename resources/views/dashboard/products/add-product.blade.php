@@ -3,8 +3,34 @@
 @section('head-center')
 {{-- Select2 --}}
 <link rel="stylesheet" href="{{ asset('admin-assets/plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('admin-assets/plugins/summernote/summernote-lite.min.css') }}">
+
 @endsection
+@section('footer-center')
+    <script src="{{ asset('admin-assets/plugins/summernote/summernote-lite.min.js') }}"></script>
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Ürün açıklaması',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
+        });
+    </script>
+@endsection
+
 @section('footer-bottom')
+    {{-- GLOBAL DEĞİŞKENLER --}}
 <script>
     var g_input_product_name;
     var g_input_category;
@@ -15,11 +41,11 @@
     var g_input_list_price;
     var g_input_product_images;
 </script>
+    {{-- STEP CHANGER --}}
 <script>
     var _step_form_dots = $('.step-form-dots');
     var _step_form_tabs = $('.step-tabs');
     var _step_form_title = $('#step-form-title');
-
 
     function ChangeStepDots(p_index) {
         _step_form_dots.removeClass('active');
@@ -40,40 +66,136 @@
     }
 
 </script>
+{{-- STEP 1 --}}
 <script>
     var product_category_option = $('#product-category-option');
     $('.btn-category-select').click(function (){
         g_input_category = $(this).data('category');
-        product_category_option.val();
+        product_category_option.val(g_input_category);
         product_category_option.text(g_input_category);
 
-        if(g_input_category.toLowerCase() === 'antika' || g_input_category.toLowerCase() === 'parça'){
-            $('.form-list-price').removeClass('d-none');
+        if(g_input_category.toLowerCase() === 'antika' || g_input_category.toLowerCase() === 'modern'){
+            $('#production_date').removeClass('d-none');
         }
         ChangeStepDots(2);
         ChangeStepTabs(2);
     });
+</script>
 
-    $('.btn-step2-to-step-3').click(function (){
-        g_input_product_name = $('#product_name');
+{{-- STEP 2 --}}
+<script>
+    $('#btn-add-material').click(function () {
+        var html = `<div class="form-floating input-group supplementary-material mt-3">
+                        <span class="input-group-text">Teknik Özellik</span>
+                        <input type="text" name="material_title[]" class="form-control shadow-none" placeholder="123" aria-label="123" required>
+                        <input type="text" name="material_description[]" class="form-control shadow-none" placeholder="123" aria-label="123" required>
+                        <a class="btn btn-danger btn-delete-material" type="button">Sil</a>
+                    </div>`;
+        $('#supplementary-material-container').append(html);
+    });
+    $(document).on('click', '.btn-delete-material', function (){
+        $(this).closest('.supplementary-material').remove();
+    });
 
-        var validator = $( "#form-add-product" ).validate();
-        validator.element( "#product_name" );
+    if(g_input_category === 'antika'){
+        $('#diamond-slot-wrapper').removeClass('d-none');
+        $('#bulbs-wrapper').removeClass('d-none');
+        $('#diameter-wrapper').removeClass('d-none');
+        $('#diameter-image-wrapper').removeClass('d-none');
+    }
+    if(g_input_category === 'modern'){
+        $('#diamond-slot-wrapper').removeClass('d-none');
+        $('#bulbs-wrapper').removeClass('d-none');
+        $('#diameter-wrapper').removeClass('d-none');
+        $('#diameter-image-wrapper').removeClass('d-none');
+        $('.replicator').removeClass('d-none');
+    }
 
+    $('#form-step-2').submit(function(event){
+        event.preventDefault();
         ChangeStepDots(3);
         ChangeStepTabs(3);
     });
 </script>
 
+{{-- STEP 3 --}}
+<script>
+    $('#btn-add-diameter').click(function (){
+        var html = `<div class="diameter">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="product_number[]" name="product_number" placeholder="123" required>
+                                        <label for="product_number" class="font-weight-normal">Ürün Numarası</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="color[]" name="color" placeholder="123" required>
+                                        <label for="color" class="font-weight-normal">Renk</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="diamond_slot[]" name="diamond_slot" placeholder="123" required>
+                                        <label for="diamond_slot" class="font-weight-normal">Elmas Yuvası</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="bulbs[]" name="bulbs" placeholder="123" required>
+                                        <label for="bulbs" class="font-weight-normal">Ampuller</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="diameter[]" name="diameter" placeholder="123" required>
+                                        <label for="diameter" class="font-weight-normal">Çap</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="height[]" name="height" placeholder="123" required>
+                                        <label for="height" class="font-weight-normal">Zincirsiz Yükseklik</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="weight[]" name="weight" placeholder="123" required>
+                                        <label for="weight" class="font-weight-normal">Ağırlık</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control shadow-none" id="list_price" name="list_price[]" placeholder="placeholder" required>
+                                        <label for="list_price" class="font-weight-normal">Liste Ücreti</label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="file" name="product_images[]" id="product_images" class="form-control form-control-lg font-weight-normal  shadow-none" multiple required>
+                                    </div>
+                                    <div class="form-floating w-100 mb-3 mt-3" id="btn-add-diameter-wrap">
+                                        <a class="btn btn-outline-danger py-2 w-100 text-uppercase w-100 font-weight-bold btn-delete-diameter">Detayı Sil</a>
+                                    </div>
+                                    <hr>
+                                </div>`;
+
+        $('#diameter-wrapper').append(html);
+    });
+
+    $(document).on('click', '.btn-delete-diameter', function (){
+        $(this).closest('.diameter').remove();
+    });
+
+    $('#form-step-3').submit(function(event){
+        event.preventDefault();
+        ChangeStepDots(4);
+        ChangeStepTabs(4);
+    });
+</script>
+
+{{-- SUBMİT FORM --}}
+    <script>
+        $('')
+    </script>
+
 <script>
     ChangeStepDots(1);
     ChangeStepTabs(1);
+
+    $('#summernote').summernote({
+        placeholder: 'Hello Bootstrap 5',
+        tabsize: 2,
+        height: 100
+    });
 </script>
 @endsection
 
 @section('content')
-
-    <section class="step-wrapper">
+    <section class="pt-1">
         <div class="container">
             <div class="step-order d-flex justify-content-center align-items-center">
                 <a class="step-form-dots active" data-index="1"></a>
@@ -90,11 +212,10 @@
                 </div>
                 <hr style="width: 50%; margin:0 auto; height: 3px; opacity: 1;">
             </div>
-            <form id="form-add-product" action="{{ route('admin.add-product') }}">
-                <div class="step-content">
+            <div class="step-content">
                 {{-- STEP 1 TABS --}}
-                <div class="step-form m-auto text-center position-relative" id="step-form-1">
-                    <div class="step-tabs" data-index="1" data-title="Kategori Seçimi">
+                <div class="step-tabs" data-index="1" data-title="Kategori Seçimi">
+                    <div class="step-form m-auto text-center position-relative" id="step-form-1">
                         <a class="btn btn-step w-100 btn-category-select" data-category="Antika">Antika</a>
                         <a class="btn btn-step w-100 btn-category-select" data-category="Modern">Modern</a>
                         <a class="btn btn-step w-100 btn-category-select" data-category="Parça">Parça</a>
@@ -103,257 +224,179 @@
 
                 {{-- STEP 2 TABS --}}
                 <div class="step-tabs" data-index="2" data-title="Ürün Detayları">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="product_name" name="product_name" placeholder="placeholder" required>
-                        <label for="product_name" class="font-weight-normal">Ürün Adı</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <select type="text" class="form-control" id="category" name="category">
-                            <option id="product-category-option" value=""></option>
-                        </select>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="materials" name="materials" placeholder="placeholder">
-                        <label for="materials" class="font-weight-normal">Materyaller</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <select type="text" class="form-control" id="production_date" name="production_date" placeholder="placeholder">
-                            @for($i = 1905; $i< 2030; $i++)
-                                <option id="product-category-option" value="{{ $i }}" {{ $i == now()->year ? 'selected' : '' }}>{{ $i }}</option>
-                            @endfor
-                        </select>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="number" class="form-control" id="cargo_price" name="cargo_price" placeholder="placeholder">
-                        <label for="cargo_price" class="font-weight-normal">Kargo Ücreti</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="cargo_time" name="cargo_time" placeholder="placeholder">
-                        <label for="cargo_time" class="font-weight-normal">Kargo Süresi</label>
-                    </div>
-
-                    {{-- Değişken İnputlar --}}
-                    <div class="form-floating mb-3 form-list-price d-none">
-                        <input type="number" class="form-control" id="list_price" name="list_price" placeholder="placeholder">
-                        <label for="list_price" class="font-weight-normal">Liste Ücreti</label>
-                    </div>
-
-                    <div>
-                        <input type="file" name="product_images" id="product_images" class="form-control form-control-lg font-weight-normal" multiple >
-                    </div>
-                    <a class="btn btn-step w-100 btn-step2-to-step-3">Sonraki</a>
+                    <form id="form-step-2">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control shadow-none" id="product_name" name="product_name" placeholder="placeholder" required>
+                            <label for="product_name" class="font-weight-normal">Ürün Adı</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <div class="form-floating">
+                                <select class="form-select shadow-none" id="category" name="category" aria-label="Floating label select example">
+                                    <option id="product-category-option" value="" selected></option>
+                                </select>
+                                <label for="floatingSelect">Kategori</label>
+                            </div>
+                        </div>
+                        {{-- Yeni ve Antika Ürünlerde  // Üretim Tarihi --}}
+                        <div class="form-floating mb-3 d-none" id="production_date">
+                            <select type="text" class="form-control shadow-none" name="production_date" placeholder="placeholder">
+                                @for($i = 1905; $i< 2030; $i++)
+                                    <option value="{{ $i }}" {{ $i == now()->year ? 'selected' : '' }}>{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <input type="file" name="product_images" id="product_images" class="form-control form-control-lg font-weight-normal shadow-none" multiple required>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control shadow-none" id="materials" name="materials" placeholder="placeholder" required>
+                            <label for="materials" class="font-weight-normal">Materyaller</label>
+                        </div>
+                        <label class="mt-3">Ek Teknik Özellikler</label>
+                        <div id="supplementary-material-container">
+                        </div>
+                        <div class="form-floating mb-3 mt-3 d-flex justify-content-end">
+                            <a class="btn btn-outline-success py-2 w-100 text-uppercase w-100" id="btn-add-material">Başlık Ekle</a>
+                        </div>
+                        <input type="submit" class="btn btn-step w-100" value="Diğer Detaylara Devam Et">
+                    </form>
                 </div>
-
-
 
                 {{-- STEP 3 TABS --}}
-                <div class="step-tabs" data-index="3" data-title="Ürün Ek Detayları">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput" class="font-weight-normal">Email address</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput" class="font-weight-normal">Email address</label>
-                    </div>
-                    <div>
-                        <input type="file" class="form-control form-control-lg font-weight-normal" id="formFileLg">
+                <div class="step-tabs" data-index="3" data-title="Çap Detayları">
+                    <div class="step-3-wrapper">
+                        <form id="form-step-3">
+                            <div id="diameter-wrapper">
+                                <div class="diameter">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="product_number[]" name="product_number" placeholder="123" required>
+                                        <label for="product_number" class="font-weight-normal">Ürün Numarası</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="color[]" name="color" placeholder="123" required>
+                                        <label for="color" class="font-weight-normal">Renk</label>
+                                    </div>
+                                    {{-- Antika ve Modern ürünlerde olacak // Elmas yuvası --}}
+                                    <div class="form-floating mb-3" id="diamond-slot-wrapper">
+                                        <input type="text" class="form-control" id="diamond_slot[]" name="diamond_slot" placeholder="123" required>
+                                        <label for="diamond_slot" class="font-weight-normal">Elmas Yuvası</label>
+                                    </div>
+                                    {{-- Antika ve mdoern ürünlerde olacak // ampuller --}}
+                                    <div class="form-floating mb-3" id="bulbs-wrapper">
+                                        <input type="text" class="form-control" id="bulbs[]" name="bulbs" placeholder="123" required>
+                                        <label for="bulbs" class="font-weight-normal">Ampuller</label>
+                                    </div>
+                                    {{-- Modern ve Antika üründe olacak // çap --}}
+                                    <div class="form-floating mb-3 d-none" id="diameter-wrapper">
+                                        <input type="text" class="form-control" id="diameter[]" name="diameter" placeholder="123" required>
+                                        <label for="diameter" class="font-weight-normal">Çap</label>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="height[]" name="height" placeholder="123" required>
+                                        <label for="height" class="font-weight-normal">Zincirsiz Yükseklik</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="weight[]" name="weight" placeholder="123" required>
+                                        <label for="weight" class="font-weight-normal">Ağırlık</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control shadow-none" id="list_price" name="list_price[]" placeholder="placeholder" required>
+                                        <label for="list_price" class="font-weight-normal">Liste Ücreti</label>
+                                    </div>
+                                    {{-- Sadece Antika ve Modernde olacak --}}
+                                    <div class="mb-3" id="diameter-image-wrapper">
+                                        <input type="file" name="product_images[]" id="product_images" class="form-control form-control-lg font-weight-normal  shadow-none" multiple required>
+                                    </div>
+
+                                    {{-- Sadece Modern ürünlerde olacak --}}
+                                    <div class="d-none replicator">
+                                        <div class="form-floating w-100 mb-3 mt-3 d-none" id="btn-add-diameter-wrap">
+                                            <a class="btn btn-outline-danger py-2 w-100 text-uppercase w-100 font-weight-bold btn-delete-diameter">Detayı Sil</a>
+                                        </div>
+                                        <hr class="d-none" id="step-3-seperator">
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- Sadece Modern ürünlerde --}}
+                            <div class="replicator">
+                                <div class="form-floating mb-3 mt-3 d-flex justify-content-end d-none" id="btn-add-diameter-wrap">
+                                    <a class="btn btn-outline-success py-2 w-100 text-uppercase w-100 font-weight-bold" id="btn-add-diameter">Yeni Detay Ekle</a>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-step w-100 font-weight-bold" value="Sonraki">
+                        </form>
                     </div>
                 </div>
+
                 {{-- STEP 4 TABS --}}
                 <div class="step-tabs" data-index="4" data-title="Kargo Bilgileri">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput" class="font-weight-normal">Email address</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput" class="font-weight-normal">Email address</label>
-                    </div>
-                    <div>
-                        <input type="file" class="form-control form-control-lg font-weight-normal" id="formFileLg">
-                    </div>
+                    <form id="form-step-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" name="special_cargo" id="special_cargo">
+                            <label class="form-check-label" for="special_cargo">
+                                Özel Kargo
+                            </label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control shadow-none" id="cargo_time" name="cargo_time" placeholder="placeholder">
+                            <label for="cargo_time" class="font-weight-normal">Kargo Süresi</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control shadow-none" id="cargo_price" name="cargo_price" placeholder="placeholder">
+                            <label for="cargo_price" class="font-weight-normal">Kargo Ücreti</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control shadow-none" id="cargo_time" name="cargo_time" placeholder="placeholder">
+                            <label for="cargo_time" class="font-weight-normal">Kargo Süresi</label>
+                        </div>
+                        <input type="submit" class="btn btn-step w-100 font-weight-bold" value="Sonraki">
+                    </form>
                 </div>
+
                 {{-- STEP 5 TABS --}}
                 <div class="step-tabs" data-index="5" data-title="Ürün Açıklaması">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput" class="font-weight-normal">Email address</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput" class="font-weight-normal">Email address</label>
-                    </div>
-                    <div>
-                        <input type="file" class="form-control form-control-lg font-weight-normal" id="formFileLg">
-                    </div>
+                    <form id="form-step-4">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control shadow-none" id="description_title" name="description_title" placeholder="placeholder">
+                            <label for="description_title" class="font-weight-normal">Başlık</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Açıklama</label>
+                            <textarea id="summernote" name="description_content"></textarea>
+                        </div>
+                        <a data-bs-toggle="modal" data-bs-target="#are-you-sure"
+                                class="btn btn-step w-100 font-weight-bold">
+                            Ürünü Ekle
+                        </a>
+                    </form>
+
                 </div>
                 <div class="logo pt-5 mt-5 text-center">
-                    <img src="{{ asset('admin-assets/img/admin-svg/kristalkulturson-01.svg') }}" alt="" width="110">
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                    <label for="floatingInput" class="font-weight-normal">Email address</label>
+                    <img src="{{ asset('admin-assets/img/admin-svg/kristalkulturson-01.svg') }}" alt="" width="75">
                 </div>
             </div>
-            </form>
         </div>
     </section>
 
 
-{{--<div class="row">
-    <div class="col-md-12 mb-5">
-        <form id="product-form" action="{{ route('admin.add-product-post') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-                <div class="col-md-4 col-lg-3">
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <input required type="text" name="title" class="form-control" id="title" placeholder="Title">
-                    </div>
+    <div class="modal fade" id="are-you-sure" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">EMİN MİSİN?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="col-md-4 col-lg-3">
-                    <div class="form-group">
-                        <label for="category">Category</label>
-                        <div id="category_html">
-                            <select name="category" id="category" class="form-control select2" style="width: 100%;" onchange="category_control()">
-                                @foreach($categories as $category)
-                                <option <?php if (isset($_GET['category']) && $_GET['category'] == $category->category_name) {
-                                            echo 'selected';
-                                        } ?> value="{{ $category->category_name }}">{{ $category->category_name }}</option>
-                                @endforeach
-                            </select>
-
-                        </div>
-                    </div>
+                <div class="modal-body">
+                    Ürünleri eklemek istiyor musunuz?
                 </div>
-
-
-
-
-
-
-
-
-
-                <?php if (isset($_GET['category']) && $_GET['category'] == 'Antika') { ?>
-                  
-                    <div class="col-md-6 col-lg-3">
-                        <div class="form-group">
-                            <label for="date_of_manufacture">Hergestellt:</label>
-                            <div class="input-group" id="date_text">
-                                <select name="date_of_manufacture" id="date_of_manufacture" class="form-control select2" style="width: 100%;"><?php for ($i = date('Y'); $i--; 1800 < $i) { ?><option value="<?php echo $i ?>"><?php echo $i ?></option><?php } ?></select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="form-group">
-                            <label for="materials">Materials</label>
-                            <textarea required type="text" name="materials" class="form-control" id="materials" rows="2" placeholder="Malzemeleri virgül ile ayrılmış şekilde girin"></textarea>
-                        </div>
-                    </div>
-              
-                    <div class="col-md-6 col-lg-3">
-                        <div class="form-group">
-                            <label for="cargo_date">Speditionslieferung</label>
-                            <input required type="text" name="cargo_time" class="form-control" id="123" pattern="[0-9]+">
-                        </div>
-                    </div>
-                <?php } else { ?>
-               
-                    <div class="col-md-6 col-lg-3">
-                        <div class="form-group">
-                            <label for="materials">Materials</label>
-                            <textarea required type="text" name="materials" class="form-control" id="materials" rows="2" placeholder="Malzemeleri virgül ile ayrılmış şekilde girin"></textarea>
-                        </div>
-                    </div>
-
-             
-                    <div class="col-md-6 col-lg-3">
-                        <!-- Date -->
-                        <div class="form-group">
-                            <label for="date_of_manufacture">Hergestellt:</label>
-                            <div class="input-group" id="date_text">
-                                <input required type="date" name="date_of_manufacture" id="date_of_manufacture" class="form-control datetimepicker-input" data-target="#reservationdate" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="form-group">
-                            <label for="cargo_price">Versand Kosten</label>
-                            <input required type="text" name="cargo_price" class="form-control" id="123">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="form-group">
-                            <label for="cargo_date">Speditionslieferung</label>
-                            <input required type="text" name="cargo_time" class="form-control" id="123" pattern="[0-9]+">
-                        </div>
-                    </div>
-                <?php } ?>
-
-
-
-
-                <div class="col-md-6 col-lg-3">
-                    <div class="form-group">
-                        <label for="stock">Stok</label>
-                        <input required type="number" name="stock" class="form-control" id="123">
-                    </div>
-                </div>
-
-
-
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-6 col-lg-12">
-                    <div class="form-group">
-                        <label for="desc_title">Description Title</label>
-                        <input type="text" name="desc_title" class="form-control" id="desc_title">
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-12">
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea name="description" id="description" rows="3" style="width: 100%!important;"></textarea>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                    <button type="button" class="btn btn-primary" id="completed-form-submit">Yine de Kaydet</button>
                 </div>
             </div>
-            <div class="row mt-4">
-                <div class="col-md-6 col-lg-12">
-                    <div class="form-group">
-                        <label for="file_other_medias">Other Medias</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input required type="file" id="other_medias" name="other_medias[]" multiple class="custom-file-input">
-                                <label class="custom-file-label" for="other_medias">Choose files</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-12">
-                    <div class="form-group clearfix">
-                        <label for="materials">Negotiable</label>
-                        <div class="icheck-primary" style="font-size: 1.1em">
-                            <input type="checkbox" name="negotiable" id="negotiable" checked>
-                            <label for="negotiable">This item is negotiable</label>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col">
-                    <button type="submit" id="add-product-btn" class="btn btn-primary float-right px-5">Ürün Ekle</button>
-                </div>
-            </div>
-            <div class="col-12">
-                <p class="text-black" id="added-product-message"></p>
-            </div>
-        </form>
+        </div>
     </div>
-</div>--}}
 @endsection
 
 

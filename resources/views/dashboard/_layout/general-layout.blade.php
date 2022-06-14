@@ -45,12 +45,7 @@ sidebar-mini control-sidebar-slide-open layout-navbar-fixed
                     <div class="col-sm-6">
                         <h1 class="m-0">{{ $__title }}</h1>
                     </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.homepage') }}">Yönetim Paneli</a></li>
-                            <li class="breadcrumb-item active">{{ $__title }}</li>
-                        </ol>
-                    </div>
+
                 </div>
             </div>
         </div>
