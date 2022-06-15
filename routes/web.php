@@ -49,7 +49,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/products', [Products_Controller::class, 'ShowPage'])->name('admin.products');
     Route::post('/stock-update', [Products_Controller::class, 'StockUpdate']);
 
-    // Ürün Detay
+    // Ürün Detay route('admin', 45) ?id=45&product-name=furkan&kullanıcı-adi=beydemirr
     Route::get('/product-detail/{id}', [ProductDetails_Controller::class, 'ShowPage'])->name('admin.product-detail');
     Route::get('/delete-product-detail/{pid}/{id}', [ProductDetails_Controller::class, 'DeleteProductDetail'])->name('admin.delete-product-detail');
     // Ürün Silme

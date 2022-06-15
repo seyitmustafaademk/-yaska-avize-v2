@@ -18,7 +18,7 @@ class Product extends Model
         parent::boot();
 
         static::created(function ($product) {
-            $product->slug = $product->createSlug($product->title);
+            $product->slug = $product->createSlug($product->product_name);
             $product->save();
         });
     }

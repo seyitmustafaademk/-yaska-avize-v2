@@ -15,7 +15,6 @@ class Products_Controller extends Controller
     public function ShowPage()
     {
         $products = Product::all();
-
         $categories = Category::all('id', 'category_name');
 
         $data = [

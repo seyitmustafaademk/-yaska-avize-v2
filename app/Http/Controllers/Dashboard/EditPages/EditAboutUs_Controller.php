@@ -27,7 +27,6 @@ class EditAboutUs_Controller extends Controller
     public function EditSection1(Request $request)
     {
         try {
-
             $data = PageContent::where('page_name', '=', 'about-us')->where('section_name', '=', 'section_1')->first();
             $data = empty($data) ? null : json_decode($data->content, TRUE)['about-data'];
 

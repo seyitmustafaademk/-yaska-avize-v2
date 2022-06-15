@@ -17,5 +17,6 @@ class VerifyCsrfToken extends Middleware
         '/second-step',
         '/third-step',
         '/fourth-step',
+        'admin/add-product',
     ];
 }

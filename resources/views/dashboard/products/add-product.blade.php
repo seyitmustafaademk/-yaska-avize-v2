@@ -10,7 +10,7 @@
     <script src="{{ asset('admin-assets/plugins/summernote/summernote-lite.min.js') }}"></script>
     <script>
         $('#summernote').summernote({
-            placeholder: 'Ürün açıklaması',
+            placeholder: 'Ürün açıklaması girin...',
             tabsize: 2,
             height: 120,
             toolbar: [
@@ -32,6 +32,7 @@
 @section('footer-bottom')
     {{-- GLOBAL DEĞİŞKENLER --}}
 <script>
+    var g_diameter_count = 1;
     var g_input_product_name;
     var g_input_category;
     var g_input_materials;
@@ -41,7 +42,7 @@
     var g_input_list_price;
     var g_input_product_images;
 </script>
-    {{-- STEP CHANGER --}}
+{{-- STEP CHANGER --}}
 <script>
     var _step_form_dots = $('.step-form-dots');
     var _step_form_tabs = $('.step-tabs');
@@ -74,16 +75,20 @@
         product_category_option.val(g_input_category);
         product_category_option.text(g_input_category);
 
-        if(g_input_category.toLowerCase() === 'antika' || g_input_category.toLowerCase() === 'modern'){
+        if(g_input_category === 'Antika' || g_input_category === 'Modern'){
             $('#production_date').removeClass('d-none');
         }
         ChangeStepDots(2);
         ChangeStepTabs(2);
+
+        $('#form-step-2 .d-none input').attr('disabled', true);
+        $('#form-step-2 .d-none input').addClass('d-none');
     });
 </script>
 
 {{-- STEP 2 --}}
 <script>
+    //region Teknik Özellik Ekleme ve Silme (HTML)
     $('#btn-add-material').click(function () {
         var html = `<div class="form-floating input-group supplementary-material mt-3">
                         <span class="input-group-text">Teknik Özellik</span>
@@ -96,66 +101,80 @@
     $(document).on('click', '.btn-delete-material', function (){
         $(this).closest('.supplementary-material').remove();
     });
+    //endregion
 
-    if(g_input_category === 'antika'){
-        $('#diamond-slot-wrapper').removeClass('d-none');
-        $('#bulbs-wrapper').removeClass('d-none');
-        $('#diameter-wrapper').removeClass('d-none');
-        $('#diameter-image-wrapper').removeClass('d-none');
-    }
-    if(g_input_category === 'modern'){
-        $('#diamond-slot-wrapper').removeClass('d-none');
-        $('#bulbs-wrapper').removeClass('d-none');
-        $('#diameter-wrapper').removeClass('d-none');
-        $('#diameter-image-wrapper').removeClass('d-none');
-        $('.replicator').removeClass('d-none');
-    }
 
     $('#form-step-2').submit(function(event){
         event.preventDefault();
         ChangeStepDots(3);
         ChangeStepTabs(3);
+
+        if(g_input_category === 'Antika'){
+            $('#diamond-slot-wrapper').removeClass('d-none');
+            $('#bulbs-wrapper').removeClass('d-none');
+            $('#diameter-input-wrapper').removeClass('d-none');
+            $('#diameter-image-wrapper').removeClass('d-none');
+        }
+        if(g_input_category === 'Modern'){
+            $('#diamond-slot-wrapper').removeClass('d-none');
+            $('#bulbs-wrapper').removeClass('d-none');
+            $('#diameter-input-wrapper').removeClass('d-none');
+            $('#diameter-image-wrapper').removeClass('d-none');
+            $('.replicator').removeClass('d-none');
+        }
+
+
+        // $('#form-step-3 .d-none input').attr('disabled', 'disabled');
+        $('#form-step-3 .d-none input').attr('disabled', true);
+        $('#form-step-3 .d-none input').addClass('d-none');
+
     });
+
 </script>
 
 {{-- STEP 3 --}}
 <script>
     $('#btn-add-diameter').click(function (){
+        g_diameter_count++;
         var html = `<div class="diameter">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="product_number[]" name="product_number" placeholder="123" required>
+                                        <input type="text" class="form-control" id="product_number" name="product_number[]" placeholder="123" required>
                                         <label for="product_number" class="font-weight-normal">Ürün Numarası</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="color[]" name="color" placeholder="123" required>
+                                        <input type="text" class="form-control" id="color" name="color[]" placeholder="123" required>
                                         <label for="color" class="font-weight-normal">Renk</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="diamond_slot[]" name="diamond_slot" placeholder="123" required>
+                                        <input type="text" class="form-control" id="diamond_slot" name="diamond_slot[]" placeholder="123" required>
                                         <label for="diamond_slot" class="font-weight-normal">Elmas Yuvası</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="bulbs[]" name="bulbs" placeholder="123" required>
+                                        <input type="text" class="form-control" id="bulbs" name="bulbs[]" placeholder="123" required>
                                         <label for="bulbs" class="font-weight-normal">Ampuller</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="diameter[]" name="diameter" placeholder="123" required>
+                                        <input type="text" class="form-control" id="diameter" name="diameter[]" placeholder="123" required>
                                         <label for="diameter" class="font-weight-normal">Çap</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="height[]" name="height" placeholder="123" required>
+                                        <input type="text" class="form-control" id="height" name="height[]" placeholder="123" required>
                                         <label for="height" class="font-weight-normal">Zincirsiz Yükseklik</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="weight[]" name="weight" placeholder="123" required>
+                                        <input type="text" class="form-control" id="weight" name="weight[]" placeholder="123" required>
                                         <label for="weight" class="font-weight-normal">Ağırlık</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control shadow-none" id="stock" name="stock[]" placeholder="placeholder">
+                                        <label for="stock" class="font-weight-normal">Stok Adedi</label>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input type="number" class="form-control shadow-none" id="list_price" name="list_price[]" placeholder="placeholder" required>
                                         <label for="list_price" class="font-weight-normal">Liste Ücreti</label>
                                     </div>
                                     <div class="mb-3">
-                                        <input type="file" name="product_images[]" id="product_images" class="form-control form-control-lg font-weight-normal  shadow-none" multiple required>
+                                        <input type="file" name="diameter_images[]" id="diameter_images" class="form-control form-control-lg font-weight-normal shadow-none diameter_images" multiple required>
                                     </div>
                                     <div class="form-floating w-100 mb-3 mt-3" id="btn-add-diameter-wrap">
                                         <a class="btn btn-outline-danger py-2 w-100 text-uppercase w-100 font-weight-bold btn-delete-diameter">Detayı Sil</a>
@@ -177,25 +196,88 @@
     });
 </script>
 
+{{-- STEP 4 --}}
+<script>
+    $('#form-step-4').submit(function(event){
+        event.preventDefault();
+        ChangeStepDots(5);
+        ChangeStepTabs(5);
+    });
+</script>
+
+{{-- STEP 5 --}}
+<script>
+    $('#form-step-5').submit(function (event){
+        event.preventDefault();
+        $('#modal-are-you-sure').modal('show');
+    });
+
+    $('#completed-form-submit').click(function (event) {
+        $('#modal-are-you-sure').modal('hide');
+        // var data = new FormData(document.getElementById('form-step-2'));
+
+
+        var data = new FormData(document.forms['form-step-2']); // with the file input
+        var data3 = jQuery(document.forms['form-step-3']).serializeArray();
+        var data4 = jQuery(document.forms['form-step-4']).serializeArray();
+        var data5 = jQuery(document.forms['form-step-5']).serializeArray();
+
+        for (let i=0; i<data3.length; i++)
+            data.append(data3[i].name, data3[i].value);
+        for (let i=0; i<data4.length; i++)
+            data.append(data4[i].name, data4[i].value);
+        for (let i=0; i<data5.length; i++)
+            data.append(data5[i].name, data5[i].value);
+
+        $.each($("#product_images")[0].files, function(i, file) {
+            data.append('product_images[]', file);
+        });
+
+        var object_count = document.getElementsByClassName('diameter_images').length;
+        console.log('object count' ,object_count);
+        for (var i = 0; i < object_count; i++) {
+            image_count = document.getElementsByClassName('diameter_images')[i].files.length;
+            console.log('image count' ,image_count);
+            for (let x=0; x < image_count; x++)
+                data.append(`diameter_images[diameter_${i+1}][]`, document.getElementsByClassName('diameter_images')[i].files[x]);
+        }
+
+        $.ajax({
+            url: '{{ route('admin.add-product-post') }}',
+            type: 'POST',
+            // data: $('#form-step-2, #form-step-3, #form-step-4, #form-step-5').serialize(),
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (response){
+                if (response.succeeded === true){
+                    toastr.success(response.message);
+                }
+                else{
+                    toastr.error(response.message);
+                    console.log(response.message);
+                }
+            },
+            error: function (response){
+                toastr.error(response.message);
+                console.log(response);
+            }
+        });
+    });
+</script>
+
 {{-- SUBMİT FORM --}}
-    <script>
-        $('')
-    </script>
+
 
 <script>
     ChangeStepDots(1);
     ChangeStepTabs(1);
-
-    $('#summernote').summernote({
-        placeholder: 'Hello Bootstrap 5',
-        tabsize: 2,
-        height: 100
-    });
 </script>
 @endsection
 
 @section('content')
-    <section class="pt-1">
+    <section class="pt-3">
         <div class="container">
             <div class="step-order d-flex justify-content-center align-items-center">
                 <a class="step-form-dots active" data-index="1"></a>
@@ -224,7 +306,7 @@
 
                 {{-- STEP 2 TABS --}}
                 <div class="step-tabs" data-index="2" data-title="Ürün Detayları">
-                    <form id="form-step-2">
+                    <form id="form-step-2" method="post">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control shadow-none" id="product_name" name="product_name" placeholder="placeholder" required>
                             <label for="product_name" class="font-weight-normal">Ürün Adı</label>
@@ -265,62 +347,63 @@
                 {{-- STEP 3 TABS --}}
                 <div class="step-tabs" data-index="3" data-title="Çap Detayları">
                     <div class="step-3-wrapper">
-                        <form id="form-step-3">
+                        <form id="form-step-3" method="post">
                             <div id="diameter-wrapper">
                                 <div class="diameter">
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="product_number[]" name="product_number" placeholder="123" required>
+                                        <input type="text" class="form-control" id="product_number" name="product_number[]" placeholder="123" required>
                                         <label for="product_number" class="font-weight-normal">Ürün Numarası</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="color[]" name="color" placeholder="123" required>
-                                        <label for="color" class="font-weight-normal">Renk</label>
+                                        <input type="text" class="form-control" id="color" name="color[]" placeholder="123" required>
+                                        <label for="color" class="font-weight-normal">Red, Green, Blue</label>
                                     </div>
                                     {{-- Antika ve Modern ürünlerde olacak // Elmas yuvası --}}
-                                    <div class="form-floating mb-3" id="diamond-slot-wrapper">
-                                        <input type="text" class="form-control" id="diamond_slot[]" name="diamond_slot" placeholder="123" required>
+                                    <div class="form-floating mb-3 d-none" id="diamond-slot-wrapper">
+                                        <input type="text" class="form-control" id="diamond_slot" name="diamond_slot[]" placeholder="123" required>
                                         <label for="diamond_slot" class="font-weight-normal">Elmas Yuvası</label>
                                     </div>
                                     {{-- Antika ve mdoern ürünlerde olacak // ampuller --}}
-                                    <div class="form-floating mb-3" id="bulbs-wrapper">
-                                        <input type="text" class="form-control" id="bulbs[]" name="bulbs" placeholder="123" required>
+                                    <div class="form-floating mb-3 d-none" id="bulbs-wrapper">
+                                        <input type="text" class="form-control" id="bulbs" name="bulbs[]" placeholder="123" required>
                                         <label for="bulbs" class="font-weight-normal">Ampuller</label>
                                     </div>
                                     {{-- Modern ve Antika üründe olacak // çap --}}
-                                    <div class="form-floating mb-3 d-none" id="diameter-wrapper">
-                                        <input type="text" class="form-control" id="diameter[]" name="diameter" placeholder="123" required>
+                                    <div class="form-floating mb-3 d-none" id="diameter-input-wrapper">
+                                        <input type="text" class="form-control" id="diameter" name="diameter[]" placeholder="123" required>
                                         <label for="diameter" class="font-weight-normal">Çap</label>
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="height[]" name="height" placeholder="123" required>
+                                        <input type="text" class="form-control" id="height" name="height[]" placeholder="123" required>
                                         <label for="height" class="font-weight-normal">Zincirsiz Yükseklik</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="weight[]" name="weight" placeholder="123" required>
+                                        <input type="text" class="form-control" id="weight" name="weight[]" placeholder="123" required>
                                         <label for="weight" class="font-weight-normal">Ağırlık</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control shadow-none" id="stock" name="stock[]" placeholder="placeholder" required>
+                                        <label for="stock" class="font-weight-normal">Stok Adedi</label>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input type="number" class="form-control shadow-none" id="list_price" name="list_price[]" placeholder="placeholder" required>
                                         <label for="list_price" class="font-weight-normal">Liste Ücreti</label>
                                     </div>
                                     {{-- Sadece Antika ve Modernde olacak --}}
-                                    <div class="mb-3" id="diameter-image-wrapper">
-                                        <input type="file" name="product_images[]" id="product_images" class="form-control form-control-lg font-weight-normal  shadow-none" multiple required>
+                                    <div class="mb-3 d-none" id="diameter-image-wrapper">
+                                        <input type="file" data-index name="diameter_images[]" id="diameter_images" class="form-control form-control-lg font-weight-normal shadow-none diameter_images" multiple>
                                     </div>
 
                                     {{-- Sadece Modern ürünlerde olacak --}}
-                                    <div class="d-none replicator">
-                                        <div class="form-floating w-100 mb-3 mt-3 d-none" id="btn-add-diameter-wrap">
-                                            <a class="btn btn-outline-danger py-2 w-100 text-uppercase w-100 font-weight-bold btn-delete-diameter">Detayı Sil</a>
-                                        </div>
-                                        <hr class="d-none" id="step-3-seperator">
+                                    <div class="replicator d-none">
+                                        <hr class="replicator" id="step-3-seperator">
                                     </div>
                                 </div>
                             </div>
                             {{-- Sadece Modern ürünlerde --}}
-                            <div class="replicator">
-                                <div class="form-floating mb-3 mt-3 d-flex justify-content-end d-none" id="btn-add-diameter-wrap">
+                            <div class="replicator d-none">
+                                <div class="form-floating mb-3 mt-3 d-flex justify-content-end" id="btn-add-diameter-wrap">
                                     <a class="btn btn-outline-success py-2 w-100 text-uppercase w-100 font-weight-bold" id="btn-add-diameter">Yeni Detay Ekle</a>
                                 </div>
                             </div>
@@ -331,24 +414,20 @@
 
                 {{-- STEP 4 TABS --}}
                 <div class="step-tabs" data-index="4" data-title="Kargo Bilgileri">
-                    <form id="form-step-4">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" name="special_cargo" id="special_cargo">
+                    <form id="form-step-4" method="post">
+                        <div class="form-check pb-2">
+                            <input class="form-check-input" type="checkbox" name="special_cargo" id="special_cargo">
                             <label class="form-check-label" for="special_cargo">
                                 Özel Kargo
                             </label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control shadow-none" id="cargo_time" name="cargo_time" placeholder="placeholder">
+                            <input type="text" class="form-control shadow-none" id="cargo_time" name="cargo_time" placeholder="placeholder" required>
                             <label for="cargo_time" class="font-weight-normal">Kargo Süresi</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control shadow-none" id="cargo_price" name="cargo_price" placeholder="placeholder">
+                            <input type="number" class="form-control shadow-none" id="cargo_price" name="cargo_price" placeholder="placeholder" required>
                             <label for="cargo_price" class="font-weight-normal">Kargo Ücreti</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control shadow-none" id="cargo_time" name="cargo_time" placeholder="placeholder">
-                            <label for="cargo_time" class="font-weight-normal">Kargo Süresi</label>
                         </div>
                         <input type="submit" class="btn btn-step w-100 font-weight-bold" value="Sonraki">
                     </form>
@@ -356,19 +435,19 @@
 
                 {{-- STEP 5 TABS --}}
                 <div class="step-tabs" data-index="5" data-title="Ürün Açıklaması">
-                    <form id="form-step-4">
+                    <form id="form-step-5" method="post">
+                        @csrf
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control shadow-none" id="description_title" name="description_title" placeholder="placeholder">
+                            <input type="text" class="form-control shadow-none" id="description_title" name="description_title" placeholder="placeholder" required>
                             <label for="description_title" class="font-weight-normal">Başlık</label>
                         </div>
                         <div class="form-group">
                             <label for="">Açıklama</label>
-                            <textarea id="summernote" name="description_content"></textarea>
+                            <textarea id="summernote" name="description_content" required>
+                                Ürün Açıkalaması....
+                            </textarea>
                         </div>
-                        <a data-bs-toggle="modal" data-bs-target="#are-you-sure"
-                                class="btn btn-step w-100 font-weight-bold">
-                            Ürünü Ekle
-                        </a>
+                        <input type="submit" class="btn btn-step w-100 font-weight-bold" value="Ürünü Ekle">
                     </form>
 
                 </div>
@@ -380,7 +459,7 @@
     </section>
 
 
-    <div class="modal fade" id="are-you-sure" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal-are-you-sure" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
