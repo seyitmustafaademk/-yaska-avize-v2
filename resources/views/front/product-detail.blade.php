@@ -31,12 +31,8 @@
                         <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff"
                                 class="swiper swiper-productHeroTop">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide item-productHeroTop">
-                                    <img src="#" class="mini_hero_0"/>
-                                </div>
-
                                 @php
-                                    $images = json_decode($products->images, TRUE);
+                                    $images = json_decode($products->product_images, TRUE);
                                 @endphp
                                 @foreach($images as $image)
                                     <div class="swiper-slide item-productHeroTop">
@@ -49,9 +45,6 @@
                         </div>
                         <div thumbsSlider="" class="swiper swiper-productHeroBottom">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide item-productHeroBottom">
-                                    <img src="#" class="mini_hero_0"/>
-                                </div>
                                 @foreach($images as $image)
                                     <div class="swiper-slide item-productHeroBottom">
                                         <img src="/{{ $image['url'] }}"/>
@@ -71,7 +64,7 @@
                             <i class="bi bi-arrow-left me-2"></i> {{ $products->category }}
                         </a>
                         <div class="d-flex justify-content-center justify-content-xl-start align-items-center">
-                            <h1 class="display-3 fw-bolder text-dark">{{ $products->title }}</h1>
+                            <h1 class="display-3 fw-bolder text-dark">{{ $products->product_name }}</h1>
                         </div>
                     </div>
 
@@ -79,7 +72,7 @@
                         <div class="product-detail-table-info row align-items-baseline justify-content-center justify-content-xl-start">
                             <div class="product-detail-style col-md-3">
                                 <span class="fw-bold d-block text-uppercase diameter-text">Ürün Çapı</span>
-                                <ul class="nav nav-pills mt-2 mb-3 justify-content-center justify-content-xl-start" id="pills-tab" role="tablist">
+                                <ul class="nav nav-pills mt-2 mb-3 justify-content-center justify-content-xl-start flex-wrap" id="pills-tab" role="tablist">
                                     @php
                                         $diameter_ids = array_filter(explode(',', $products->pd_id));
                                         $diameters = array_filter(explode(',', $products->diameter));
@@ -100,19 +93,19 @@
                                         <tbody>
                                             <tr>
                                                 <td>Artikelnummer</td>
-                                                <td>{{ $products->item_number }}</td>
+                                                <td id="product-number-value">############</td>
                                             </tr>
                                             <tr>
-                                                <td>Farbe </td>
-                                                <td>{{ $products->color }}</td>
+                                                <td>Farbe</td>
+                                                <td id="color-value">############</td>
                                             </tr>
                                             <tr>
-                                                <td>Fassung  </td>
-                                                <td>{{ $products->product_version }}</td>
+                                                <td>Fassung</td>
+                                                <td id="diamod-slots-value">############</td>
                                             </tr>
                                             <tr>
                                                 <td>Leuchtmittel </td>
-                                                <td>{{ $products->bulbs }}</td>
+                                                <td id="bulbs-value">############</td>
                                             </tr>
 
                                             <tr>
@@ -196,10 +189,6 @@
     <script>
         $(document).ready(function (){
             var main_image = $('.hero-image');
-            $('.mini_hero1').click(function (){
-                main_image.attr('src', $(this).attr('src'));
-                main_image.attr('alt', $(this).attr('alt'));
-            });
             $(".diameter-btn").click(function( event ) {
                 event.preventDefault();
                 var diameter_btn = event.target;
@@ -209,8 +198,6 @@
 
                 cart_btn.data('p_id', pid);
                 cart_btn.data('pd_id', pdid);
-                // console.log(cart_btn.data('p_id'))
-                // console.log(cart_btn.data('pd_id'))
 
                 $.ajax({
                     url: '/product-detail/' + pid + '/' + pdid,
@@ -225,7 +212,26 @@
                         $('#height-value').text(response.height);
                         $('#weight-value').text(response.weight);
                         $('#diameter-value').text(response.diameter);
+                        var images = JSON.parse(response.diameter_images);
 
+
+                        var images_top = [];
+                        var images_bottom = [];
+                        $(images).each(function (index, element){
+                            var html_bottom = `<div class="swiper-slide item-productHeroBottom added-bottom-slide">
+                                <img src="/${element.url}"/>
+                            </div>`;
+                            var html_top = `<div class="swiper-slide item-productHeroTop added-top-slide">
+                                                <img src="/${element.url}"/>
+                                            </div>`;
+                            images_top.push(html_top);
+                            images_bottom.push(html_bottom);
+                        });
+                        console.log(images_top);
+                        console.log(images_bottom);
+
+                        swiper.prependSlide( images_bottom );
+                        swiper2.prependSlide( images_top );
 
                         if(response.stock === 1){
                             $('#stock-text').text('Verfügbar');
@@ -239,14 +245,6 @@
                         }
 
 
-                        var image_wrapper = $('.mini_hero_0');
-                        var image = JSON.parse(response.primary_image);
-                        image_wrapper.attr('src', '/' + image.url);
-                        image_wrapper.attr('alt', name);
-                        main_image.attr('src',  '/' + image.url);
-                        main_image.attr('alt', name);
-                        image_wrapper.removeClass('d-none');
-                        //console.log(image)
                     },
                     error: function (response){
                         console.log(response);

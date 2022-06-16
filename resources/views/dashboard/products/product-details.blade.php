@@ -49,62 +49,69 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Manufacture</th>
-                    <th>diameter</th>
-                    <th>height</th>
-                    <th>weight</th>
-                    <th>Quantity</th>
-                    <th>Artikelnummer</th>
-                    <th>Farbe</th>
-                    <th>Fassung</th>
-                    <th>Leuchtmittel</th>
-                    <th>Image</th>
+                    <th>Ürün ID</th>
+                    <th>Ürün Numarası</th>
+                    <th>Çap</th>
+                    <th>Yükseklik</th>
+                    <th>Ağırlık</th>
+                    <th>Stok</th>
+                    <th>Fiyat</th>
+                    <th>Renk</th>
+                    <th>Ampüller</th> {{-- bulbs --}}
+                    <th>Ampul Türü</th> {{-- fassung / diamond slots --}}
                     <th>Action</th>
+                    <th>Image</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($product_details as $product_detail)
-                <tr>
-                    <td>{{ $product_detail->id }}</td>
+                    <form action="{{ route('admin.product-detail-update-inline') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $product_detail->id }}">
+                        <input type="hidden" name="pid" value="{{ $product_detail->product_id }}">
+                        <tr>
+                            <td scope="col"><input type="text" name="product_number" value="{{ $product_detail->product_number }}"></td>
+                            <td scope="col"><input type="text" name="diameter" value="{{ $product_detail->diameter }}"></td>
+                            <td scope="col"><input type="text" name="height" value="{{ $product_detail->height }}"></td>
+                            <td scope="col"><input type="text" name="weight" value="{{ $product_detail->weight }}"></td>
+                            <td scope="col"><input type="number" step="0.00001" name="stock" value="{{ $product_detail->stock }}"></td>
+                            <td scope="col"><input type="text" name="list_price" value="{{ $product_detail->list_price }}"></td>
+                            <td scope="col"><input type="text" name="color" value="{{ $product_detail->color }}"></td>
+                            <td scope="col"><input type="text" name="bulbs" value="{{ $product_detail->bulbs }}"></td>
+                            <td scope="col"><input type="text" name="diamond_slots" value="{{ $product_detail->diamond_slots }}"></td>
+                            <td scope="col">
+                                <img src="{{ $product_detail->diameter_images[0]['url'] ?? 'https://via.placeholder.com/150/898989/FFFFFF?Text=NO%20IMAGE' }}" height="75" width="auto">
+                            </td>
 
-                    <td>{{ $product_detail->diameter }}</td>
-                    <td>{{ $product_detail->height }}</td>
-                    <td>{{ $product_detail->weight }}</td>
-                    @if($product_detail->stock == 1)
-                    <td>Var</td>
-                    @elseif($product_detail->stock == 0)
-                    <td>Yok ama gelecek</td>
-                    @else
-                    <td>Yok</td>
-                    @endif
-                    <td>{{ $product_detail->list_price }}</td>
-                    <td>{{ $product_detail->item_number }}</td>
-                    <td>{{ $product_detail->color }}</td>
-                    <td>{{ $product_detail->version }}</td>
-                    <td>{{ $product_detail->bulbs }}</td>
-                    <td>
-                        <img src="{{ url(json_decode($product_detail->primary_image, TRUE)['url']) }}" width="75" height="75">
-                    </td>
-                    <td width="100px" style="width: 100px">
-                        <a href="{{ route('admin.delete-product-detail', [$product_detail->product_id, $product_detail->id]) }}" style="font-size: 12px" class="btn btn-danger">
-                            <i class="fa fa-trash"></i>
-                        </a>
-                        <a href="{{ route('admin.update-product-detail') }}?id={{ $product_detail->id }}" style="font-size: 12px" class="btn btn-success">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                    </td>
-                </tr>
+                            <td scope="col" width="100px" style="width: 100px">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save"></i>
+                                </button>
+                                <a href="{{ route('admin.delete-product-detail', [$product_detail->product_id, $product_detail->id]) }}" style="font-size: 12px" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                {{--                        <a href="{{ route('admin.update-product-detail') }}?id={{ $product_detail->id }}" style="font-size: 12px" class="btn btn-success">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>--}}
+                            </td>
+                        </tr>
+                    </form>
                 @endforeach
             </tbody>
             <tfoot>
                 <tr>
                     <th>#</th>
+                    <th>Ürün ID</th>
+                    <th>Ürün Numarası</th>
+                    <th>Çap</th>
+                    <th>Yükseklik</th>
+                    <th>Ağırlık</th>
+                    <th>Stok</th>
+                    <th>Fiyat</th>
+                    <th>Renk</th>
+                    <th>Ampüller</th> {{-- bulbs --}}
+                    <th>Ampul Türü</th> {{-- fassung / diamond slots --}}
                     <th>Action</th>
-                    <th>Manufacture</th>
-                    <th>diameter</th>
-                    <th>height</th>
-                    <th>weight</th>
-                    <th>Quantity</th>
                     <th>Image</th>
                 </tr>
             </tfoot>

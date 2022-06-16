@@ -126,7 +126,6 @@ class AddProduct_Controller extends Controller
                 ]);
             }
 
-
             return response(
                 [
                 'message' => "Ürününüz eklendi!",
@@ -136,62 +135,8 @@ class AddProduct_Controller extends Controller
         } catch (\Exception $exception) {
             return response()->json([
                 'succeeded' => false,
-                'message' => 'Ürün Eklenemedi!',
+                'message' => 'Ürün Eklenemedi!<br>' . $exception->getMessage(),
                 'developer_message' => $exception->getMessage(),
-            ]);
-        }
-    }
-
-    public function UpdateProduct(Request $request)
-    {
-        try {
-            $title = $request->title;
-            $category = $request->category;
-            $materials = $request->materials;
-            $negotiable = ($request->negotiable == 'on' || $request->negotiable == 1) ? true : 0;
-            $date_of_manufacture = $request->date_of_manufacture;
-            $cargo_price = $request->cargo_price;
-            $cargo_time = $request->cargo_time;
-
-            $desc_title = $request->desc_title;
-            $description = $request->description;
-            $images = [];
-
-
-            foreach ($request->file('other_medias') as $media) {
-                $images[] = $this->FileUploadAndCreate($media);
-            }
-
-
-            $added_product_detail = DB::table('products')
-                ->where('id', $request->id)
-                ->update([
-                    'title' => $title,
-                    'category' => $category,
-                    'materials' => $materials,
-                    'negotiable' => $negotiable,
-                    'date_of_manufacture' => $date_of_manufacture,
-                    'cargo_price' => $cargo_price,
-                    'cargo_time' => $cargo_time,
-                    'stock' => $request->stock,
-                    'images' => json_encode($images, TRUE),
-                    'desc_title' => $desc_title,
-                    'description' => $description,
-                ]);
-
-            $pid = $request->id;
-
-
-            return response()->json([
-                'status_message' => "Ürününüz eklendi, özellik ekleme sayfasına yönleniyorsunuz...",
-                'status_code' => 'success',
-                'pid' => $pid,
-            ]);
-        } catch (\Exception $exception) {
-            return response()->json([
-                'status_message' => 'Ürün Eklenemedi, lütfen tekrar deneyin! HATA KODU: P1872',
-                'developer_message' => $exception->getMessage(),
-                'status_code' => 'failed',
             ]);
         }
     }

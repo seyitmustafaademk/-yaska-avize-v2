@@ -82,5 +82,43 @@ sidebar-mini control-sidebar-slide-open layout-navbar-fixed
     });
 </script>
 @yield('footer-bottom')
+
+
+
+<div class="modal fade" id="modal-spinner" aria-modal="true"
+     role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  modal-fullscreen">
+        <div class="modal-content p-3 position-relative">
+            <div class="modal-body position-absolute top-50 start-50 translate-middle text-center d-flex justify-content-center flex-column">
+                <!-- ### Spinner ### -->
+
+                <div class="clearfix  mb-4" id="spinnerr">
+                    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                    </div>
+                    <span class="">Loading...</span>
+                </div>
+                <!-- ### END Spinner ### -->
+
+                <!-- ### Icons ### -->
+                <div class="icons-wrap d-flex justify-content-center" >
+                    <a href="{{ route('admin.products') }}" class="icon-like mx-2 d-none" id="icon-like">
+                        <i class="bi bi-hand-thumbs-up-fill text-success" style="font-size: 3rem;"></i>
+                        <br>
+                        <span>
+                                Ürün eklendi, ürün listesine gitmek için tıklayın.
+                            </span>
+                    </a>
+                    <a href="" class="icon-x mx-2 d-none" id="icon-x">
+                        <i class="bi bi-x-circle-fill text-danger" style="font-size: 3rem;"></i>
+                        <br>
+                        <span>
+                            Hata oluştu, ürünü düzenlemeye dönmek için tıklayın.
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

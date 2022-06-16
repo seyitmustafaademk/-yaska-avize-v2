@@ -239,9 +239,9 @@
                         @foreach($section4 as $item)
                         <a class="nav-link my-2" id="v-pills-{{ $item->id }}-tab" data-bs-toggle="pill"
                            data-bs-target="#v-pills-{{ $item->id }}" type="button" role="tab" style="overflow: hidden; padding: 0; height: 300px;">
-                            <img src="{{ json_decode($item->primary_image)->url }}" alt="{{ json_decode($item->primary_image)->name }}" style=" width: 100%; height: 200px; margin-bottom: 10px;">
-                            <h5 class="pt-4 pb-3 fs-7">{{ $item->title }}</h5>
-                            <h5 class="pt-4 pb-3" style="font-size: 16px;">{{ $item->title }}</h5>
+                            <img src="{{ json_decode($item->diameter_images)[0]->url }}" alt="{{ json_decode($item->diameter_images)[0]->name }}" style=" width: 100%; height: 200px; margin-bottom: 10px;">
+                            <h5 class="pt-4 pb-3 fs-7">{{ $item->product_name }}</h5>
+                            <h5 class="pt-4 pb-3" style="font-size: 16px;">{{ $item->product_name }}</h5>
                         </a>
                         @endforeach
                     </div>
@@ -250,10 +250,10 @@
                     <div class="tab-content" id="v-pills-tabContent" style="padding-top: 80px;">
                         @foreach($section4 as $item)
                         <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="v-pills-{{ $item->id }}" role="tabpanel">
-                            <img src="{{ json_decode($item->primary_image)->url }}" alt="" width="100%" class="big-product" style=" max-height: 750px;">
+                            <img src="{{ json_decode($item->product_images)[0]->url }}" alt="" width="100%" class="big-product" style=" max-height: 750px;">
                             <div class="tab-info shadow">
                                 <div class="d-md-flex text-center text-md-start px-4 py-4 justify-content-center justify-content-md-between align-items-center">
-                                    <h4 class="m-0">{{ $item->title }}</h4>
+                                    <h4 class="m-0">{{ $item->product_name }}</h4>
                                     <div>
                                         <div class="d-md-flex align-items-center justify-content-center justify-content-md-between">
                                             <p class="fs-4 d-md-inline-block m-0 fw-bold lh-1">{{ $item->list_price }}</p>

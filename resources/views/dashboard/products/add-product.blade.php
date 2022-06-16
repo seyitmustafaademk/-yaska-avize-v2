@@ -113,7 +113,6 @@
             $('#diamond-slot-wrapper').removeClass('d-none');
             $('#bulbs-wrapper').removeClass('d-none');
             $('#diameter-input-wrapper').removeClass('d-none');
-            $('#diameter-image-wrapper').removeClass('d-none');
         }
         if(g_input_category === 'Modern'){
             $('#diamond-slot-wrapper').removeClass('d-none');
@@ -166,11 +165,11 @@
                                         <label for="weight" class="font-weight-normal">Ağırlık</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="number" class="form-control shadow-none" id="stock" name="stock[]" placeholder="placeholder">
+                                        <input type="number" step="0.0001" class="form-control shadow-none" id="stock" name="stock[]" placeholder="placeholder">
                                         <label for="stock" class="font-weight-normal">Stok Adedi</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="number" class="form-control shadow-none" id="list_price" name="list_price[]" placeholder="placeholder" required>
+                                        <input type="number" step="0.0001" class="form-control shadow-none" id="list_price" name="list_price[]" placeholder="placeholder" required>
                                         <label for="list_price" class="font-weight-normal">Liste Ücreti</label>
                                     </div>
                                     <div class="mb-3">
@@ -214,7 +213,8 @@
 
     $('#completed-form-submit').click(function (event) {
         $('#modal-are-you-sure').modal('hide');
-        // var data = new FormData(document.getElementById('form-step-2'));
+
+        $('#modal-spinner').modal('show');
 
 
         var data = new FormData(document.forms['form-step-2']); // with the file input
@@ -253,15 +253,22 @@
             success: function (response){
                 if (response.succeeded === true){
                     toastr.success(response.message);
+                    $('#spinnerr').addClass('d-none');
+                    $('#modal-spinner').modal('hide');
+                    window.location.href = "{{ route('admin.products') }}";
                 }
                 else{
                     toastr.error(response.message);
                     console.log(response.message);
+                    $('#spinnerr').addClass('d-none');
+                    $('#icon-x').removeClass('d-none');
                 }
             },
             error: function (response){
                 toastr.error(response.message);
                 console.log(response);
+                $('#spinnerr').addClass('d-none');
+                $('#icon-x').removeClass('d-none');
             }
         });
     });
@@ -271,6 +278,10 @@
 
 
 <script>
+    $('#icon-x').click(function (event){
+        event.preventDefault();
+        $('#modal-spinner').modal('hide');
+    });
     ChangeStepDots(1);
     ChangeStepTabs(1);
 </script>
@@ -383,14 +394,14 @@
                                         <label for="weight" class="font-weight-normal">Ağırlık</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="number" class="form-control shadow-none" id="stock" name="stock[]" placeholder="placeholder" required>
+                                        <input type="number" step="0.0001" class="form-control shadow-none" id="stock" name="stock[]" placeholder="placeholder" required>
                                         <label for="stock" class="font-weight-normal">Stok Adedi</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="number" class="form-control shadow-none" id="list_price" name="list_price[]" placeholder="placeholder" required>
+                                        <input type="number" step="0.0001" class="form-control shadow-none" id="list_price" name="list_price[]" placeholder="placeholder" required>
                                         <label for="list_price" class="font-weight-normal">Liste Ücreti</label>
                                     </div>
-                                    {{-- Sadece Antika ve Modernde olacak --}}
+                                    {{-- Sadece Modernde olacak --}}
                                     <div class="mb-3 d-none" id="diameter-image-wrapper">
                                         <input type="file" data-index name="diameter_images[]" id="diameter_images" class="form-control form-control-lg font-weight-normal shadow-none diameter_images" multiple>
                                     </div>
@@ -426,7 +437,7 @@
                             <label for="cargo_time" class="font-weight-normal">Kargo Süresi</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="number" class="form-control shadow-none" id="cargo_price" name="cargo_price" placeholder="placeholder" required>
+                            <input type="number" step="0.0001" class="form-control shadow-none" id="cargo_price" name="cargo_price" placeholder="placeholder" required>
                             <label for="cargo_price" class="font-weight-normal">Kargo Ücreti</label>
                         </div>
                         <input type="submit" class="btn btn-step w-100 font-weight-bold" value="Sonraki">
@@ -476,6 +487,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 

@@ -7,6 +7,7 @@ a {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 ul {
@@ -1268,13 +1269,13 @@ section.about-us-info .info-nav a.active {
 .product-detail-style .nav-link {
   background: #f1efef !important;
   padding: 0;
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
   line-height: 2;
   border: 0;
   border-radius: 50%;
   color: #000 !important;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: bold;
 }
 .product-detail-style .nav-link:focus, .product-detail-style .nav-link.acitve {

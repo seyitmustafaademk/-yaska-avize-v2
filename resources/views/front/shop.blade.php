@@ -41,7 +41,7 @@
                 @foreach($products as $product)
                     @php
                     $url = null;
-                        $images = json_decode($products[0]->images, TRUE);
+                        $images = json_decode($products[0]->product_images, TRUE);
                         foreach ($images as $image) {
                             if ($image['type'] == 'image'){
                                 $url = $image['url'];
@@ -55,8 +55,8 @@
                     <div class="col-6 col-md-4 col-lg-3 py-3 filter-item all category-{{ strtolower($product->category) }}">
                         <div class="shop-item-inner">
                             <a href="{{ route('front.product-detail', $product->slug) }}">
-                                <img src="{{ $url }}" alt="{{ $product->title }}" width="200" height="200" style="object-fit: cover; object-position: center center">
-                                <p>{{ $product->title }}</p>
+                                <img src="{{ $url }}" alt="{{ $product->product_name }}" width="200" height="200" style="object-fit: cover; object-position: center center">
+                                <p>{{ $product->product_name }}</p>
                             </a>
                         </div>
                     </div>

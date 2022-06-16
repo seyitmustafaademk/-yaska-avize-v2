@@ -150,14 +150,14 @@ $(".questionDivClose").click(() => {
 // Swiper Hero
 
 var swiper = new Swiper(".swiper-productHeroBottom", {
-    loop: true,
+    loop: false,
     spaceBetween: 10,
     slidesPerView: 4,
     freeMode: true,
     watchSlidesProgress: true,
 });
 var swiper2 = new Swiper(".swiper-productHeroTop", {
-    loop: true,
+    loop: false,
     spaceBetween: 10,
     navigation: {
         nextEl: ".swiper-button-next",
@@ -168,9 +168,8 @@ var swiper2 = new Swiper(".swiper-productHeroTop", {
     },
 });
 
+
 // END Swiper Hero
-
-
 var swiper3 = new Swiper(".differentSwiper", {
     slidesPerView: "3",
     spaceBetween: 20,
@@ -179,6 +178,7 @@ var swiper3 = new Swiper(".differentSwiper", {
         clickable: true,
     },
 });
+
 
 
 $(document).ready(function() {

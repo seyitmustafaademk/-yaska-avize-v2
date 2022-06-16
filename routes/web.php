@@ -46,26 +46,27 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::put('/product-colors', [Color_Controller::class, 'InsertColor'])->name('admin.product.add-color'); // Color Ekleme
     Route::delete('/product-colors', [Color_Controller::class, 'DeleteColor'])->name('admin.product.delete-color'); // Color Silme
 
-    Route::get('/products', [Products_Controller::class, 'ShowPage'])->name('admin.products');
-    Route::post('/stock-update', [Products_Controller::class, 'StockUpdate']);
 
-    // Ürün Detay route('admin', 45) ?id=45&product-name=furkan&kullanıcı-adi=beydemirr
-    Route::get('/product-detail/{id}', [ProductDetails_Controller::class, 'ShowPage'])->name('admin.product-detail');
-    Route::get('/delete-product-detail/{pid}/{id}', [ProductDetails_Controller::class, 'DeleteProductDetail'])->name('admin.delete-product-detail');
-    // Ürün Silme
-    Route::get('/delete-product/{id}', [Products_Controller::class, 'DeleteProduct'])->name('admin.delete-product');
-    // Ürün Ekleme
-//    Route::get('/add-product-first', [AddProduct_Controller::class, 'ShowPageFirst'])->name('admin.add-product-first');
-    Route::get('/add-product', [AddProduct_Controller::class, 'ShowPage'])->name('admin.add-product');
-    Route::post('/add-product', [AddProduct_Controller::class, 'AddProduct'])->name('admin.add-product-post');
+    Route::get('/products', [Products_Controller::class, 'ShowPage'])->name('admin.products'); // Ürünler listesi
+    Route::get('/add-product', [AddProduct_Controller::class, 'ShowPage'])->name('admin.add-product'); // ürün ekleme sayfası
+    Route::post('/add-product', [AddProduct_Controller::class, 'AddProduct'])->name('admin.add-product-post'); // ürün ekleme
+    Route::get('/delete-product/{id}', [Products_Controller::class, 'DeleteProduct'])->name('admin.delete-product'); // ürün silme
+    Route::post('/update-product/', [Products_Controller::class, 'UpdateProduct'])->name('admin.update-product'); // ürün listesi ürün güncelleme
+    Route::get('/update-full-product/{id}', [Products_Controller::class, 'UpdateFullProductPage'])->whereNumber('id', )->name('admin.full-product-update'); // ürün güncelleme sayfası
+    Route::post('/update-full-product', [Products_Controller::class, 'UpdateFullProduct'])->name('admin.update-full-product'); // ürün güncelleme sayfası ürün güncelleme
 
-    
-    Route::get('/update-product', [AddProduct_Controller::class, 'UpdatePage'])->name('admin.update-product');
-    Route::post('/update-product', [AddProduct_Controller::class, 'UpdateProduct'])->name('admin.update-product-post');
 
-    
+    Route::get('/product-detail/{id}', [ProductDetails_Controller::class, 'ShowPage'])->name('admin.product-detail'); // Ürün detay listesi
+    Route::get('/delete-product-detail/{pid}/{id}', [ProductDetails_Controller::class, 'DeleteProductDetail'])->name('admin.delete-product-detail'); // ürün detay silme
+    Route::post('/product-detail-update/', [ProductDetails_Controller::class, 'ProductDetailUpdate'])->name('admin.product-detail-update-inline'); // Ürün detay listesi
+
     Route::get('/update-product-detail', [AddProductDetail_Controller::class, 'UpdatePage'])->name('admin.update-product-detail');
     Route::post('/update-product-detail', [AddProductDetail_Controller::class, 'UpdateProductDetail'])->name('admin.update-product-detail-post');
+
+
+
+
+
     // Ürün Detay Ekleme
     Route::get('/add-product-detail/{pid?}', [AddProductDetail_Controller::class, 'ShowPage'])->name('admin.add-product-detail');
     Route::post('/add-product-detail', [AddProductDetail_Controller::class, 'AddDetail']);

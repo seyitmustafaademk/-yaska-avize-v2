@@ -1,225 +1,122 @@
 @extends('dashboard._layout.general-layout')
 
 @section('head-center')
-{{-- Select2 --}}
-<link rel="stylesheet" href="{{ asset('admin-assets/plugins/select2/css/select2.min.css') }}">
+    {{-- Select2 --}}
+    <link rel="stylesheet" href="{{ asset('admin-assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin-assets/plugins/summernote/summernote-lite.min.css') }}">
+
+@endsection
+@section('footer-center')
+    <script src="{{ asset('admin-assets/plugins/summernote/summernote-lite.min.js') }}"></script>
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Ürün açıklaması girin...',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
+        });
+    </script>
 @endsection
 @section('footer-bottom')
-<script>
-    //Date picker
-    $('#reservationdate').datetimepicker({
-        format: 'L'
-    });
-</script>
-<script>
-    $("#product-form").submit(function(event) {
-        event.preventDefault();
-        var post_url = $(this).attr("action");
-        var request_method = $(this).attr("method");
-        //var form_data = $(this).serialize();
-        var form = $("#product-form")[0];
-        var form_data = new FormData(form);
-        var r_message = $('#added-product-message');
-
-        $.ajax({
-            url: post_url,
-            type: request_method,
-            data: form_data,
-            processData: false, // Important!
-            contentType: false,
-            cache: false,
-            success: function(response) {
-                if (response.status_code == 'success') {
-                    r_message.css('color', 'green');
-                    toastr.success(response.status_message, 'Başarılı')
-                    setTimeout(function() {
-                        window.location.href = "{{ route('admin.add-product-detail') }}/" + response.pid;
-                    }, 0);
-                } else {
-                    toastr.error(response.status_message, 'Başarısız!')
-                }
-            },
-            error: function(response) {
-                toastr.error('Bir hata oluştu!', 'HATA!')
-            }
-        });
-    });
-</script>
-@endsection
-<?php
-if (isset($_GET['id'])) {
-
-?>
-    @section('content')
-    @foreach($data as $product_detail)
-    <div class="row">
-        <div class="col-md-12 mb-5">
-            <form id="product-form" action="{{ route('admin.update-product-post') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="row">
-                    <div class="col-md-4 col-lg-3">
-                        <div class="form-group">
-                            <label for="title">Title</label>
-                            <?php
-                            if (isset($_GET['id']) && !empty($_GET['id'])) {
-                                $id = $_GET['id'];
-                            } else {
-                                $id = NULL;
-                            }
-                            ?>
-                            <input required type="hidden" name="id" value="{{ $id }}">
-                            <input required type="text" name="title" class="form-control" value="{{ $product_detail->title }}" id="title" placeholder="Title">
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-lg-3">
-                        <div class="form-group">
-                            <label for="category">Category</label>
-                            <select name="category" id="category" class="form-control select2" style="width: 100%;" onchange="category_control()">
-                                @foreach($categories as $category)
-                                <option <?php if($category->category_name == $product_detail->category) { echo 'selected'; } ?> value="{{ $category->category_name }}">{{ $category->category_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-                    <?php if (isset($_GET['category']) && $_GET['category'] == 'Antika') { ?>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="form-group">
-                                <label for="date_of_manufacture">Hergestellt:</label>
-                                <div class="input-group" id="date_text">
-                                    <select name="date_of_manufacture" id="date_of_manufacture" class="form-control select2" style="width: 100%;">
-                                    <?php for ($i = date('Y'); $i--; 1800 < $i) { ?>
-                                        <option <?php if($i == $product_detail->date_of_manufacture) { echo 'selected'; } ?> value="<?php echo $i ?>"><?php echo $i ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="form-group">
-                                <label for="materials">Materials</label>
-                                <textarea required type="text" name="materials" class="form-control" id="materials" rows="2" placeholder="Malzemeleri virgül ile ayrılmış şekilde girin">{{ $product_detail->materials }}</textarea>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 col-lg-3">
-                            <div class="form-group">
-                                <label for="cargo_date">Speditionslieferung</label>
-                                <input required type="text" name="cargo_time" class="form-control" value="{{ $product_detail->cargo_time }}" id="123" pattern="[0-9]+">
-                            </div>
-                        </div>
-                    <?php } else { ?>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="form-group">
-                                <label for="date_of_manufacture">Hergestellt:</label>
-                                <div class="input-group" id="date_text">
-                                    <select name="date_of_manufacture" id="date_of_manufacture" class="form-control select2" style="width: 100%;"><?php for ($i = date('Y'); $i--; 1800 < $i) { ?><option value="<?php echo $i ?>"><?php echo $i ?></option><?php } ?></select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="form-group">
-                                <label for="materials">Materials</label>
-                                <textarea required type="text" name="materials" class="form-control" id="materials" rows="2" placeholder="Malzemeleri virgül ile ayrılmış şekilde girin">{{ $product_detail->materials }}</textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="form-group">
-                                <label for="cargo_price">Versand Kosten</label>
-                                <input required type="text" name="cargo_price" value="{{ $product_detail->cargo_price }}" class="form-control" id="123">
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="form-group">
-                                <label for="cargo_date">Speditionslieferung</label>
-                                <input required type="text" name="cargo_time" class="form-control" value="{{ $product_detail->cargo_time }}" id="123" pattern="[0-9]+">
-                            </div>
-                        </div>
-                    <?php } ?>
-
-
-
-
-
-
-
-
-
-                    <div class="col-md-6 col-lg-3">
-                        <div class="form-group">
-                            <label for="stock">Stok</label>
-                            <input required type="number" name="stock" class="form-control" id="123" value="{{ $product_detail->stock }}">
-                        </div>
-                    </div>
-                </div>
-                <hr>
-             
-                <div class="row">
-                    <div class="col-md-6 col-lg-3">
-                        <div class="form-group">
-                            <label for="desc_title">Description Title</label>
-                            <input type="text" name="desc_title" class="form-control" value="{{ $product_detail->desc_title }}" id="desc_title">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-9">
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea name="description" id="description" rows="10" style="width: 100%!important;">{{ $product_detail->description }}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-md-6 col-lg-3">
-                        <div class="form-group clearfix">
-                            <label for="materials">Negotiable</label>
-                            <div class="icheck-primary" style="font-size: 1.1em">
-                                <input type="checkbox" name="negotiable" id="negotiable" checked>
-                                <label for="negotiable">This item is negotiable</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-9">
-                        <div class="form-group">
-                            <label for="file_other_medias">Other Medias</label>
-                            <div class="input-group">
-                                <div class="custom-file">
-                                    <input required type="file" id="other_medias" name="other_medias[]" multiple class="custom-file-input">
-                                    <label class="custom-file-label" for="other_medias">Choose files</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <button type="submit" id="add-product-btn" class="btn btn-primary float-right px-5">Save</button>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <p class="text-black" id="added-product-message"></p>
-                </div>
-            </form>
-        </div>
-    </div>
     <script>
-        function category_control() {
-            var select = document.getElementById('category');
-            var category = select.options[select.selectedIndex].text;
-            if (category == 'Antika') {
-                document.getElementById("date_text").innerHTML = ' <select name="date_of_manufacture" value="{{ $product_detail->date_of_manufacture }}" id="date_of_manufacture" class="form-control select2" style="width: 100%;"><?php for ($i = date('Y'); $i--; 1800 < $i) { ?><option value="<?php echo $i ?>"><?php echo $i ?></option><?php } ?></select>';
-            } else {
-                document.getElementById("date_text").innerHTML = '<input required type="date" name="date_of_manufacture" value="{{ $product_detail->date_of_manufacture }}"  id="date_of_manufacture" class="form-control datetimepicker-input" data-target="#reservationdate" />';
-            }
-        }
+        //region Teknik Özellik Ekleme ve Silme (HTML)
+        $('#btn-add-material').click(function () {
+            var html = `<div class="form-floating input-group supplementary-material mt-3">
+                        <span class="input-group-text">Teknik Özellik</span>
+                        <input type="text" name="material_title[]" class="form-control shadow-none" placeholder="123" aria-label="123" required>
+                        <input type="text" name="material_description[]" class="form-control shadow-none" placeholder="123" aria-label="123" required>
+                        <a class="btn btn-danger btn-delete-material" type="button">Sil</a>
+                    </div>`;
+            $('#supplementary-material-container').append(html);
+        });
+        $(document).on('click', '.btn-delete-material', function (){
+            $(this).closest('.supplementary-material').remove();
+        });
+        //endregion
     </script>
-    @endforeach
-    @endsection
-<?php } ?>
+@endsection
+@section('content')
+    <div class="step-tabs" data-index="4" data-title="Kargo Bilgileri">
+        <form id="form-step-4" action="{{ route('admin.update-full-product') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="id" value="{{ $product->id }}">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control shadow-none" id="product_name" name="product_name" value="{{ $product->product_name }}" placeholder="placeholder" required>
+                <label for="product_name" class="font-weight-normal">Ürün Adı</label>
+            </div>
+            <select name="category" class="form-select mb-3" id="category_{{$product->id}}">
+                <option value="Antika" {{ $product->category == 'Antika' ? 'selected' : '' }}>Antika</option>
+                <option value="Modern" {{ $product->category == 'Modern' ? 'selected' : '' }}>Modern</option>
+                <option value="Parça" {{ $product->category == 'Parça' ? 'selected' : '' }}>Parça</option>
+            </select>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control shadow-none" id="materials" name="materials" placeholder="placeholder" value="{{ $product->materials }}" required>
+                <label for="materials" class="font-weight-normal">Materyaller</label>
+            </div>
+
+            <select class="form-select shadow-none mb-3" name="production_date" placeholder="placeholder">
+                @for($i = 1905; $i< 2030; $i++)
+                    <option value="{{ $i }}" {{ $i == $product->date_of_manufacture ? 'selected' : '' }}>{{ $i }}</option>
+                @endfor
+            </select>
+            <div class="form-check pb-2">
+                <input class="form-check-input" type="checkbox" name="special_cargo" id="special_cargo" {{ $product->special_cargo == true ? 'checked' : '' }}>
+                <label class="form-check-label" for="special_cargo">
+                    Özel Kargo
+                </label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control shadow-none" id="cargo_time" name="cargo_time" placeholder="placeholder" value="{{ $product->cargo_time }}" required>
+                <label for="cargo_time" class="font-weight-normal">Kargo Süresi</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" step="0.000001" class="form-control shadow-none" id="cargo_price" name="cargo_price" placeholder="placeholder" value="{{ $product->cargo_price }}" required>
+                <label for="cargo_price" class="font-weight-normal">Kargo Ücreti</label>
+            </div>
+            <div class="mb-3">
+                <input type="file" name="product_images[]" id="product_images" class="form-control form-control-lg font-weight-normal shadow-none" multiple required>
+            </div>
+            <label class="mt-3">Ek Teknik Özellikler</label>
+            <div id="supplementary-material-container">
+                @php
+                    $material_list = json_decode($product->more_materials, TRUE);
+                    $material_list = explode(',', $material_list);
+                @endphp
+                @foreach($material_list as $material)
+                    <div class="form-floating input-group supplementary-material mt-3">
+                        <span class="input-group-text">Teknik Özellik</span>
+                        <input type="text" name="material_title[]" class="form-control shadow-none" placeholder="123" aria-label="123" value="{{ str_replace(['"', '{', '}'], '',  explode(':', $material)[0] ) }}" required>
+                        <input type="text" name="material_description[]" class="form-control shadow-none" placeholder="123" aria-label="123" value="{{ str_replace(['"', '{', '}'], '',  explode(':', $material)[1] ) }}" required>
+                        <a class="btn btn-danger btn-delete-material" type="button">Sil</a>
+                    </div>
+                @endforeach
+            </div>
+            <div class="form-floating mb-3 mt-3 d-flex justify-content-end">
+                <a class="btn btn-outline-success py-2 w-100 text-uppercase w-100" id="btn-add-material">Başlık Ekle</a>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control shadow-none" id="description_title" name="description_title" placeholder="placeholder" value="{{ $product->description_title }}" required>
+                <label for="description_title" class="font-weight-normal">Başlık</label>
+            </div>
+            <div class="form-group">
+                <label for="">Açıklama</label>
+                <textarea id="summernote" name="description_content" required>
+                    {!! $product->description_content !!}
+                </textarea>
+            </div>
+            <input type="submit" class="btn btn-step w-100 font-weight-bold" value="Ürünü Güncelle">
+        </form>
+    </div>
+@endsection
