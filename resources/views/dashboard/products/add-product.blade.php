@@ -7,15 +7,79 @@
 @endsection
 @section('head-bottom')
     <style>
-
-
-        .step-form-dots{
-            width: 10px !important;
-            height: 10px !important;
-            background: rebeccapurple;
+/*        .step-form-dots{
+            margin: 0 40px;
+            width: 15px !important;
+            height: 15px !important;
+            background: #FFFFFF;
+            border: 1px solid #000080;
+            border-radius: 50%;
+        }
+        .step-form-dots.active {
+            background-color: #000080;
         }
         .step-order{
             height: 50px !important;
+        }
+        #btn-previous i {
+            width: 30px;
+            height: 30px;
+        }
+        #next-btn {
+
+        }*/
+
+        .nav-item {
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        .nav-item .nav-link {
+            margin: 0;
+            padding: 0;
+        }
+
+        .step-wrapper {
+            padding: 100px 0;
+        }
+        .step-wrapper .step-form-dots {
+            margin: 0 20px;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            border: 2px solid #000;
+            background-color: white;
+            position: relative;
+        }
+        .step-wrapper .step-form-dots.active {
+            background-color: blue;
+            border-color: blue;
+        }
+
+        .step-form {
+            width: 400px;
+            max-width: 100%;
+        }
+        .step-form label, .step-form input {
+            font-size: 0.9rem;
+        }
+
+        .form-floating > .form-control, .form-floating > .form-control-plaintext, .form-floating > .form-select {
+            height: calc(3rem + 2px);
+            line-height: 1.25;
+        }
+
+        .btn-step {
+            background-color: blue;
+            margin: 10px 0;
+            color: white !important;
+            padding: 20px 0;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .btn-step:hover {
+            background-color: navy;
         }
     </style>
 @endsection
@@ -312,9 +376,13 @@
             </div>
             <div class="step-title text-center py-4">
                 <div class="d-flex justify-content-center align-items-center">
-                    <i class="bi bi-arrow-left fs-1 position-absolute start-0"></i>
+                    <a class="pointer" id="btn-previous">
+                        <i class="bi bi-arrow-left fs-1 position-absolute start-0"></i>
+                    </a>
                     <h1 class="p-3" id="step-form-title">Kategori Seç</h1>
-                    <i class="bi bi-arrow-right fs-1 position-absolute end-0"></i>
+                    <a class="pointer" id="next-btn">
+                        <i class="bi bi-arrow-right fs-1 position-absolute end-0"></i>
+                    </a>
                 </div>
                 <hr style="width: 50%; margin:0 auto; height: 3px; opacity: 1;">
             </div>
