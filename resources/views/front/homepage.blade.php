@@ -162,8 +162,8 @@
                    autoplay muted loop style="object-fit: cover; z-index: 1;"></video>
 
         </section>
-        <section id="section10" class="demo">
-            <a href="#special-design" style="font-size: 12px"><span></span>Scroll</a>
+        <section id="section10" class="demo mb-4">
+            <a href="#special-design" class="mb-5" style="font-size: 12px"><span></span></a>
         </section>
     @endif
 
@@ -240,7 +240,7 @@
                         <a class="nav-link my-2" id="v-pills-{{ $item->id }}-tab" data-bs-toggle="pill"
                            data-bs-target="#v-pills-{{ $item->id }}" type="button" role="tab" style="overflow: hidden; padding: 0; height: 300px;">
                             <img src="{{ json_decode($item->diameter_images)[0]->url }}" alt="{{ json_decode($item->diameter_images)[0]->name }}" style=" width: 100%; height: 200px; margin-bottom: 10px;">
-                            <h5 class="pt-4 pb-3 fs-7">{{ $item->product_name }}</h5>
+                            <h5 class="pt-4 pb-3 fs-7" style="font-size: 15px!important;">{{ $item->product_name }}</h5>
                             <h5 class="pt-4 pb-3" style="font-size: 16px;">{{ $item->product_name }}</h5>
                         </a>
                         @endforeach
@@ -256,10 +256,9 @@
                                     <h4 class="m-0">{{ $item->product_name }}</h4>
                                     <div>
                                         <div class="d-md-flex align-items-center justify-content-center justify-content-md-between">
-                                            <p class="fs-4 d-md-inline-block m-0 fw-bold lh-1">{{ $item->list_price }}</p>
-                                            <a href="{{ route('front.product-detail', $item->slug) }}" class="btn btnMain btn-outline-dark ms-md-3 my-3 my-lg-0">ÜRÜNÜ GÖR</a>
+                                            <p class="fs-4 d-md-inline-block m-0 fw-bold lh-1">€{{ number_format($item->list_price, 2, ',', '.') }}</p>
+                                            <a href="{{ route('front.product-detail', $item->slug) }}" class="btn btnMain btn-outline-dark ms-md-3 my-3 my-lg-0">SIEHE PRODUKT</a>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -321,7 +320,7 @@
                 </div>
             </div>
             <div class="row pt-5 mt-5 d-flex justify-content-center">
-                <a href="#" class="btn btnMain btn-outline-dark ms-md-3 my-3 my-lg-0">ÜRÜNÜ GÖR</a>
+                <a href="#" class="btn btnMain btn-outline-dark ms-md-3 my-3 my-lg-0 text-uppercase">Alles sehen</a>
             </div>
         </div>
     </section>

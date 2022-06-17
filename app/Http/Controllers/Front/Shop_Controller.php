@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class Shop_Controller extends Controller
 {
-    public function ShowPage()
+    public function ShowPage($category = null)
     {
         $categories = Category::all(['id', 'category_name']);
 
@@ -25,11 +25,19 @@ class Shop_Controller extends Controller
 
                             JOIN product_details pt
                             ON pt.product_id = p.id
+                            
+                            " . ($category !== null ? "WHERE p.category = '{$category}'" : '')  . "
                             GROUP BY p.id, p.product_name, p.category, p.materials, p.date_of_manufacture, p.slug ");
+
+//        return $products[0]->product_images;
+
+//        return empty($products) ? 'boş': 'değil';
+        $category = $category === null ? 'Alle Produkte' : $category;
 
         $data = [
             '__title' => 'Shop',
             'products' => $products,
+            'category' => $category,
             'categories' => $categories,
         ];
         return view('front.shop', $data);

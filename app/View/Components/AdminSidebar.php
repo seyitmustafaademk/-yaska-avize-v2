@@ -23,6 +23,11 @@ class AdminSidebar extends Component
                     'url' => route('admin.contact'),
                 ],
                 [
+                    'title' => 'Galeri',
+                    'icon' => 'fas fa-image',
+                    'url' => route('admin.gallery'),
+                ],
+                [
                     'title' => 'Ürünler',
                     'icon' => 'fas fa-tree',
                     'url' => '#',
@@ -42,7 +47,7 @@ class AdminSidebar extends Component
                             'icon' => 'fas fa-plus',
                             'url' => route('admin.add-product-detail'),
                         ],
-                        [
+/*                        [
                             'title' => 'Kategori Ekle',
                             'icon' => 'fas fa-plus',
                             'url' => route('admin.product.categories'),
@@ -51,7 +56,7 @@ class AdminSidebar extends Component
                             'title' => 'Renk Ekle',
                             'icon' => 'fas fa-plus',
                             'url' => route('admin.product.colors'),
-                        ],
+                        ],*/
                     ]
                 ],
                 [

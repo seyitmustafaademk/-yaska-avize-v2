@@ -4,6 +4,6 @@
         <div class="text-center fw-bold" style="float: right;">
             <span class="ms-1" id="item-count"> x {{ $item['count'] }}</span>
         </div>
-        <span class="fw-bold ms-auto item-price">{{ intval($item['count']) * intval($item['packet']->pd_list_price) }}€</span>
+        <span class="fw-bold ms-auto item-price">€ {{ number_format( (intval($item['count']) * intval($item['packet']->pd_list_price)), 2, ',', '.') }}</span>
     </div>
 @endforeach

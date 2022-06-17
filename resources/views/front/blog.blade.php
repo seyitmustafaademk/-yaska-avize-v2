@@ -24,7 +24,7 @@
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('front.homepage') }}">HOME</a>
+                            <a href="{{ route('front.homepage') }}">Startseite</a>
                         </li>
                         <li class="breadcrumb-item active -50" aria-current="page">{{ $__title }}</li>
                     </ol>
@@ -63,8 +63,8 @@
                 </div>
                 <div class="col-xl-3 blogSidebar pt-3">
                     <div class="blogSidebar-inner theiaStickySidebar ">
-                        <div class="category bg-white p-4 mb-4 rounded-3">
-                            <h4>CATEGORY</h4>
+                        <div class="category bg-white py-4 mb-4 rounded-3">
+                            <h4>KATEGORIE</h4>
                             <hr style="height: 3px; border-radius: 10%;">
                             <ul>
                                 @foreach($categories as $category)
@@ -78,15 +78,13 @@
                             </ul>
                         </div>
                         <div class="last-news py-4 mb-4">
-                            <h4>SON HABERLER</h4>
+                            <h4 class="text-uppercase">neuesten Nachrichten</h4>
                             <hr style="height: 3px; border-radius: 10%;">
                             <div class="news-order-wrap">
                                 @foreach($latest_news as $latest_new)
                                 <div class="news-order">
                                     <div>
-                                        @if($latest_new->image != null)
-                                            <img src="{{ url($latest_new->image) }}" alt="">
-                                        @endif
+                                        <img src="{{ $latest_new->image != null ? url($latest_new->image) : '#' }}" alt="">
                                     </div>
                                     <div class="news-text ms-4">
                                         <p>{{ $latest_new->title }}</p>

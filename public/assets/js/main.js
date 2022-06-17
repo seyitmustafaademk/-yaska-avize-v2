@@ -150,14 +150,14 @@ $(".questionDivClose").click(() => {
 // Swiper Hero
 
 var swiper = new Swiper(".swiper-productHeroBottom", {
-    loop: false,
+    loop: true,
     spaceBetween: 10,
     slidesPerView: 4,
     freeMode: true,
     watchSlidesProgress: true,
 });
 var swiper2 = new Swiper(".swiper-productHeroTop", {
-    loop: false,
+    loop: true,
     spaceBetween: 10,
     navigation: {
         nextEl: ".swiper-button-next",

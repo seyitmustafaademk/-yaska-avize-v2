@@ -126,8 +126,8 @@
         © 2021 - <span>KRONLEUCHTER.</span> ALL RIGHTS RESERVED
     </div>
     <div class="contact-info-fixed-button">
-        <div class="fixed-item" style="background-color: #d4b068;"><a style="background-color: #d4b068;" href="https://wa.me/+491775652848"><i class="bi bi-whatsapp"></i></a></div>
-        <div class="fixed-item" style="background-color: #d4b068;"><a style="background-color: #d4b068;" href="tel:±4930 347 66 749"><i class="bi bi-telephone"></i></a></div>
-        <div class="fixed-item" style="background-color: #d4b068;"><a style="background-color: #d4b068;" href="https://goo.gl/maps/5qsLZc7J9dg9yH9HA"><i class="bi bi-map"></i></a></div>
+        <div class="fixed-item"><a style="background-color: #d4b068;" href="https://wa.me/+491775652848"><i class="bi bi-whatsapp"></i></a></div>
+        <div class="fixed-item"><a style="background-color: #d4b068;" href="tel:±4930 347 66 749"><i class="bi bi-telephone-fill"></i></a></div>
+        <div class="fixed-item"><a style="background-color: #d4b068;" href="https://goo.gl/maps/5qsLZc7J9dg9yH9HA"><i class="bi bi-map"></i></a></div>
     </div>
 </footer>

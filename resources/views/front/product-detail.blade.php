@@ -2,6 +2,24 @@
 
 @section('head-bottom')
     <style>
+        .tab-webkit {
+            max-height: 320px;
+            overflow-y: scroll;
+        }
+        .tab-webkit::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .tab-webkit::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        .tab-webkit::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+        }
+
         .swiper-slide img {
             display: block;
             width: 100%;
@@ -24,7 +42,7 @@
     <section class="product-detail-hero">
         <div class="container-fluid gx-0 overflow-hidden">
             <div class="row justify-content-center justify-content-xl-between align-items-center">
-                <div class="col-xl-5 position-relative bg-white py-lg-5 text-center bg-light">
+                <div class="col-xl-5 position-relative bg-white pb-lg-5 text-center bg-light">
                     <div class="productHero position-relative">
                         <!-- ### Swiper Hero Top ### -->
 
@@ -50,12 +68,8 @@
                                         <img src="/{{ $image['url'] }}"/>
                                     </div>
                                 @endforeach
-
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
                 <div class="col-xl-6 py-lg-5">
@@ -71,7 +85,7 @@
                     <div class="product-detail-inner py-3 px-2 px-lg-0 text-center text-xl-start">
                         <div class="product-detail-table-info row align-items-baseline justify-content-center justify-content-xl-start">
                             <div class="product-detail-style col-md-3">
-                                <span class="fw-bold d-block text-uppercase diameter-text">Ürün Çapı</span>
+                                <span class="fw-bold d-block text-uppercase diameter-text">Produktdurchmesser</span>
                                 <ul class="nav nav-pills mt-2 mb-3 justify-content-center justify-content-xl-start flex-wrap" id="pills-tab" role="tablist">
                                     @php
                                         $diameter_ids = array_filter(explode(',', $products->pd_id));
@@ -87,9 +101,9 @@
                                 </ul>
                             </div>
                             <div class="tab-content col-xl-6" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-" role="tabpanel">
-                                    <span class="border-0 diameter-text text-uppercase fw-bold">Teknik Özellikler</span>
-                                    <table class="table table-striped table-responsive mt-2 text-start">
+                                <div class="tab-pane fade show active tab-webkit" id="pills-" role="tabpanel">
+                                    <span class="border-0 diameter-text text-uppercase fw-bold">Weitere Einzelheiten</span>
+                                    <table class="table table-striped table-responsive mt-2 text-start" style="height: 200px; overflow-y: scroll;">
                                         <tbody>
                                             <tr>
                                                 <td>Artikelnummer</td>
@@ -101,7 +115,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Fassung</td>
-                                                <td id="diamod-slots-value">############</td>
+                                                <td id="diamond-slots-value">############</td>
                                             </tr>
                                             <tr>
                                                 <td>Leuchtmittel </td>
@@ -147,12 +161,12 @@
                                 <span class="text-uppercase diameter-text ps-2 fw-bold" id="stock-text">verfügbar</span>
                             </div>
                         </div>
-                        <p class="fs-09 diameter-text">Differenzbe•euertgem. €{{ $products->cargo_price }} USCG zzgl. <a href="#" class="ps-3 text-decoration-underline text-dark">Versand</a> <br>
+                        <p class="fs-09 diameter-text">Differenzbe•euertgem. €{{ number_format($products->cargo_price, 2, ',', '.') }} USCG zzgl. <a href="#" class="ps-3 text-decoration-underline text-dark">Versand</a> <br>
                             Sofort verfOgloar, Lieferzeit {{ $products->cargo_time  }} Tage
                         </p>
                         <div>
-                            <a class="btn btnPricing text-uppercase cart-btn pointer"><i class="bi bi-basket2-fill pe-2"></i>add to card</a>
-                            <a href="https://wa.me/+491775652848" class="btn btnCustomer btn-outline-dark text-uppercase ms-lg-3 mt-3 mt-lg-0"><i class="bi bi-send pe-2"></i> saticiya sor</a>
+                            <a class="btn btnPricing text-uppercase cart-btn pointer"><i class="bi bi-basket2-fill pe-2"></i>in den Warenkorb legen</a>
+                            <a href="https://wa.me/+491775652848" class="btn btnCustomer btn-outline-dark text-uppercase ms-lg-3 mt-3 mt-lg-0"><i class="bi bi-send pe-2"></i>Frag den Verkäufer</a>
                         </div>
 
                     </div>
@@ -212,7 +226,12 @@
                         $('#height-value').text(response.height);
                         $('#weight-value').text(response.weight);
                         $('#diameter-value').text(response.diameter);
-                        var images = JSON.parse(response.diameter_images);
+                        $('#bulbs-value').text(response.bulbs);
+                        $('#diamond-slots-value').text(response.diamond_slots);
+                        $('#color-value').text(response.color);
+                        $('#product-number-value').text(response.product_number);
+
+                        var images = JSON.parse(response.diamond_slots);
 
 
                         var images_top = [];
@@ -227,9 +246,6 @@
                             images_top.push(html_top);
                             images_bottom.push(html_bottom);
                         });
-                        console.log(images_top);
-                        console.log(images_bottom);
-
                         swiper.prependSlide( images_bottom );
                         swiper2.prependSlide( images_top );
 
@@ -243,8 +259,6 @@
                             $('#stock-text').text('Verkauft');
                             $('#stock-color').css('background-color', 'red');
                         }
-
-
                     },
                     error: function (response){
                         console.log(response);

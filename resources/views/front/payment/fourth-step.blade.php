@@ -68,15 +68,15 @@
                                 <table class="table">
                                     <tr>
                                         <td>Zwischensumme</td>
-                                        <td>{{ $price }}€</td>
+                                        <td>{{ number_format($price, 2, ',', '.') }}€</td>
                                     </tr>
                                     <tr>
                                         <td>MwSt. + Cargo </td>
-                                        <td>{{ $paid_price - $price }}€</td>
+                                        <td>{{ number_format($paid_price - $price, 2, ',', '.') }}€</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Gesamtsumme</td>
-                                        <td class="fw-bolder">{{ $paid_price }}€</td>
+                                        <td class="fw-bolder">{{ number_format($paid_price, 2, ',', '.') }}€</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">Kredit Karte <span class="d-block m-0 text-muted fs-08">Visa, Mastercard, AMEX</span></td>

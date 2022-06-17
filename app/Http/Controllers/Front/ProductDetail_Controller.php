@@ -27,9 +27,11 @@ class ProductDetail_Controller extends Controller
         ");
 
         $data = [
-            '__title' => 'Ürün Detay',
+            '__title' => 'Produktdetail',
             'products' => $products[0],
         ];
+//        return $products;
+
         return view('front.product-detail', $data);
     }
 

@@ -11,7 +11,7 @@
                         <h1>{{ $section_data['title'] }}</h1>
                         <p>{!! $section_data['description'] !!}</p>
                     </div>
-                    <div class="swiper reference-slide mt-5 pt-5">
+                    <div class="swiper reference-slide mt-5 pt-3">
                         <div class="swiper-wrapper">
                             @foreach($section_data['images'] as $image)
                             <div class="swiper-slide">

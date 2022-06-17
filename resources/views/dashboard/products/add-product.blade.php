@@ -4,7 +4,20 @@
 {{-- Select2 --}}
 <link rel="stylesheet" href="{{ asset('admin-assets/plugins/select2/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('admin-assets/plugins/summernote/summernote-lite.min.css') }}">
+@endsection
+@section('head-bottom')
+    <style>
 
+
+        .step-form-dots{
+            width: 10px !important;
+            height: 10px !important;
+            background: rebeccapurple;
+        }
+        .step-order{
+            height: 50px !important;
+        }
+    </style>
 @endsection
 @section('footer-center')
     <script src="{{ asset('admin-assets/plugins/summernote/summernote-lite.min.js') }}"></script>
@@ -75,7 +88,7 @@
         product_category_option.val(g_input_category);
         product_category_option.text(g_input_category);
 
-        if(g_input_category === 'Antika' || g_input_category === 'Modern'){
+        if(g_input_category === 'Antiquität' || g_input_category === 'Antiquität'){
             $('#production_date').removeClass('d-none');
         }
         ChangeStepDots(2);
@@ -109,7 +122,7 @@
         ChangeStepDots(3);
         ChangeStepTabs(3);
 
-        if(g_input_category === 'Antika'){
+        if(g_input_category === 'Antiquität'){
             $('#diamond-slot-wrapper').removeClass('d-none');
             $('#bulbs-wrapper').removeClass('d-none');
             $('#diameter-input-wrapper').removeClass('d-none');
@@ -309,9 +322,9 @@
                 {{-- STEP 1 TABS --}}
                 <div class="step-tabs" data-index="1" data-title="Kategori Seçimi">
                     <div class="step-form m-auto text-center position-relative" id="step-form-1">
-                        <a class="btn btn-step w-100 btn-category-select" data-category="Antika">Antika</a>
+                        <a class="btn btn-step w-100 btn-category-select" data-category="Antiquität">Antika</a>
                         <a class="btn btn-step w-100 btn-category-select" data-category="Modern">Modern</a>
-                        <a class="btn btn-step w-100 btn-category-select" data-category="Parça">Parça</a>
+                        <a class="btn btn-step w-100 btn-category-select" data-category="Produktteil">Parça</a>
                     </div>
                 </div>
 

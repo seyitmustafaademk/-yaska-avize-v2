@@ -30,9 +30,14 @@ use App\Http\Controllers\Dashboard\Blog\Category_Controller as BlogCategory_Cont
 use App\Http\Controllers\Dashboard\Blog\BlogList_Controller;
 use App\Http\Controllers\Dashboard\Product\ProductDetails_Controller;
 use App\Http\Controllers\Dashboard\Product\Color_Controller;
+use App\Http\Controllers\Dashboard\Gallery_Controller;
 
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [Homepage_Controller::class, 'ShowPage'])->name('admin.homepage');
+
+    Route::get('/gallery', [Gallery_Controller::class, 'ShowPage'])->name('admin.gallery');
+    Route::post('/gallery', [Gallery_Controller::class, 'AddGalleryItem']);
+    Route::get('/gallery/{id}', [Gallery_Controller::class, 'DeleteGalleryItem'])->name('admin.gallery-delete');
 
     Route::get('/contact', [Contact_Controller::class, 'ShowPage'])->name('admin.contact');
     Route::put('/contact', [Contact_Controller::class, 'UpdateRead']);
@@ -193,6 +198,8 @@ use App\Http\Controllers\Front\Payment\SecondStep_Controller as SecondStep_FCont
 use App\Http\Controllers\Front\Payment\ThirdStep_Controller as ThirdStep_FController;
 use App\Http\Controllers\Front\Payment\FourthStep_Controller as FourthStep_FController;
 
+use App\Http\Controllers\Front\Gallery_Controller as Gallery_FController;
+
 Route::prefix('/')->group(function () {
     Route::get('/', [Homepage_FController::class, 'ShowPage'])->name('front.homepage');
     Route::get('/about-us', [AboutUs_FController::class, 'ShowPage'])->name('front.about-us');
@@ -211,7 +218,7 @@ Route::prefix('/')->group(function () {
     Route::get('/delete-item/{id}', [Cart_FController::class, 'DeleteCart'])->name('cart.delete-item');
     #endregion
 
-    Route::get('/shop', [Shop_FController::class, 'ShowPage'])->name('front.shop');
+    Route::get('/shop/{category?}', [Shop_FController::class, 'ShowPage'])->name('front.shop');
     Route::get('/product-detail/{slug?}', [ProductDetail_FController::class, 'ShowPage'])->name('front.product-detail');
     Route::post('/product-detail/{pid}/{pdid}', [ProductDetail_FController::class, 'GetImages']);
 
@@ -227,6 +234,9 @@ Route::prefix('/')->group(function () {
     Route::get('/fourth-step', [FourthStep_FController::class, 'ShowPage'])->name('front.payment.fourth-step');
     Route::post('/fourth-step', [FourthStep_FController::class, 'Payment'])->name('payment.post');
     Route::post('/3ds-callback', [FourthStep_FController::class, 'Callback3DS'])->name('callback-3ds');
+
+    // Gallery Sayfası
+    Route::get('/gallery', [Gallery_FController::class, 'ShowPage'])->name('front.gallery');
 });
 #endregion
 

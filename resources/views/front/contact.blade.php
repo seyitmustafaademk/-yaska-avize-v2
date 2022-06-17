@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-3">
-                                        <label for="formFileSm" class="form-label">Upload Image</label>
+                                        <label for="formFileSm" class="form-label">Bild hochladen</label>
                                         <input class="form-control form-control-sm" name="image" id="formFileSm" type="file">
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@
                                 </div>
                             </form>
                             <div class="col-12">
-                                <small class="text-warning d-none" id="contact-loading">Resimler yükleniyor...</small>
+                                <small class="text-warning d-none" id="contact-loading">Bilder werden geladen...</small>
                                 <p class="mb-2 home-hero-text" style="color: limegreen" id="contact-message"></p>
                             </div>
                         </div>

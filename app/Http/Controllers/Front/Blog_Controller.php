@@ -12,32 +12,18 @@ class Blog_Controller extends Controller
 {
     public function ShowPage($category_name = null)
     {
-        if ($category_name == null){
-            $query_string = "SELECT p.*, pc.category_name
-                                FROM posts p
-                                JOIN post_categories pc
-                                ON p.category_id = pc.id
-                                ORDER BY p.id DESC";
-            $title = 'Blog Sayfası';
-        }
-        else{
-
-            $query_string = "SELECT p.*, pc.category_name
-                                FROM posts p
-                            
-                                JOIN post_categories pc
-                                ON p.category_id = pc.id
-                            
-                                WHERE pc.category_name = '$category_name'
-                                ORDER BY p.id DESC
-                                ";
-            $title = "$category_name Kategorisindeki Yazılar";
-        }
-
         $categories = PostCategory::all();
-        $posts = DB::select($query_string);
+
+        $title = $category_name == null ? "Stories" : "Beiträge in der $category_name-Kategorie";
+        $posts = DB::select("SELECT p.*, pc.category_name
+                                FROM posts p
+                                JOIN post_categories pc
+                                ON p.category_id = pc.id
+                            
+                                " . ($category_name != null ? " WHERE pc.category_name = '$category_name'" : '' ) . "
+                                ORDER BY p.id DESC
+                                ");
         $latest_news = Post::orderBy('id', 'desc')->skip(0)->take(3)->get();
-//        return $latest_news;
 
         $data = [
             '__title' => $title,

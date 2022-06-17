@@ -56,9 +56,9 @@
                 <label for="product_name" class="font-weight-normal">Ürün Adı</label>
             </div>
             <select name="category" class="form-select mb-3" id="category_{{$product->id}}">
-                <option value="Antika" {{ $product->category == 'Antika' ? 'selected' : '' }}>Antika</option>
+                <option value="Antiquität" {{ $product->category == 'Antiquität' ? 'selected' : '' }}>Antika</option>
                 <option value="Modern" {{ $product->category == 'Modern' ? 'selected' : '' }}>Modern</option>
-                <option value="Parça" {{ $product->category == 'Parça' ? 'selected' : '' }}>Parça</option>
+                <option value="Produktteil" {{ $product->category == 'Produktteil' ? 'selected' : '' }}>Parça</option>
             </select>
             <div class="form-floating mb-3">
                 <input type="text" class="form-control shadow-none" id="materials" name="materials" placeholder="placeholder" value="{{ $product->materials }}" required>

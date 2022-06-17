@@ -50,9 +50,9 @@
     <section class="faq pb-5">
         <div class="container py-5">
             <div class="text-title text-center pb-5">
-                <span class="text-white">{{ $faqs['top_title'] }}</span>
+                <span class="text-gray-dark">{{ $faqs['top_title'] }}</span>
                 <h1>{{ $faqs['title'] }}</h1>
-                <p class="text-white">{{ $faqs['description'] }}</p>
+                <p class="text-gray-dark">{{ $faqs['description'] }}</p>
             </div>
             <div class="row">
                 <div class="accordion row" id="accordionPanelsStayOpenExample">

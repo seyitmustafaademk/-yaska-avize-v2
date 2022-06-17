@@ -55,21 +55,20 @@ class Cart
     {
         return DB::select("SELECT
                 p.id as p_id,
-                p.title as p_title, 
+                p.product_name as p_title, 
                 p.category as p_category, 
-                p.negotiable as p_negotiable, 
                 p.date_of_manufacture as p_date_of_manufacture, 
                 p.slug as p_slug, 
                 p.cargo_price as p_cargo_price, 
                 p.cargo_time as p_cargo_time,
-                p.images as p_images,
+                p.product_images as p_images,
                 pd.id as pd_id,
                 pd.product_id as pd_product_id,
                 pd.diameter as pd_diameter,
                 pd.height as pd_height,
                 pd.weight as pd_weight,
                 pd.list_price as pd_list_price,
-                pd.primary_image as pd_primary_image
+                pd.diameter_images as pd_primary_image
             FROM product_details pd
             
             JOIN products p

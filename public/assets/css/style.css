@@ -324,9 +324,9 @@ header {
   padding-bottom: 1rem !important;
 }
 header nav .navbar-nav a.nav-link {
-  font-size: 14px;
-  text-transform: uppercase;
-  font-weight: bold;
+  font-size: 15px;
+  text-transform: capitalize;
+  font-weight: 500;
   letter-spacing: -0.5px;
 }
 header nav .navbar-nav a.nav-link.active, header nav .navbar-nav a.nav-link:hover, header nav .navbar-nav a.nav-link:focus {
@@ -1124,6 +1124,9 @@ section.about-us-info .info-nav a.active {
 }
 .shop-item-inner img {
   padding: 10px 0px;
+  height: 80%;
+  width: 100%;
+  object-fit: cover !important;
 }
 .shop-item-inner i {
   font-size: 18px;
@@ -1356,7 +1359,7 @@ section.about-us-info .info-nav a.active {
   flex-direction: column;
 }
 .contact-info-fixed-button .fixed-item {
-  background: #769dbb;
+  background-color: #FFAF3E;
   width: 60px;
   height: 60px;
   margin: 20px 0px;
@@ -1368,12 +1371,33 @@ section.about-us-info .info-nav a.active {
   -ms-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
+.contact-info-fixed-button .fixed-item a i{
+  color: white;
+  background-color: #FFAF3E;
+  -webkit-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+
+}
 .contact-info-fixed-button .fixed-item:hover {
-  background: #d4b068;
+  background-color: #659f9f;
   transform: scale(1.1);
+  -webkit-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 .contact-info-fixed-button .fixed-item:hover a {
   color: white;
+  -webkit-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.contact-info-fixed-button .fixed-item:hover a i{
+  color: white;
+  background-color: #659f9f;
+  -webkit-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 @media (max-width: 576px) {
@@ -1395,7 +1419,7 @@ section.about-us-info .info-nav a.active {
 }
 
 .sepetmain{
-  width: 350px;
+  width: 400px;
   border-radius: 15px;
   z-index: 1999;
 }
@@ -1409,7 +1433,7 @@ section.about-us-info .info-nav a.active {
 @media (min-width:1700px){
   .sepetmain{
     right:  0;
-    transform: translateX(50%);
+    transform: translateX(10%);
   }
 }
 
@@ -1456,5 +1480,10 @@ section.about-us-info .info-nav a.active {
   display: block;
   visibility: visible;
   transition: all .3s ease-in-out;
+}
 
+
+.dropdown-menu {
+  background-color: #f8f9fa!important;
+  border: none!important;
 }

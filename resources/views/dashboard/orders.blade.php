@@ -133,7 +133,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            Ürünler Listesi
+            Produktliste
         </div>
         <!-- /.card-header -->
         <div class="card-body">

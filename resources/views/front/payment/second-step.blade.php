@@ -122,12 +122,12 @@
                             <h4 class="text-uppercase fw-bold">Summary</h4>
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-uppercase">Subtotal</small>
-                                <span class="fs-3 fw-500">{{ $price }}€</span>
+                                <span class="fs-3 fw-500">{{ number_format($price, 2, ',', '.') }}€</span>
 
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="fs-4 text-uppercase">Total</small>
-                                <span class="fs-2 fw-500">{{ $paid_price }}€</span>
+                                <span class="fs-2 fw-500">{{ number_format($paid_price, 2, ',', '.') }}€</span>
                             </div>
                             <button type="submit" form="unique-form" class="btn mainBtn w-100">Devam Et</button>
                             <hr style="height: 3px; border-radius: 10%;">

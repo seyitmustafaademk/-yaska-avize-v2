@@ -75,13 +75,13 @@
                             <td><input type="text" name="product_name" value="{{ $product->product_name }}"  form="ibn_form_{{ $product->id }}"></td>
                             <td>
                                 <select name="category" id="category_{{$product->id}}"  form="ibn_form_{{ $product->id }}">
-                                    <option value="Antika" {{ $product->category == 'Antika' ? 'selected' : '' }}>
+                                    <option value="Antiquität" {{ $product->category == 'Antiquität' ? 'selected' : '' }}>
                                         Antika
                                     </option>
                                     <option value="Modern" {{ $product->category == 'Modern' ? 'selected' : '' }}>
                                         Modern
                                     </option>
-                                    <option value="Parça" {{ $product->category == 'Parça' ? 'selected' : '' }}>Parça
+                                    <option value="Produktteil" {{ $product->category == 'Produktteil' ? 'selected' : '' }}>Parça
                                     </option>
                                 </select>
                             </td>

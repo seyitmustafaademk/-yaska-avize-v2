@@ -13,17 +13,17 @@
         });
     });
 </script>
-<script>
+{{--<script>
     function GenerateItem(img_src, title, price, qty) {
         return `<div class="payment-item py-3" data-pdid="`
-        `">
+            `">
                         <div class="d-flex align-items-center item-wrapper p-md-2">
                             <i class="bi bi-x-circle fs-3"></i>
                             <div class="d-flex align-items-center ms-1 ms-sm-4">
                                 <img src="` + img_src + `" alt="` + title + `">
                                 <div class="ms-sm-5">
                                     <h6 class="m-0 p-0">` + title + `</h6>
-                                    <p class="fs-1 m-0 fw-500 paymentPrice">` + price + `€</p>
+                                    <p class="fs-1 m-0 fw-500 paymentPrice">` +  price + `€</p>
                                 </div>
                             </div>
                             <div class="text-center ms-auto me-3 fs-4">
@@ -40,7 +40,7 @@
         GenerateItem('http://kron-leuchter.com/assets/img/home/av1.png', cart[i].title, cart[i].price, cart[i].qty);
     }
     console.log(cart);
-</script>
+</script>--}}
 @endsection
 
 @section('content')
@@ -108,12 +108,12 @@
                         <h4 class="text-uppercase fw-bold">Summary</h4>
                         <div class="d-flex justify-content-between align-items-center">
                             <small class="text-uppercase">Subtotal</small>
-                            <span class="fs-3 fw-500">{{ $price }}€</span>
+                            <span class="fs-3 fw-500">{{ number_format($price, 2, ',', '.') }}€</span>
 
                         </div>
                         <div class="d-flex justify-content-between align-items-center" id="cargo_short_text">
                             <small class="text-uppercase">Cargo</small>
-                            <span class="fs-3 fw-500">{{ $item['packet']->p_cargo_price }}€</span>
+                            <span class="fs-3 fw-500">{{ number_format($item['packet']->p_cargo_price, 2, ',', '.') }}€</span>
 
                         </div>
 
@@ -123,16 +123,16 @@
                             <input type="hidden" id="kargo_dahil" value="{{ $paid_price + $item['packet']->p_cargo_price }}">
                             <input type="hidden" id="kargo_haric" value="{{ $paid_price }}">
                             <span class="fs-2 fw-500" id="">
-                                <div style="float: left;" id="price_text">{{ $paid_price + $item['packet']->p_cargo_price }}</div> €
+                                <div style="float: left;" id="price_text">{{ number_format($paid_price + $item['packet']->p_cargo_price, 2, ',', '.')  }}</div> €
                             </span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                             <small class="text-uppercase">
-                                Kargo istemiyorum <input type="checkbox" id="cargo_istemiyorum" onchange="cargo()">
+                                Versand will ich nicht <input type="checkbox" id="cargo_istemiyorum" onchange="cargo()">
                             </small>
 
                         </div>
-                        <a href="{{ route('front.payment.second-step') }}" class="btn mainBtn w-100">Satın Al</a>
+                        <a href="{{ route('front.payment.second-step') }}" class="btn mainBtn w-100">Kaufen</a>
                         <hr style="height: 3px; border-radius: 10%;">
                         <div class="pt-4">
                             <small>1-2 day from the day ship
@@ -157,7 +157,7 @@
 
         } else {
             document.getElementById("price_text").innerHTML = kargo_dahil;
-            document.getElementById("cargo_short_text").innerHTML = '<small class="text-uppercase">Cargo</small><span class="fs-3 fw-500"><?php echo $item['packet']->p_cargo_price ?>€</span>';
+            document.getElementById("cargo_short_text").innerHTML = '<small class="text-uppercase">Cargo</small><span class="fs-3 fw-500">{{ number_format($item['packet']->p_cargo_price, 2, ',', '.') }}€</span>';
 
         }
     }
