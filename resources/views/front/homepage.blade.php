@@ -239,7 +239,7 @@
                         @foreach($section4 as $item)
                         <a class="nav-link my-2" id="v-pills-{{ $item->id }}-tab" data-bs-toggle="pill"
                            data-bs-target="#v-pills-{{ $item->id }}" type="button" role="tab" style="overflow: hidden; padding: 0; height: 300px;">
-                            <img src="{{ json_decode($item->diameter_images)[0]->url }}" alt="{{ json_decode($item->diameter_images)[0]->name }}" style=" width: 100%; height: 200px; margin-bottom: 10px;">
+                            <img src="{{ json_decode($item->product_images)[0]->url }}" alt="{{ json_decode($item->product_images)[0]->name }}" style=" width: 100%; height: 200px; margin-bottom: 10px;">
                             <h5 class="pt-4 pb-3 fs-7" style="font-size: 15px!important;">{{ $item->product_name }}</h5>
                             <h5 class="pt-4 pb-3" style="font-size: 16px;">{{ $item->product_name }}</h5>
                         </a>

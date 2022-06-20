@@ -52440,50 +52440,50 @@ a.text-muted:hover {
 
 
 
-.nav-item .nav-link {
-    margin: 0;
-    padding: 0;
-}
+/*.nav-item .nav-link {*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*}*/
 
-.step-wrapper {
-    padding: 100px 0;
-}
-.step-wrapper .step-order-item {
-    margin: 0 20px;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    border: 2px solid #000;
-    background-color: white;
-    position: relative;
-}
-.step-wrapper .step-order-item.active {
-    background-color: blue;
-    border-color: blue;
-}
+/*.step-wrapper {*/
+/*    padding: 100px 0;*/
+/*}*/
+/*.step-wrapper .step-order-item {*/
+/*    margin: 0 20px;*/
+/*    height: 20px;*/
+/*    width: 20px;*/
+/*    border-radius: 50%;*/
+/*    border: 2px solid #000;*/
+/*    background-color: white;*/
+/*    position: relative;*/
+/*}*/
+/*.step-wrapper .step-order-item.active {*/
+/*    background-color: blue;*/
+/*    border-color: blue;*/
+/*}*/
 
-.step-form {
-    width: 400px;
-    max-width: 100%;
-}
-.step-form label, .step-form input {
-    font-size: 0.9rem;
-}
+/*.step-form {*/
+/*    width: 400px;*/
+/*    max-width: 100%;*/
+/*}*/
+/*.step-form label, .step-form input {*/
+/*    font-size: 0.9rem;*/
+/*}*/
 
-.form-floating > .form-control, .form-floating > .form-control-plaintext, .form-floating > .form-select {
-    height: calc(3rem + 2px);
-    line-height: 1.25;
-}
+/*.form-floating > .form-control, .form-floating > .form-control-plaintext, .form-floating > .form-select {*/
+/*    height: calc(3rem + 2px);*/
+/*    line-height: 1.25;*/
+/*}*/
 
-.btn-step {
-    background-color: blue;
-    margin: 10px 0;
-    color: white !important;
-    padding: 20px 0;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-.btn-step:hover {
-    background-color: navy;
-}
+/*.btn-step {*/
+/*    background-color: blue;*/
+/*    margin: 10px 0;*/
+/*    color: white !important;*/
+/*    padding: 20px 0;*/
+/*    text-transform: uppercase;*/
+/*    font-size: 0.9rem;*/
+/*    font-weight: 500;*/
+/*}*/
+/*.btn-step:hover {*/
+/*    background-color: navy;*/
+/*}*/

@@ -2,24 +2,6 @@
 
 @section('head-bottom')
     <style>
-        .tab-webkit {
-            max-height: 320px;
-            overflow-y: scroll;
-        }
-        .tab-webkit::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        .tab-webkit::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-            border-radius: 10px;
-        }
-
-        .tab-webkit::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-        }
-
         .swiper-slide img {
             display: block;
             width: 100%;

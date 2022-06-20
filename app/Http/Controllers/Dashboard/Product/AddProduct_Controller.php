@@ -100,16 +100,24 @@ class AddProduct_Controller extends Controller
 
             $product_detail_count = count($request->product_number);
 
+
+            return $request->all();
+
             for ($i=0; $i < $product_detail_count; $i++){
                 $images = [];
                 $index = $i + 1;
+                echo "For çalıştı";
                 if (isset($request->diameter_images)){
-                    foreach ($request->allFiles()['diameter_images']["diameter_{$index}"] as $diameter_image) {
-                        foreach ($diameter_image as $image)
+                    echo "if çalıştı";
+                    foreach ($request->allFiles()['diameter_images']["diameter_$index"] as $diameter_image) {
+                        echo "foreach çalıştı";
+                        foreach ($diameter_image as $image) {
                             $images[] = $this->FileUploadAndCreate($image, 'product-images');
+                        }
                     }
                 }
 
+                print_r($images);
                 $images = json_encode($images);
                 ProductDetail::create([
                     'product_id' => $product_id,
