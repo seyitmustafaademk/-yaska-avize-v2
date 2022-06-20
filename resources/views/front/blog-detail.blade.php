@@ -54,71 +54,44 @@
                             {!!  $post->content !!}
                         </div>
 
-
-                        <div class="d-md-flex justify-content-between align-items-center my-4">
-                            <h5>POPULAR TAGS</h5>
-                            <div>
-                                <div href="#" class="btn btn-outline-dark active mb-2 mb-md-0">AVIZELER</div>
-                                <div href="#" class="btn btn-outline-dark mb-2 mb-md-0">ÖZEL YAPIM AVİZE</div>
-                                <div href="#" class="btn btn-outline-dark mb-2 mb-md-0">AVİZE NASIL YAPILIR?</div>
-                                <div href="#" class="btn btn-outline-dark mb-2 mb-md-0">AVİZE TAŞI</div>
-                            </div>
-                        </div>
-
                     </div>
 
                 </div>
                 <div class="col-xl-3 blogSidebar pt-3">
                     <div class="blogSidebar-inner theiaStickySidebar ">
-                        <div class="category bg-white p-4 mb-4 rounded-3">
-                            <h4>CATEGORY</h4>
+                        <div class="category bg-white py-4 mb-4 rounded-3">
+                            <h4>KATEGORIE</h4>
                             <hr style="height: 3px; border-radius: 10%;">
                             <ul>
-                                <li><a href="#"><span>Web Development</span><i class="bi bi-chevron-right"></i></a></li>
-                                <li><a href="#"><span>EMAIL MARKETING</span><i class="bi bi-chevron-right"></i></a></li>
-                                <li><a href="#"><span>IT CONSULTANCY</span><i class="bi bi-chevron-right"></i></a></li>
-                                <li><a href="#"><span>BUSINESS CONSULTING</span><i class="bi bi-chevron-right"></i></a></li>
-                                <li><a href="#"><span>APPS DEVELOPMENT</span><i class="bi bi-chevron-right"></i></a></li>
-                                <li><a href="#"><span>MEDIA MARKETING</span><i class="bi bi-chevron-right"></i></a></li>
-                                <li><a href="#"><span>SEO OPTIMIZATIONS</span><i class="bi bi-chevron-right"></i></a></li>
+                                @foreach($categories as $category)
+                                    <li>
+                                        <a href="{{ route('front.show-category', $category->category_name) }}">
+                                            <span>{{ $category->category_name }}</span>
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                         <div class="last-news py-4 mb-4">
-                            <h4>SON HABERLER</h4>
+                            <h4 class="text-uppercase">neuesten Nachrichten</h4>
                             <hr style="height: 3px; border-radius: 10%;">
                             <div class="news-order-wrap">
-                                <div class="news-order">
-                                    <div>
-                                        <img src="{{ asset('assets/img/blog/blog-img1.png') }}" alt="">
-                                    </div>
-                                    <div class="news-text ms-4">
-                                        <p>Build Seamless spreadshet ımport</p>
-                                        <span class="d-block text-muted fs-08"><i class="bi bi-calendar3 pe-2"></i>21 MAY 2022</span>
-                                    </div>
-                                </div>
-                                <div class="news-order">
-                                    <div>
-                                        <img src="{{ asset('assets/img/blog/blog-img2.png') }}" alt="">
-                                    </div>
-                                    <div class="news-text ms-4 ms-md-0 ms-lg-4">
-                                        <p>Build Seamless spreadshet ımport</p>
-                                        <span class="d-block text-muted fs-08"><i class="bi bi-calendar3 pe-2"></i>23 MAY 2022</span>
-                                    </div>
-                                </div>
-                                <div class="news-order">
-                                    <div>
-                                        <img src="{{ asset('assets/img/blog/blog-img3.png') }}" alt="">
-                                    </div>
-                                    <div class="news-text ms-4">
-                                        <p>Build Seamless spreadshet ımport</p>
-                                        <span class="d-block text-muted fs-08">
+                                @foreach($latest_news as $latest_new)
+                                    <div class="news-order">
+                                        <div>
+                                            <img src="{{ $latest_new->image != null ? url($latest_new->image) : '#' }}" alt="">
+                                        </div>
+                                        <div class="news-text ms-4">
+                                            <p>{{ $latest_new->title }}</p>
+                                            <span class="d-block text-muted fs-08">
                                             <i class="bi bi-calendar3 pe-2"></i>
-                                            24 JUNE 2022
+                                            {{ date_format( date_create($latest_new->created_at), 'Y-m-d' ) }}
                                         </span>
+                                        </div>
                                     </div>
-                                </div>
+                                @endforeach
                             </div>
-
                         </div>
                     </div>
                 </div>

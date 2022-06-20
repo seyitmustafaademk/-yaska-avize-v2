@@ -11,7 +11,7 @@ class Contact_Controller extends Controller
     public function ShowPage()
     {
         $data = [
-            '__title' => 'İletişim',
+            '__title' => 'Kontakt',
         ];
         return view('front.contact', $data);
     }

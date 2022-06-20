@@ -19,7 +19,7 @@ class FirstStep_Controller extends Controller
         if ($this->cart->CheckSepetIsNull())
             return redirect()->route('front.shop');
         $data = [
-            '__title' => 'Payment First Step',
+            '__title' => 'Korb',
             'cart' => $this->cart->GetCart(),
             'price' => $this->cart->GetPrice(),
             'paid_price' => $this->cart->GetPaidPrice(),

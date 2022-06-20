@@ -31,7 +31,7 @@ class Special_Controller extends Controller
 //        $section4 = empty($section4) ? null : json_decode($section4->content, TRUE);
 
         $data = [
-            '__title' => 'special Page',
+            '__title' => 'Services',
             'comments' => $comments,
             'faqs' => $faqs,
             'section2' => $section2,

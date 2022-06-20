@@ -8,6 +8,7 @@ $unread_messages = \App\Models\Contact::query()->where('read', '=', 0)->count();
 {{--    <meta name="csrf-token" content="{{ csrf_token() }}">--}}
     <meta name="viewport" content="width=device-width, initial-scale=1">
 {{--    <title>{{ $__title }}</title>--}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo/favicon.ico') }}">
 
     @yield('head-top')
     {{-- Google Font: Source Sans Pro --}}

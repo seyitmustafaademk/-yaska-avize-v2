@@ -9,13 +9,12 @@
                                 <span class="text-white">{{ $services_intro['top_title'] }}</span>
                                 <h1>{{ $services_intro['title'] }}</h1>
                             </div>
-                            <img src="{{ asset('assets/img/special_page_hero.png') }}" alt="" class="img-fluid">
+                            <video id="video-playerrr" src="/{{ $services_intro['video']['url'] }}" style="max-width: 100%; max-height: 85vh; width:100%; object-fit:cover;" loop muted autoplay></video>
                             <div class="position-absolute top-50 start-50 translate-middle">
-                                <a href="javascript:void(0)" class="videoPlay-btn" data-bs-toggle="modal" data-bs-target="#specialVideo">
+{{--                                <!-- <a href="javascript:void(0)" class="videoPlay-btn" data-bs-toggle="modal" data-bs-target="#specialVideo">
                                     <img src="{{ asset('assets/img/product-detail/play-01.svg') }}" alt="" width="100">
-                                </a>
+                                </a> -->--}}
                             </div>
-
                         </div>
                     </div>
                     <div class="col-lg-5 col-xl-4 detail-video-text py-4 py-lg-0">
@@ -27,13 +26,18 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="specialVideo" tabindex="-1">
+{{--            <!-- <div class="modal fade" id="specialVideo" tabindex="-1">
                 <div class="modal-dialog modal-xl modal-dialog-centered">
                     <div class="modal-content">
                         <video src="/{{ $services_intro['video']['url'] }}" style="max-width: 100%; max-height: 85vh;" autoplay loop controls></video>
                     </div>
                 </div>
-            </div>
+            </div> -->--}}
         </section>
+        <script>
+            var vid = document.getElementById("video-playerrr");
+            vid.autoplay = true;
+            vid.load();
+        </script>
     @endif
 </div>

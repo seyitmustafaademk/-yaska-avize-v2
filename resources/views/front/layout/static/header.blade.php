@@ -64,7 +64,7 @@
                                 </a>
                             </div>
                             <div class="position-relative order-1 order-xl-5 sepetim">
-                                <div class="position-absolute mt-4 py-3 sepetmain shadow-lg d-none px-3 bg-light top-100">
+                                <div class="position-absolute mt-3 py-3 rounded-0 sepetmain d-none px-3 bg-light top-100">
                                     <div class="sepetimt position-relative mb-3">
                                         <span class="pt-4">Overview</span>
                                         <span class="position-absolute pointer top-0 start-100 translate-middle sepet-iclose-icon">X</span>
@@ -73,8 +73,7 @@
 
                                     </div>
                                     <div class="pt-4 d-flex justify-content-between">
-                                        <a href="{{ route('front.shop') }}" class="btn btn-sm" style="background-color: #d4b068!important;  color: white!important; padding: .375rem .75rem!important;">Produkt in den Warenkorb legen</a>
-                                        <a href="{{ route('front.payment.first-step') }}" id="sepete-git" class="btn" style="background-color: #d4b068!important; color: white!important;">Check Out</a>
+                                        <a href="{{ route('front.payment.first-step') }}" id="sepete-git" class="btn w-100 py-3" style="background-color: #d4b068!important; color: white!important;">Check Out</a>
                                     </div>
                                 </div>
                             </div>

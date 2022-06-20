@@ -16,7 +16,7 @@ class AboutUs_Controller extends Controller
         $section2 = empty($section2) ? null : json_decode($section2->content, TRUE);
 
         $data = [
-            '__title' => 'Hakkımızda',
+            '__title' => 'Uber Uns',
             'section1' => $section1,
             'section2' => $section2,
         ];

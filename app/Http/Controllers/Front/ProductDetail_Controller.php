@@ -27,7 +27,7 @@ class ProductDetail_Controller extends Controller
         ");
 
         $data = [
-            '__title' => 'Produktdetail',
+            '__title' => $products[0]->product_name,
             'products' => $products[0],
         ];
 //        return $products;

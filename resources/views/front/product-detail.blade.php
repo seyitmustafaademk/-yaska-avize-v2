@@ -16,15 +16,21 @@
         .swiper-slide-thumb-active {
             opacity: 1;
         }
+        .item-productHeroBottom img {
+            width: 150px !important;
+            height: 130px !important;
+        }
+        .item-productHeroTop img {
+            height: 650px !important;
+        }
     </style>
 @endsection
 
 @section('content')
-
     <section class="product-detail-hero">
         <div class="container-fluid gx-0 overflow-hidden">
             <div class="row justify-content-center justify-content-xl-between align-items-center">
-                <div class="col-xl-5 position-relative bg-white pb-lg-5 text-center bg-light">
+                <div class="col-xl-5 ps-xl-3 position-relative bg-white pb-lg-5 text-center bg-light">
                     <div class="productHero position-relative">
                         <!-- ### Swiper Hero Top ### -->
 
@@ -143,7 +149,7 @@
                                 <span class="text-uppercase diameter-text ps-2 fw-bold" id="stock-text">verfügbar</span>
                             </div>
                         </div>
-                        <p class="fs-09 diameter-text">Differenzbe•euertgem. €{{ number_format($products->cargo_price, 2, ',', '.') }} USCG zzgl. <a href="#" class="ps-3 text-decoration-underline text-dark">Versand</a> <br>
+                        <p class="fs-09 diameter-text">Differenzbe•euertgem. €{{ number_format($products->cargo_price, 2, ',', '.') }} USCG zzgl. <br>
                             Sofort verfOgloar, Lieferzeit {{ $products->cargo_time  }} Tage
                         </p>
                         <div>
@@ -183,6 +189,12 @@
 @section('footer-bottom')
     {{-- Get Diameter Detail --}}
     <script>
+        function PriceFormatter(numberr){
+            const numberFormatter = Intl.NumberFormat('de-DE');
+            return numberFormatter.format(numberr);
+        }
+    </script>
+    <script>
         $(document).ready(function (){
             var main_image = $('.hero-image');
             $(".diameter-btn").click(function( event ) {
@@ -202,7 +214,7 @@
                         '_token': "{{ csrf_token() }}",
                     },
                     success: function (response){
-                        $('.priceSpan').text(response.list_price);
+                        $('.priceSpan').text(  PriceFormatter(response.list_price) );
                         $('.kdvSpan').text('+ Mwst. ' + (response.list_price * 0.19).toFixed(2) );
                         $('#total-price-value').text((response.list_price * 1.19).toFixed(2) + ' €');
                         $('#height-value').text(response.height);
@@ -214,7 +226,6 @@
                         $('#product-number-value').text(response.product_number);
 
                         var images = JSON.parse(response.diamond_slots);
-
 
                         var images_top = [];
                         var images_bottom = [];

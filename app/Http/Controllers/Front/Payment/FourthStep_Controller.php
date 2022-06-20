@@ -186,7 +186,7 @@ class FourthStep_Controller extends Controller
                                 WHERE od.order_id = '$conversationID'");
 
             $data = [
-                '__title' => 'Ödeme Başarılı',
+                '__title' => 'Bezahlung erfolgreich',
                 'error' => false,
                 'conversation_id' => $payment->getConversationId(),
                 'fraud_status' => $payment->getFraudStatus(), // -1 ise ödeme iptal edildi /// 0 ise iyzico onayı bekliyor
@@ -225,23 +225,23 @@ class FourthStep_Controller extends Controller
         if ($payment->getStatus() == 'failure')
         {
             if ($payment->getErrorCode() == 12)
-                $error_message = 'Geçersiz kart numarası girildi, lütfen bilgilerinizi kontrol edin ve tekrar deneyin';
+                $error_message = 'Ungültige Kartennummer eingegeben, bitte überprüfen Sie Ihre Angaben und versuchen Sie es erneut';
             elseif ($payment->getErrorCode() == 13)
-                $error_message = 'Kartınızın son kullanma ayını seçmediniz, lütfen bilgilerinizi kontrol edin ve tekrar deneyin';
+                $error_message = 'Sie haben den Ablaufmonat Ihrer Karte nicht ausgewählt, bitte überprüfen Sie Ihre Angaben und versuchen Sie es erneut';
             elseif ($payment->getErrorCode() == 14)
-                $error_message = 'Kartınızın son kullanma yılını seçmediniz, lütfen bilgilerinizi kontrol edin ve tekrar deneyin';
+                $error_message = 'Sie haben das Ablaufjahr Ihrer Karte nicht ausgewählt, bitte überprüfen Sie Ihre Informationen und versuchen Sie es erneut';
             elseif ($payment->getErrorCode() == 15)
-                $error_message = 'Kartınızın CVV numarasını girmediniz, lütfen bilgilerinizi kontrol edin ve tekrar deneyin';
+                $error_message = 'Sie haben die CVV-Nummer Ihrer Karte nicht eingegeben. Bitte überprüfen Sie Ihre Informationen und versuchen Sie es erneut';
             elseif ($payment->getErrorCode() == 16)
-                $error_message = 'Kart üzerindeki adı girmediniz, lütfen bilgilerinizi kontrol edin ve tekrar deneyin';
+                $error_message = 'Sie haben den Namen auf der Karte nicht eingegeben, bitte überprüfen Sie Ihre Angaben und versuchen Sie es erneut';
             elseif ($_3ds == true)
-                $error_message = 'Bankanız 3D Secure ile ödeme için uygun bir sayfa göndermedi!';
+                $error_message = 'Ihre Bank hat keine entsprechende Seite für die Zahlung mit 3D Secure gesendet!';
             else
-                $error_message = 'Ödeme işlemi tamamlanamadı, lütfen bilgilerinizi kontrol edin ve tekrar deneyin';
+                $error_message = 'Der Zahlungsvorgang konnte nicht abgeschlossen werden, bitte überprüfen Sie Ihre Angaben und versuchen Sie es erneut';
 
             //$error_message = $payment->getErrorCode();
             $data = [
-                '__title' => 'Ödeme Tamamlanamadı',
+                '__title' => 'Zahlung konnte nicht abgeschlossen werden',
                 'error' => true,
                 'error_message' => $error_message,
             ];
@@ -283,7 +283,7 @@ class FourthStep_Controller extends Controller
                                 WHERE od.order_id = '" . $payment->getConversationId() . "'");
 
                 $data = [
-                    '__title' => 'Ödeme Başarılı',
+                    '__title' => 'Bezahlung erfolgreich',
                     'error' => false,
                     'conversation_id' => $conversation_id,
                     'fraud_status' => $fraud_status,
@@ -307,7 +307,7 @@ class FourthStep_Controller extends Controller
                 ]);
 
                 $data = [
-                    '__title' => 'Ödeme Başarılı',
+                    '__title' => 'Bezahlung erfolgreich',
                     'error' => false,
                     'conversation_id' => $conversation_id,
                     'fraud_status' => $fraud_status,
@@ -331,74 +331,74 @@ class FourthStep_Controller extends Controller
                 ]);
 
                 $data = [
-                    '__title' => 'Ödeme Tamamlanamadı',
+                    '__title' => 'Zahlung konnte nicht abgeschlossen werden',
                     'error' => true,
-                    'error_message' => 'Ödeme işlemi yapılırken, işlem Iyzico tarafından reddedildi!',
+                    'error_message' => 'Während der Zahlungstransaktion wurde die Transaktion von Iyzico abgelehnt!',
                     ];
                 return redirect()->route('front.payment.fourth-step')->with(['response_data' => $data]);
             }
         }
         elseif ($request->mdStatus == 0){
             $data = [
-                '__title' => 'Ödeme Tamamlanamadı',
+                '__title' => 'Zahlung konnte nicht abgeschlossen werden',
                 'error' => true,
-                'error_message' => '3D Secure imzası geçersiz veya doğrulanamdı!',
+                'error_message' => '3D Secure-Signatur ist ungültig oder nicht verifiziert!',
             ];
             return redirect()->route('front.payment.fourth-step')->with(['response_data' => $data]);
         }
         elseif ($request->mdStatus == 2){
             $data = [
-                '__title' => 'Ödeme Tamamlanamadı',
+                '__title' => 'Zahlung konnte nicht abgeschlossen werden',
                 'error' => true,
-                'error_message' => 'Kartın sahibi veya bankası sisteme kayıtlı değil',
+                'error_message' => 'Der Besitzer oder die Bank der Karte ist nicht im System registriert',
             ];
             return redirect()->route('front.payment.fourth-step')->with(['response_data' => $data]);
         }
         elseif ($request->mdStatus == 3){
             $data = [
-                '__title' => 'Ödeme Tamamlanamadı',
+                '__title' => 'Zahlung konnte nicht abgeschlossen werden',
                 'error' => true,
-                'error_message' => 'Kartın bankası sisteme kayıtlı değil!',
+                'error_message' => 'Die Bank der Karte ist nicht im System registriert!',
             ];
             return redirect()->route('front.payment.fourth-step')->with(['response_data' => $data]);
         }
         elseif ($request->mdStatus == 4){
             $data = [
-                '__title' => 'Ödeme Tamamlanamadı',
+                '__title' => 'Zahlung konnte nicht abgeschlossen werden',
                 'error' => true,
-                'error_message' => 'Doğrulama denemesi, kart sahibi sisteme daha sonra kayıt olmayı seçmiş',
+                'error_message' => 'Verifizierungsversuch, Karteninhaber entschied sich später im System zu registrieren',
             ];
             return redirect()->route('front.payment.fourth-step')->with(['response_data' => $data]);
         }
         elseif ($request->mdStatus == 5){
             $data = [
-                '__title' => 'Ödeme Tamamlanamadı',
+                '__title' => 'Zahlung konnte nicht abgeschlossen werden',
                 'error' => true,
-                'error_message' => 'Doğrulama yapılamıyor!',
+                'error_message' => 'Kann nicht überprüft werden!',
             ];
             return redirect()->route('front.payment.fourth-step')->with(['response_data' => $data]);
         }
         elseif ($request->mdStatus == 6){
             $data = [
-                '__title' => 'Ödeme Tamamlanamadı',
+                '__title' => 'Zahlung konnte nicht abgeschlossen werden',
                 'error' => true,
-                'error_message' => '3D Secure hatası!',
+                'error_message' => '3D Secure-Fehler!',
             ];
             return redirect()->route('front.payment.fourth-step')->with(['response_data' => $data]);
         }
         elseif ($request->mdStatus == 7){
             $data = [
-                '__title' => 'Ödeme Tamamlanamadı',
+                '__title' => 'Zahlung konnte nicht abgeschlossen werden',
                 'error' => true,
-                'error_message' => 'Sistem hatası: Ödeme işlemi gerçekleşirken sistemsel kaynaklı bir sorun oluştu. Daha sonra tekrar deneyin',
+                'error_message' => 'Systemfehler: Während der Zahlung ist ein systembezogenes Problem aufgetreten. Versuchen Sie es später noch einmal',
             ];
             return redirect()->route('front.payment.fourth-step')->with(['response_data' => $data]);
         }
         elseif ($request->mdStatus == 8){
             $data = [
-                '__title' => 'Ödeme Tamamlanamadı',
+                '__title' => 'Zahlung konnte nicht abgeschlossen werden',
                 'error' => true,
-                'error_message' => 'Bilinmeyen kart no! Lütfen geçerli bir kart numarası girin.',
+                'error_message' => 'Unbekannte Kartennummer! Bitte geben Sie eine gültige Kartennummer ein.',
             ];
             return redirect()->route('front.payment.fourth-step')->with(['response_data' => $data]);
         }
@@ -407,7 +407,7 @@ class FourthStep_Controller extends Controller
         if ($request->status == 'success'){
 
         }else{
-            return 'Bankanız 3D Secure ödeme için uygun bir sayfa göndermedi!';
+            return 'Ihre Bank hat keine entsprechende Seite für die 3D-Secure-Zahlung übermittelt!';
         }
         dd($request);
     }

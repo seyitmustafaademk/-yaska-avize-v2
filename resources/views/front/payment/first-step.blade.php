@@ -105,21 +105,21 @@
             <div class="col-xl-4 paymentSidebar pt-3">
                 <div class="paymentSidebar-inner theiaStickySidebar ">
                     <div class="paymentBar bg-white p-4 mb-4 rounded-3">
-                        <h4 class="text-uppercase fw-bold">Summary</h4>
+                        <h4 class="text-uppercase fw-bold">Zusammenfassung</h4>
                         <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-uppercase">Subtotal</small>
+                            <small class="text-uppercase">Zwischensumme</small>
                             <span class="fs-3 fw-500">{{ number_format($price, 2, ',', '.') }}€</span>
 
                         </div>
                         <div class="d-flex justify-content-between align-items-center" id="cargo_short_text">
-                            <small class="text-uppercase">Cargo</small>
+                            <small class="text-uppercase">Ladung</small>
                             <span class="fs-3 fw-500">{{ number_format($item['packet']->p_cargo_price, 2, ',', '.') }}€</span>
 
                         </div>
 
 
                         <div class="d-flex justify-content-between align-items-center">
-                            <small class="fs-4 text-uppercase">Total</small>
+                            <small class="fs-4 text-uppercase">Gesamt</small>
                             <input type="hidden" id="kargo_dahil" value="{{ $paid_price + $item['packet']->p_cargo_price }}">
                             <input type="hidden" id="kargo_haric" value="{{ $paid_price }}">
                             <span class="fs-2 fw-500" id="">
@@ -135,8 +135,8 @@
                         <a href="{{ route('front.payment.second-step') }}" class="btn mainBtn w-100">Kaufen</a>
                         <hr style="height: 3px; border-radius: 10%;">
                         <div class="pt-4">
-                            <small>1-2 day from the day ship
-                                Shipping options will be updated during checkout.</small>
+                            <small>1-2 Tage ab Versandtag
+                                Die Versandoptionen werden während des Bestellvorgangs aktualisiert.</small>
                         </div>
                     </div>
 

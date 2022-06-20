@@ -21,7 +21,7 @@ class ThirdStep_Controller extends Controller
 //        /return Session::all();
 
         $data = [
-            '__title' => 'Payment Third Step',
+            '__title' => 'Kreditkarte',
         ];
         return view('front.payment.third-step', $data);
     }

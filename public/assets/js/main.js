@@ -151,6 +151,7 @@ $(".questionDivClose").click(() => {
 
 var swiper = new Swiper(".swiper-productHeroBottom", {
     loop: true,
+    autoWidth: true,
     spaceBetween: 10,
     slidesPerView: 4,
     freeMode: true,
@@ -167,7 +168,7 @@ var swiper2 = new Swiper(".swiper-productHeroTop", {
         swiper: swiper,
     },
 });
-
+// ![](../../../../../../Users/pc1177/AppData/Local/Temp/1655367066-20220312_125254.jpg)
 
 // END Swiper Hero
 var swiper3 = new Swiper(".differentSwiper", {

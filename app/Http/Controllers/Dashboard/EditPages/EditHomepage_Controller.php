@@ -139,8 +139,8 @@ class EditHomepage_Controller extends Controller
     {
         $contents = DB::select("
             SELECT 
-                p.id AS p_id, p.title, p.category, p.materials, p.negotiable, p.date_of_manufacture, p.slug, p.cargo_price, p.cargo_time, p.images,
-                pd.id as pd_id, pd.diameter, pd.height, pd.weight,pd.stock, pd.list_price, pd.primary_image,
+                p.id AS p_id, p.product_name, p.category, p.materials, p.date_of_manufacture, p.slug, p.cargo_price, p.cargo_time, p.product_images,
+                pd.id as pd_id, pd.diameter, pd.height, pd.weight,pd.stock, pd.list_price, pd.diameter_images,
                 pc.id
             FROM
                 page_contents pc
@@ -151,14 +151,14 @@ class EditHomepage_Controller extends Controller
             ON p.id = pd.product_id;");
 
         $products = DB::select("
-            SELECT p.id AS p_id, p.title, p.category, p.materials, p.negotiable, p.date_of_manufacture, p.slug, p.cargo_price, p.cargo_time, p.images, 
-                    pd.id AS pd_id, pd.diameter, pd.height, pd.weight,pd.stock, pd.list_price, pd.primary_image
+            SELECT p.id AS p_id, p.product_name, p.category, p.materials, p.date_of_manufacture, p.slug, p.cargo_price, p.cargo_time, p.product_images, 
+                    pd.id AS pd_id, pd.diameter, pd.height, pd.weight,pd.stock, pd.list_price, pd.diameter_images
             FROM product_details pd
             
             JOIN products p
             ON pd.product_id = p.id
             
-            ORDER BY p.title ASC");
+            ORDER BY p.product_name ASC");
 
 
         $data = [

@@ -224,15 +224,15 @@ Route::prefix('/')->group(function () {
 
     Route::post('/add-product/', [Cart_FController::class, 'GetProductDetail'])->name('get-product-detail');
     // Sepet verilerini alınıp iletişim verilerinin kontrol edildiği sayfa
-    Route::get('/first-step', [FirstStep_FController::class, 'ShowPage'])->name('front.payment.first-step');
-    Route::get('/second-step', [SecondStep_FController::class, 'ShowPage'])->name('front.payment.second-step');
+    Route::get('/basket', [FirstStep_FController::class, 'ShowPage'])->name('front.payment.first-step');
+    Route::get('/cargo-address', [SecondStep_FController::class, 'ShowPage'])->name('front.payment.second-step');
 
     // Kredi kartı bilgilerinin alındığı ve önceki sayfadan gelen iletişim bilgilerinin aktarıldığı sayfa
-    Route::post('/third-step', [ThirdStep_FController::class, 'ShowPage'])->name('front.payment.third-step');
+    Route::post('/credit-card', [ThirdStep_FController::class, 'ShowPage'])->name('front.payment.third-step');
 
     // Ödeme Kontrol ve teşekkür/hata sayfası
-    Route::get('/fourth-step', [FourthStep_FController::class, 'ShowPage'])->name('front.payment.fourth-step');
-    Route::post('/fourth-step', [FourthStep_FController::class, 'Payment'])->name('payment.post');
+    Route::get('/thank-you', [FourthStep_FController::class, 'ShowPage'])->name('front.payment.fourth-step');
+    Route::post('/thank-you', [FourthStep_FController::class, 'Payment'])->name('payment.post');
     Route::post('/3ds-callback', [FourthStep_FController::class, 'Callback3DS'])->name('callback-3ds');
 
     // Gallery Sayfası

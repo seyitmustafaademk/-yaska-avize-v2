@@ -175,7 +175,7 @@
                         <div class="img">
                             <div class="text-title text-center d-lg-none pt-4 pb-0 mb-0">
                                 <span>{{ $section2['top_title'] }}</span>
-                                <h1>{{ $section2['top_title'] }}</h1>
+                                <h1>{{ $section2['title'] }}</h1>
                             </div>
                             <img src="{{ url($section2['image']['url']) }}" alt="" class="pt-2 pt-lg-0 pb-4 resizeImg">
                         </div>
@@ -183,7 +183,7 @@
                     <div class="col-lg-5 resizeParagraph px-4 px-lg-0">
                         <div class="text-title d-none d-lg-block">
                             <span>{{ $section2['top_title'] }}</span>
-                            <h1>{{ $section2['top_title'] }}</h1>
+                            <h1>{{ $section2['title'] }}</h1>
                         </div>
                         <p>{!! $section2['description'] !!}</p>
                     </div>
@@ -320,7 +320,7 @@
                 </div>
             </div>
             <div class="row pt-5 mt-5 d-flex justify-content-center">
-                <a href="#" class="btn btnMain btn-outline-dark ms-md-3 my-3 my-lg-0 text-uppercase">Alles sehen</a>
+                <a href="{{ route('front.gallery') }}" class="btn btnMain btn-outline-dark ms-md-3 my-3 my-lg-0 text-uppercase">Alles sehen</a>
             </div>
         </div>
     </section>

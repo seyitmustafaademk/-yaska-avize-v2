@@ -11,7 +11,7 @@
                             <label>Select Product</label>
                             <select name="product" class="form-control">
                                 @foreach($products as $product)
-                                <option value="{{ $product->pd_id }}">{{ $product->title }} &nbsp;&nbsp;-->&nbsp;&nbsp; diameter :  {{ $product->diameter }}</option>
+                                <option value="{{ $product->pd_id }}">{{ $product->product_name }} &nbsp;&nbsp;-->&nbsp;&nbsp; diameter :  {{ $product->diameter }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -40,7 +40,6 @@
                         <th>Title</th>
                         <th>Category</th>
                         <th>Materials</th>
-                        <th>Negotiable</th>
                         <th>Date of Manufacture</th>
                         <th>Cargo Price</th>
                         <th>Cargo Time</th>
@@ -62,10 +61,9 @@
                                     <i class="fa fa-trash-alt"></i>
                                 </a>
                             </td>
-                            <td>{{ $content->title }}</td>
+                            <td>{{ $content->product_name }}</td>
                             <td>{{ $content->category }}</td>
                             <td>{{ $content->materials }}</td>
-                            <td>{{ $content->negotiable }}</td>
                             <td>{{ $content->date_of_manufacture }}</td>
                             <td>{{ $content->cargo_price }}</td>
                             <td>{{ $content->cargo_time }}</td>
@@ -81,7 +79,7 @@
                             @endif
                             <td>{{ $content->list_price }}</td>
                             <td>
-                                <img width="75" height="75" src="/{{ json_decode($content->primary_image, TRUE)['url'] }}" alt="">
+                                <img width="75" height="75" src="/{{ json_decode($content->product_images, TRUE)[0]['url'] }}" alt="">
                             </td>
                         </tr>
                     @endforeach
@@ -93,7 +91,6 @@
                         <th>Title</th>
                         <th>Category</th>
                         <th>Materials</th>
-                        <th>Negotiable</th>
                         <th>Date of Manufacture</th>
                         <th>Cargo Price</th>
                         <th>Cargo Time</th>

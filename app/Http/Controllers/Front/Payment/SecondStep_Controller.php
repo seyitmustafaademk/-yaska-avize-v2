@@ -16,7 +16,7 @@ class SecondStep_Controller extends Controller
     public function ShowPage()
     {
         $data = [
-            '__title' => 'Payment Second Step',
+            '__title' => 'Frachtadresse',
             'price' => $this->cart->GetPrice(),
             'paid_price' => $this->cart->GetPaidPrice(),
         ];

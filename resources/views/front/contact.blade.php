@@ -72,8 +72,8 @@
                 <div class="row justify-content-between align-items-center">
                     <div class="col-lg-7">
                         <div class="contact-info-form-inner shadow px-3 py-4">
-                            <div class="mb-4 bg-gold text-white p-2">
-                                <h5 class="text-center">Fordern Sie jetzt Ihr unverbindliches und individuelles Angebot an!</h5>
+                            <div class="mb-4 text-white p-2">
+                                <h5 class="text-center text-warning">Fordern Sie jetzt Ihr unverbindliches und individuelles Angebot an!</h5>
                             </div>
                             <form id="contact-form" action="{{ route('front.contact') }}" method="POST" enctype="multipart/form-data">
                                 <div class="row">

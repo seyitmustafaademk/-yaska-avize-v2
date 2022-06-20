@@ -35,7 +35,7 @@ class Shop_Controller extends Controller
         $category = $category === null ? 'Alle Produkte' : $category;
 
         $data = [
-            '__title' => 'Shop',
+            '__title' => $category,
             'products' => $products,
             'category' => $category,
             'categories' => $categories,
