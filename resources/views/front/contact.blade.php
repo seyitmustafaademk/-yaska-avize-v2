@@ -79,6 +79,14 @@
                                 <div class="row">
                                     @csrf
                                     <input type="hidden" name="page" value="contact">
+
+                                    <div class="mb-3 col-md-12">
+                                        <select class="form-control" name="product_name" id="">
+                                            @foreach($products as $product)
+                                                <option value="{{ $product->product_name }}">{{ $product->product_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="mb-3 col-md-12">
                                         <input name="full_name" type="text" class="form-control" id="formInput1" placeholder="Name">
                                     </div>
@@ -93,7 +101,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="mb-3">
-                                        <textarea name="message" class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                                        <textarea name="message" class="form-control" id="exampleFormControlTextarea1" rows="10" required></textarea>
                                     </div>
                                 </div>
                                 <div class="row">

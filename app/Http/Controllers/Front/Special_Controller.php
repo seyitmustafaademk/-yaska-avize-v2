@@ -26,10 +26,6 @@ class Special_Controller extends Controller
         $faqs = PageContent::where('page_name', '=', 'services')->where('section_name', '=', 'section_5')->first();
         $faqs = empty($faqs) ? null : json_decode($faqs->content, TRUE);
 
-
-//        $section4 = PageContent::where('page_name', '=', 'services')->where('section_name', '=', 'section_4')->first();
-//        $section4 = empty($section4) ? null : json_decode($section4->content, TRUE);
-
         $data = [
             '__title' => 'Services',
             'comments' => $comments,

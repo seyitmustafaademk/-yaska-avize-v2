@@ -25,7 +25,7 @@
                             <div class="input-group">
                                 <div class="custom-file">
                                     <input accept=".jpg, .png, .jpeg, .tiff|image/*"
-                                           required type="file" id="primary_image" name="primary_image" class="custom-file-input" value="">
+                                           type="file" id="primary_image" name="primary_image" class="custom-file-input" value="">
                                     <label class="custom-file-label" for="primary_image">Choose file</label>
                                 </div>
                             </div>

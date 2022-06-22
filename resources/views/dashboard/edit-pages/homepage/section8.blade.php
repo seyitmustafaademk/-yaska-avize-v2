@@ -21,13 +21,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="sss_title">SSS Title</label>
-                            <input type="text" class="form-control" name="sss_title" id="sss_title">
+                            <label for="faq_title">SSS Title</label>
+                            <input type="text" class="form-control" name="faq_title" id="faq_title">
                         </div>
 
                         <div class="form-group">
-                            <label for="sss_description">SSS Description</label>
-                            <input type="text" class="form-control" name="sss_description" id="sss_description">
+                            <label for="faq_description">SSS Description</label>
+                            <input type="text" class="form-control" name="faq_description" id="faq_description">
                         </div>
                     </div>
                 </div>
@@ -56,21 +56,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if($content != null)
-                        @foreach($content['sss'] as $key => $sss)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>
-                                    <a href="{{ route('delete.edit-page.section8', $key) }}"
-                                       style="font-size: 12px" class="btn btn-danger">
-                                        <i class="fa fa-trash-alt"></i>
-                                    </a>
-                                </td>
-                                <td>{{ $sss['sss_title'] }}</td>
-                                <td>{{ $sss['sss_description'] }}</td>
-                            </tr>
-                        @endforeach
-                    @endif
+                    @foreach($content['faq'] ?? [] as $key => $faq)
+                        <tr>
+                            <td>{{ $key + 1 }}</td>
+                            <td>
+                                <a href="{{ route('delete.edit-page.section8', $key) }}"
+                                   style="font-size: 12px" class="btn btn-danger">
+                                    <i class="fa fa-trash-alt"></i>
+                                </a>
+                            </td>
+                            <td>{{ $faq['faq_title'] }}</td>
+                            <td>{{ $faq['faq_description'] }}</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                     <tfoot>
                     <tr>

@@ -113,7 +113,7 @@ class EditAboutUs_Controller extends Controller
             'about-data' => $data,
         ], TRUE);
 
-        $created = PageContent::updateOrCreate(
+        PageContent::updateOrCreate(
             [
                 'page_name' => 'about-us',
                 'section_name' => 'section_1',
@@ -246,6 +246,8 @@ class EditAboutUs_Controller extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'image' => $primary_status,
+            'founder_name' => $request->founder_name,
+            'founder_title' => $request->founder_title,
         ], TRUE);
 
         $created = PageContent::updateOrCreate(
@@ -259,6 +261,18 @@ class EditAboutUs_Controller extends Controller
         );
 
         return redirect()->route('edit-pages.about-us.section2');
+    }
+
+    public function ShowSection3()
+    {
+        $content = PageContent::where('page_name', '=', 'about-us')->where('section_name', '=', 'section_3')->first();
+        $content = empty($content) ? null : json_decode($content->content, TRUE);
+
+        $data = [
+            '__title' => 'Raportajlar',
+            'content' => $content,
+        ];
+        return view('dashboard.edit-pages.about-us.section3', $data);
     }
 
     function FileUploadAndCreate($file, $folder_name){

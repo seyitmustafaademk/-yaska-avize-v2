@@ -192,36 +192,27 @@
         </section>
     @endif
 
-    @if(isset($section3))
-        <section class="different">
-            <div class="container-fluid py-5 gx-0 overflow-hidden">
-                <div class="row py-5 justify-content-between align-items-center">
-                    <div class="col-xl-4 ps-xl-5 ms-xl-5 pe-xl-5">
-                        @php
-                            $contentt = '';
-                            foreach ($section3 as $content){
-                                $contentt = json_decode($content->content, TRUE);;
-                            }
-                        @endphp
-                        <h1 class="text-uppercase display-3 fw-bold">{{ $contentt['desc_title'] }}</h1>
-                        <p>{{ $contentt['description'] }}</p>
-                    </div>
-                        <div class="col-xl-7 d-lg-flex justify-content-between">
-                            @foreach($section3 as $item)
-                                @php
-                                $section_data = json_decode($item->content, TRUE);
-                                @endphp
-                                <div class="position-relative item-differentSwiper m-auto shadow" style="width: 350px; height: 525px;">
-                                    <a href="{{ $section_data['url'] }}">
-                                        <img src="{{ $section_data['image']['url'] }}" alt="{{ $section_data['image']['name'] }}" width="350" height="525">
-                                    </a>
-                                    <div class="text-uppercase">{{ $section_data['title'] }}</div>
-                                </div>
-                            @endforeach
+    @if($section3['section_content'])
+    <section class="different">
+        <div class="container-fluid py-5 gx-0 overflow-hidden">
+            <div class="row py-5 justify-content-between align-items-center">
+                <div class="col-xl-4 ps-xl-5 ms-xl-5 pe-xl-5">
+                    <h1 class="text-uppercase display-3 fw-bold">{{ $section3['section_title'] }}</h1>
+                    <p>{{ $section3['section_description'] ?? '' }}</p>
+                </div>
+                <div class="col-xl-7 d-lg-flex justify-content-between">
+                    @foreach($section3['section_content'] ?? [] as $item)
+                        <div class="position-relative item-differentSwiper m-auto shadow" style="width: 350px; height: 525px;">
+                            <a href="{{ $item['url'] }}">
+                                <img src="{{ $item['primary_image']['url'] ?? '' }}" alt="{{ $item['primary_image']['name'] ?? '' }}" width="350" height="525">
+                            </a>
+                            <div class="text-uppercase">{{ $item['title'] ?? '' }}</div>
                         </div>
+                    @endforeach
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
     @endif
 
     {{-- Section 4 --}}
@@ -278,7 +269,7 @@
             <div class="container text-center text-white" style="z-index: 2;">
                 <div class="position-absolute top-50 start-50 translate-middle">
                     <h1 class="display-3 fw-bold d-none d-lg-block">{{ $section5['top_title'] }}</h1>
-                    <h1 class="display-3 fw-bold d-lg-none">{{ $section5['title'] }}</h1>
+                    <h2 class="display-7 fw-bold ">{{ $section5['title'] }}</h2>
                     <p class="text-white py-3 d-none d-lg-block">{!! $section5['description'] !!}</p>
                     <div class="mt-4">
                         <img src="{{ asset('assets/img/home/kristall_logo.png') }}" alt="" class="img-fluid">

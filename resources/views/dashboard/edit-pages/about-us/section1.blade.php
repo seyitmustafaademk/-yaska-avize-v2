@@ -1,21 +1,5 @@
 @extends('dashboard._layout.general-layout')
 
-@section('head-bottom')
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-@endsection
-@section('footer-bottom')
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-    <script>
-        $('#summernote').summernote({
-            placeholder: 'Enter content...',
-            tabsize: 2,
-            height: 300,
-            fontNames: ['Arial', 'Arial Black'],
-            addDefaultFonts: false
-        });
-    </script>
-@endsection
-
 @section('content')
     <div class="row">
         <div class="col-12">

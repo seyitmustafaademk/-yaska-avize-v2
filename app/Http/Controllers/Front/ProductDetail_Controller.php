@@ -24,13 +24,14 @@ class ProductDetail_Controller extends Controller
                                 ON pd.product_id = p.id
                                 
                                 WHERE p.id = $product_id
-        ");
+        ")[0];
+
+//        return json_decode(json_decode($products->more_materials, TRUE), TRUE);
 
         $data = [
-            '__title' => $products[0]->product_name,
-            'products' => $products[0],
+            '__title' => $products->product_name,
+            'products' => $products,
         ];
-//        return $products;
 
         return view('front.product-detail', $data);
     }

@@ -14,10 +14,14 @@ class Homepage_Controller extends Controller
         $section1 = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_1')->first();
         $section1 = empty($section1) ? null : json_decode($section1['content'], TRUE);
 
+//        return $section1;
+
         $section2 = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_2')->first();
         $section2 = empty($section2) ? null : json_decode($section2['content'], TRUE);
 
-        $section3 = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_3')->get();
+        $section3 = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_3')->first()->content;
+        $section3 = json_decode($section3, TRUE);
+//        return $section3;
 
         $section4 = DB::select("
             SELECT 
@@ -36,6 +40,8 @@ class Homepage_Controller extends Controller
 
         $section5 = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_5')->first();
         $section5 = empty($section5) ? null : json_decode($section5['content'], TRUE);
+
+//        return $section5;
 
         $section6 = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_6')->first();
         $section6 = empty($section6) ? null : json_decode($section6['content'], TRUE);

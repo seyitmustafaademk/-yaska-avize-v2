@@ -39,7 +39,7 @@ class FourthStep_Controller extends Controller
     {
         $cart = $this->cart->GetCart();
         foreach ($cart as $item) {
-            if (strtolower($item['packet']->p_category) == 'antika'){
+            if (strtolower($item['packet']->p_category) == strtolower('Antiquität')){
                 $fee = $item['count'] * $item['packet']->pd_list_price;
             }else {
                 $fee = $item['count'] * $item['packet']->pd_list_price * 1.19;

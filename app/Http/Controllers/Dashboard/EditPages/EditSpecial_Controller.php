@@ -188,10 +188,14 @@ class EditSpecial_Controller extends Controller
     {
         $data = PageContent::where('page_name', '=', 'services')->where('section_name', '=', 'section_5')->first();
         $data = empty($data) ? null : json_decode($data->content, TRUE)['faq'];
-        $data[] = [
-            'faq_title' => $request->faq_title,
-            'faq_description' => $request->faq_description,
-        ];
+//        return $data;
+
+        if ( $request->faq_title || $request->faq_description ){
+            $data[] = [
+                'faq_title' => $request->faq_title,
+                'faq_description' => $request->faq_description,
+            ];
+        }
 
         $content = json_encode([
             'top_title' => $request->top_title,
@@ -253,20 +257,25 @@ class EditSpecial_Controller extends Controller
         $content = empty($content) ? null : json_decode($content->content, TRUE);
 
         $data = [
-            '__title' => 'FAQ',
+            '__title' => 'Kullanıcı Yorumları',
             'content' => $content,
         ];
         return view('dashboard.edit-pages.services.section6', $data);
     }
+
     public function EditSection6(Request $request)
     {
         $data = PageContent::where('page_name', '=', 'services')->where('section_name', '=', 'section_6')->first();
         $data = empty($data) ? null : json_decode($data->content, TRUE)['comments'];
-        $data[] = [
-            'user_name' => $request->user_name,
-            'user_footer' => $request->user_footer,
-            'user_comment' => $request->user_comment,
-        ];
+
+        if($request->customer_name || $request->user_comment){
+            $data[] = [
+                'customer_name' => $request->customer_name,
+                'customer_title' => $request->customer_title,
+                'user_comment' => $request->user_comment,
+            ];
+        }
+
 
         $content = json_encode([
             'title' => $request->title,
@@ -274,7 +283,7 @@ class EditSpecial_Controller extends Controller
             'comments' => $data,
         ], TRUE);
 
-        $created = PageContent::updateOrCreate(
+        PageContent::updateOrCreate(
             [
                 'page_name' => 'services',
                 'section_name' => 'section_6',

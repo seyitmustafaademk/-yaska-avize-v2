@@ -4,14 +4,22 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class Contact_Controller extends Controller
 {
-    public function ShowPage()
+    public function ShowPage($slug = null)
     {
+        if ($slug == null){
+            $products = Product::all();
+        }else {
+            $products = Product::where('slug', $slug)->get();
+        }
+
         $data = [
             '__title' => 'Kontakt',
+            'products' => $products,
         ];
         return view('front.contact', $data);
     }
@@ -50,6 +58,7 @@ class Contact_Controller extends Controller
         #endregion
 
         $message = '';
+
         if ($request->page && $request->page == 'contact') {
 
             #region CHECK ---> CHECKBOX
@@ -68,23 +77,25 @@ class Contact_Controller extends Controller
             }
             #endregion
         }
-
-        $image = $this->FileUploadAndCreate($request->file('image'), 'contact-page');
-
-        //return $image;
+        if ($request->hasFile('image')){
+            $image = $this->FileUploadAndCreate($request->file('image'), 'contact-page');
+        }
+        else {
+            $image['url'] = '';
+        }
 
         $insert = Contact::create([
             'firstname' => $fullname,
             'email' => $email,
             'phone_number' => $phone_number,
             'message' => $message,
+            'product_name' => $request->product_name ?? '',
             'image' => $image['url'],
         ])->id;
         if ($insert)
             return response()->json(['status_message' => 'İletişim bilgilerinizi aldık en kısa sürede dönüş sağlayacağız!', 'status_code' => 'success']);
         else
             return response()->json(['status_message' => 'Bir hata oluştu ve iletişim bilgilerinizi alamadık, lütfen birazdan tekrar deneyin!', 'status_code' => 'error']);
-
     }
 
     function FileUploadAndCreate($file, $folder_name){

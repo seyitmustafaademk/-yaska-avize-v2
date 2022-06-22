@@ -20,13 +20,14 @@
     </script>
 @endsection
 
+
 @section('content')
     <section class="shop-wrapper pt-5 mt-5">
         <div class="container">
             <div class="row justify-content-between align-items-center mb-md-5">
-                <h3 class="d-inline-block d-md-none text-center mb-4 fw-500">{{ $category }}</h3>
+                <h3 class="d-inline-block d-md-none text-center mb-4 fw-500">{{ ($category == 'Modern' || $category == 'Antiquität') ? $category . ' Kronleuchter' : $category }}</h3>
                 <div class="shop-btn-all filter-menu d-flex  flex-wrap flex-md-nowrap align-items-center">
-                    <h3 class="d-none d-md-inline-block me-4 fw-500">{{ $category }}</h3>
+                    <h3 class="d-none d-md-inline-block me-4 fw-500">{{ ($category == 'Modern' || $category == 'Antiquität') ? $category . ' Kronleuchter' : $category }}</h3>
                 </div>
             </div>
             <div class="row">
@@ -56,42 +57,12 @@
     <section class="quality bg-white mt-5">
         <div class="container py-5">
             <div class="text-title pb-3">
-                <span>sizden gelen</span>
-                <h1>Kaliteli Avizenin Adresi</h1>
+                <span>{{ $content['top_title'] }}</span>
+                <h1>{{ $content['title'] }}</h1>
             </div>
-            <p>
-                Für viele Liebhaber schneller Motoren oder leistungsstarker Nutzfahrzeuge ist es ein spannendes
-                Hobby, Auto- und Verkehrsmodelle im Miniformat wie 1:18, 1:43 oder 1:87 zu sammeln (z.B. von Red
-                Bull Racing). Der Klassiker dabei ist natürlich Matchbox, der Siku control, WIKING Modelle sowie
-                Espewe Modelle. Schnelle Flitzer wie bekannte Rennfahrzeuge von etablierten Automarken (wie z.B.
-                Porsche Targa oder den Porsche 993 Turbo) gibt es dabei nicht nur von den jeweiligen Herstellern
-                oder von auf Modellautos spezialisierten Marken zu kaufen. Auch private Anbieter veräußern Stücke
-                aus ihren Vitrinen, sodass auch Auto- oder natürlich auch Lkw- oder Bus-Miniaturen mit hohem
-                Sammlerwert zu entdecken sind.
-            </p>
-            <p>
-                Für viele Liebhaber schneller Motoren oder leistungsstarker Nutzfahrzeuge ist es ein spannendes
-                Hobby, Auto- und Verkehrsmodelle im Miniformat wie 1:18, 1:43 oder 1:87 zu sammeln (z.B. von Red
-                Bull Racing). Der Klassiker dabei ist natürlich Matchbox, der Siku control, WIKING Modelle sowie
-                Espewe Modelle. Schnelle Flitzer wie bekannte Rennfahrzeuge von etablierten Automarken (wie z.B.
-                Porsche Targa oder den Porsche 993 Turbo) gibt es dabei nicht nur von den jeweiligen Herstellern
-                oder von auf Modellautos spezialisierten Marken zu kaufen. Auch private Anbieter veräußern Stücke
-                aus ihren Vitrinen, sodass auch Auto- oder natürlich auch Lkw- oder Bus-Miniaturen mit hohem
-                Sammlerwert zu entdecken sind.
-            </p>
-            <p>
-                Nutzfahrzeuge im kleinen Format
-            </p>
-            <p>
-                Für viele Liebhaber schneller Motoren oder leistungsstarker Nutzfahrzeuge ist es ein spannendes
-                Hobby, Auto- und Verkehrsmodelle im Miniformat wie 1:18, 1:43 oder 1:87 zu sammeln (z.B. von Red
-                Bull Racing). Der Klassiker dabei ist natürlich Matchbox, der Siku control, WIKING Modelle sowie
-                Espewe Modelle. Schnelle Flitzer wie bekannte Rennfahrzeuge von etablierten Automarken (wie z.B.
-                Porsche Targa oder den Porsche 993 Turbo) gibt es dabei nicht nur von den jeweiligen Herstellern
-                oder von auf Modellautos spezialisierten Marken zu kaufen. Auch private Anbieter veräußern Stücke
-                aus ihren Vitrinen, sodass auch Auto- oder natürlich auch Lkw- oder Bus-Miniaturen mit hohem
-                Sammlerwert zu entdecken sind.
-            </p>
+            <div>
+                {!! $content['description'] !!}
+            </div>
         </div>
     </section>
 @endsection

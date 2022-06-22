@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Exception\TimeSourceException;
 
 class EditHomepage_Controller extends Controller
 {
@@ -92,8 +93,10 @@ class EditHomepage_Controller extends Controller
     #region SECTION 3
     public function ShowSection3()
     {
-        $content = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_3')->get();
-//return $content;
+//        $content = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_3')->get();
+        $content = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_3')->first()['content'];
+        $content = json_decode($content, TRUE) ?? [];
+//        return $content;
 
         $data = [
             '__title' => 'Edit Section 3',
@@ -103,32 +106,81 @@ class EditHomepage_Controller extends Controller
     }
     public function EditSection3(Request $request)
     {
-        $primary_status = $this->FileUploadAndCreate($request->primary_image, '/homepage/section-3');
+        $content = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_3')->first()['content'];
+        $content = json_decode($content, TRUE)['section_content'] ?? [];
 
-        $content = json_encode([
-            'desc_title' => $request->desc_title,
-            'description' => $request->description,
-            'title' => $request->title,
-            'url' => $request->url,
-            'image' => $primary_status
+        $last_id = $content[count($content) - 1]['id'] ?? 0;
+
+//        return $last_id;
+
+        if ($request->hasFile('primary_image')){
+            $primary_status = $this->FileUploadAndCreate($request->primary_image, '/homepage/section-3');
+            $content[] = [
+                'id' => ++$last_id,
+                'title' => $request->list_title,
+                'url' => $request->list_url,
+                'primary_image' => $primary_status,
+            ];
+        }
+
+        $json_content = json_encode([
+            'section_title' => $request->desc_title,
+            'section_description' => $request->description,
+            'section_content' => $content,
         ], TRUE);
 
-        PageContent::create([
+        PageContent::updateOrCreate(
+            [
                 'page_name' => 'homepage',
                 'section_name' => 'section_3',
-                'content' => $content,
+            ],
+            [
+                'content' => $json_content,
             ]
         );
 
         return redirect()->route('edit-pages.homepage.section3');
     }
+
     public function DeleteSection3($id)
     {
-        $delete_data = PageContent::where('page_name', '=', 'homepage')->where('id', '=', $id)->first();
-        $content = json_decode($delete_data->content, TRUE);
-        $image_name = $content['image']['url'];
-        $delete_data->delete();
-        \File::delete(public_path($image_name));
+        $delete_data = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_3')->first()['content'];
+
+        $section_content = json_decode($delete_data, TRUE)['section_content'] ?? [];
+//        return $delete_data;
+
+
+        $deleted_item = [];
+        $new_item = [];
+        for ($i=0; $i< count($section_content); $i++){
+            if ($section_content[$i]['id'] == $id){
+                $deleted_item = $section_content[$i];
+            }
+            else {
+                $new_item[] = $section_content[$i];
+            }
+        }
+
+        $delete_data = json_decode($delete_data, TRUE) ?? [];
+        $delete_data['section_content'] = $new_item;
+
+        $image_name = $deleted_item['primary_image']['url'];
+        \File::delete(public_path( $image_name ));
+
+
+        $json_content = json_encode( $delete_data, TRUE);
+
+//        return $json_content;
+
+        PageContent::updateOrCreate(
+            [
+                'page_name' => 'homepage',
+                'section_name' => 'section_3',
+            ],
+            [
+                'content' => $json_content,
+            ]
+        );
 
         return redirect()->route('edit-pages.homepage.section3');
     }
@@ -196,6 +248,8 @@ class EditHomepage_Controller extends Controller
 
         $content = empty($content) ? null : json_decode($content->content, TRUE);
 
+//        return $content;
+
         $data = [
             '__title' => 'Edit Section 5',
             'content' => $content,
@@ -249,11 +303,16 @@ class EditHomepage_Controller extends Controller
     }
     public function EditSection6(Request $request)
     {
-        $primary_status = $this->FileUploadAndCreate($request->primary_image, '/homepage/section-6');
-
         $data = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_6')->first();
         $data = empty($data) ? null : json_decode($data->content, TRUE)['images'];
-        $data[] = $primary_status;
+
+
+        if ($request->hasFile('primary_image')){
+            $primary_status = $this->FileUploadAndCreate($request->primary_image, '/homepage/section-6');
+            $data[] = $primary_status;
+        }
+
+
 
         $content = json_encode([
             'top_title' => $request->top_title,
@@ -376,17 +435,20 @@ class EditHomepage_Controller extends Controller
     public function EditSection8(Request $request)
     {
         $data = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_8')->first();
-        $data = empty($data) ? null : json_decode($data->content, TRUE)['sss'];
-        $data[] = [
-            'sss_title' => $request->sss_title,
-            'sss_description' => $request->sss_description,
-        ];
+        $data = empty($data) ? null : json_decode($data->content, TRUE)['faq'];
+
+        if ( $request->faq_title ||  $request->faq_description){
+            $data[] = [
+                'faq_title' => $request->faq_title,
+                'faq_description' => $request->faq_description,
+            ];
+        }
 
         $content = json_encode([
             'top_title' => $request->top_title,
             'title' => $request->title,
             'description' => $request->description,
-            'sss' => $data,
+            'faq' => $data,
         ], TRUE);
 
         $created = PageContent::updateOrCreate(
@@ -404,7 +466,7 @@ class EditHomepage_Controller extends Controller
     public function DeleteSection8($id)
     {
         $real_data = PageContent::where('page_name', '=', 'homepage')->where('section_name', '=', 'section_8')->first();
-        $data = empty($real_data) ? null : json_decode($real_data->content, TRUE)['sss'];
+        $data = empty($real_data) ? null : json_decode($real_data->content, TRUE)['faq'];
         $real_data = empty($real_data) ? null : json_decode($real_data->content, TRUE);
 
         if ($data != null){
@@ -419,7 +481,7 @@ class EditHomepage_Controller extends Controller
             'top_title' => $real_data['top_title'],
             'title' => $real_data['title'],
             'description' => $real_data['description'],
-            'sss' => $data,
+            'faq' => $data,
         ], TRUE);
 
         $created = PageContent::updateOrCreate(

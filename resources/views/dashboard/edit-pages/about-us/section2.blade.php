@@ -28,6 +28,17 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="form-group">
+                        <label for="founder_name">Founder Name</label>
+                        <input type="text" class="form-control" name="founder_name" id="founder_name" value="{{ $content['founder_name'] ?? null }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="founder_title">Founder Title</label>
+                        <input type="text" class="form-control" name="founder_title" id="founder_title" value="{{ $content['founder_title'] ?? null }}">
+                    </div>
                 </div>
 
                 <div class="card-footer">

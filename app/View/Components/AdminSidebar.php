@@ -131,6 +131,23 @@ class AdminSidebar extends Component
                             'icon' => 'far fa-circle',
                             'url' => route('edit-pages.about-us.section2'),
                         ],
+                        [
+                            'title' => 'Raportajlar',
+                            'icon' => 'far fa-circle',
+                            'url' => route('admin.edit-pages.about-us.section-3'),
+                        ],
+                    ]
+                ],
+                [
+                    'title' => 'Shop',
+                    'icon' => 'fas fa-tree',
+                    'url' => '#',
+                    'submenus' => [
+                        [
+                            'title' => 'Section 1',
+                            'icon' => 'far fa-circle',
+                            'url' => route('admin.edit-pages.shop.section-1'),
+                        ],
                     ]
                 ],
                 [
@@ -141,7 +158,7 @@ class AdminSidebar extends Component
                         [
                             'title' => 'Section 1',
                             'icon' => 'far fa-circle',
-                            'url' => route('edit-pages.about-us.section1'),
+                            'url' => route('edit-pages.services.section1'),
                         ],
                         [
                             'title' => 'Section 2',

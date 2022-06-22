@@ -145,21 +145,19 @@ $(".questionDivClose").click(() => {
     $(".questionDiv").hide(100);
 });
 
-
+Sho3
 
 // Swiper Hero
 
 var swiper = new Swiper(".swiper-productHeroBottom", {
     loop: true,
-    autoWidth: true,
-    spaceBetween: 10,
-    slidesPerView: 4,
+    // autoWidth: true,
+    slidesPerView: 5,
     freeMode: true,
     watchSlidesProgress: true,
 });
 var swiper2 = new Swiper(".swiper-productHeroTop", {
     loop: true,
-    spaceBetween: 10,
     navigation: {
         nextEl: ".swiper-button-next",
         prevEl: ".swiper-button-prev",
@@ -182,6 +180,44 @@ var swiper3 = new Swiper(".differentSwiper", {
 
 
 
-$(document).ready(function() {
-    $('.animsition').animsition();
+/**************************************************************************************/
+/**************************************************************************************/
+/**************************************************************************************/
+// COOKIE POPUP KODLARI GELECEK
+$(document).ready(function (){
+    var cookie_wrapper = $('#custom-cookie-wrapper');
+    var temp_cookie = Cookies.get('cookie');
+
+    if ( temp_cookie !== 'true' ){
+        cookie_wrapper.removeClass('d-none');
+    }
+
+    $('#btn-cookie-accept').click(function (){
+        cookie_wrapper.addClass('d-none');
+        var date = new Date();
+        var m = 1000000;
+        date.setTime(date.getTime() + (m * 60 * 1000));
+        Cookies.set('cookie', 'true',  { expires: date });
+    });
 });
+
+
+/**************************************************************************************/
+/**************************************************************************************/
+/**************************************************************************************/
+// FAQ KODLARI
+const items = document.querySelectorAll("section.faq-new .accordion button");
+
+function toggleAccordion() {
+    const itemToggle = this.getAttribute('aria-expanded');
+
+    for (i = 0; i < items.length; i++) {
+        items[i].setAttribute('aria-expanded', 'false');
+    }
+
+    if (itemToggle === 'false') {
+        this.setAttribute('aria-expanded', 'true');
+    }
+}
+
+items.forEach(item => item.addEventListener('click', toggleAccordion));

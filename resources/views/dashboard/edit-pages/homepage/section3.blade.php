@@ -7,34 +7,31 @@
             <form action="{{ route('edit-pages.homepage.section3') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
-                    @php
-                        $contentt = json_decode($contents[0]->content, TRUE);
-                    @endphp
                     <div class="form-group-wrapper">
                         <div class="form-group">
                             <label for="desc_title">Description Title</label>
-                            <input type="text" class="form-control" name="desc_title" id="desc_title" value="{{ $contentt['desc_title'] ?? null }}">
+                            <input type="text" class="form-control" name="desc_title" id="title" value="{{ $contents['section_title'] ?? null }}" required>
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <input type="text" class="form-control" name="description" id="description" value="{{ $contentt['description'] ?? null }}">
+                            <input type="text" class="form-control" name="description" id="description" value="{{ $contents['section_description'] ?? null }}" required>
                         </div>
                         <hr>
                         <div class="form-group">
                             <label for="title">Title</label>
-                            <input type="text" class="form-control" name="title" id="title">
+                            <input type="text" class="form-control" name="list_title" id="title">
                         </div>
 
                         <div class="form-group">
                             <label for="url">URL</label>
-                            <input type="url" class="form-control" name="url" id="url">
+                            <input type="url" class="form-control" name="list_url" id="url">
                         </div>
                         <div class="form-group">
                             <label for="file_primary_image">Image</label>
                             <div class="input-group">
                                 <div class="custom-file">
                                     <input accept=".jpg, .png, .jpeg, .tiff|image/*"
-                                           required type="file" id="primary_image" name="primary_image" class="custom-file-input" value="">
+                                           type="file" id="primary_image" name="primary_image" class="custom-file-input" value="">
                                     <label class="custom-file-label" for="primary_image">Choose file</label>
                                 </div>
                             </div>
@@ -61,31 +58,26 @@
                     <tr>
                         <th>#</th>
                         <th>Action</th>
-                        <th>Descripton Title</th>
-                        <th>Description</th>
                         <th>Title</th>
                         <th>URL</th>
                         <th>Image</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($contents as $content)
-                        @php
-                            $content_data = json_decode($content->content, TRUE);
-                        @endphp
+                    @foreach(($contents['section_content'] ?? []) as $content)
                         <tr>
-                            <td>{{ $content->id }}</td>
+                            <td>{{ $content['id'] }}</td>
                             <td>
-                                <a href="{{ route('delete.edit-page.section3', $content->id) }}"
+                                <a href="{{ route('delete.edit-page.section3', $content['id']) }}"
                                    style="font-size: 12px" class="btn btn-danger">
                                     <i class="fa fa-trash-alt"></i>
                                 </a>
                             </td>
-                            <td>{{ $content_data['desc_title'] ?? '' }}</td>
-                            <td>{{ $content_data['description'] ?? '' }}</td>
-                            <td>{{ $content_data['title'] ?? '' }}</td>
-                            <td>{{ $content_data['url'] ?? '' }}</td>
-                            <td>{{ $content_data['image']['url'] ?? '' }}</td>
+                            <td>{{ $content['title'] ?? '' }}</td>
+                            <td>{{ $content['url'] ?? '' }}</td>
+                            <td>
+                                <img src="{{ url($content['primary_image']['url'] ?? '#') }}" alt="" height="75" width="75">
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -93,8 +85,6 @@
                     <tr>
                         <th>#</th>
                         <th>Action</th>
-                        <th>Descripton Title</th>
-                        <th>Description</th>
                         <th>Title</th>
                         <th>URL</th>
                         <th>Image</th>

@@ -11,6 +11,8 @@ class Contact_Controller extends Controller
     public function ShowPage()
     {
         $contacts = Contact::all();
+//        return $contacts;
+
         $data = [
             '__title' => 'Contact',
             'contacts' => $contacts,

@@ -31,6 +31,7 @@ use App\Http\Controllers\Dashboard\Blog\BlogList_Controller;
 use App\Http\Controllers\Dashboard\Product\ProductDetails_Controller;
 use App\Http\Controllers\Dashboard\Product\Color_Controller;
 use App\Http\Controllers\Dashboard\Gallery_Controller;
+use App\Http\Controllers\Dashboard\EditPages\EditShop_Controller;
 
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [Homepage_Controller::class, 'ShowPage'])->name('admin.homepage');
@@ -167,6 +168,12 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/blog/categories', [BlogCategory_Controller::class, 'ShowPage'])->name('admin.blog.categories');
     Route::post('/blog/categories/add', [BlogCategory_Controller::class, 'Insert'])->name('admin.blog.add-category');
     Route::post('/blog/categories/delete', [BlogCategory_Controller::class, 'Delete'])->name('admin.blog.delete-category');
+
+    Route::get('/edit-pages/shop/section1', [EditShop_Controller::class, 'ShowPage'])->name('admin.edit-pages.shop.section-1');
+    Route::post('/edit-pages/shop/section1', [EditShop_Controller::class, 'Insert']);
+
+    Route::get('/edit-pages/about-us/section1', [EditAboutUs_Controller::class, 'ShowSection3'])->name('admin.edit-pages.about-us.section-3');
+    Route::post('/edit-pages/about-us/section1', [EditAboutUs_Controller::class, 'EditSection3']);
     #endregion
 });
 
@@ -202,13 +209,15 @@ use App\Http\Controllers\Front\Gallery_Controller as Gallery_FController;
 
 Route::prefix('/')->group(function () {
     Route::get('/', [Homepage_FController::class, 'ShowPage'])->name('front.homepage');
-    Route::get('/about-us', [AboutUs_FController::class, 'ShowPage'])->name('front.about-us');
-    Route::get('/contact', [Contact_FController::class, 'ShowPage'])->name('front.contact');
-    Route::post('/contact', [Contact_FController::class, 'InsertContact']);
-    Route::get('/special', [Special_FController::class, 'ShowPage'])->name('front.special');
+    Route::get('/uber-uns', [AboutUs_FController::class, 'ShowPage'])->name('front.about-us');
 
-    Route::get('/blog', [Blog_FController::class, 'ShowPage'])->name('front.blog');
-    Route::get('/blog/category/{category}', [Blog_FController::class, 'ShowCategory'])->name('front.show-category');
+    Route::get('/kontakt/{slug?}', [Contact_FController::class, 'ShowPage'])->name('front.contact');
+
+    Route::post('/kontakt', [Contact_FController::class, 'InsertContact']);
+    Route::get('/services', [Special_FController::class, 'ShowPage'])->name('front.special');
+
+    Route::get('/stories', [Blog_FController::class, 'ShowPage'])->name('front.blog');
+    Route::get('/stories/category/{category}', [Blog_FController::class, 'ShowCategory'])->name('front.show-category');
     Route::get('/blog-detail/{slug}', [BlogDetail_FController::class, 'ShowPage'])->name('front.blog-detail');
 
     #region Sepet Sistemi
@@ -216,27 +225,27 @@ Route::prefix('/')->group(function () {
     Route::match(['get', 'post'], '/set-cart/{pd_id?}', [Cart_FController::class, 'SetCartItem'])->name('cart.set-cart');
     Route::get('/decrease-item/{id}', [Cart_FController::class, 'DecreaseCart'])->name('cart.decrease-item');
     Route::get('/delete-item/{id}', [Cart_FController::class, 'DeleteCart'])->name('cart.delete-item');
+//    Route::post('/add-product/', [Cart_FController::class, 'GetProductDetail'])->name('get-product-detail');
     #endregion
 
-    Route::get('/shop/{category?}', [Shop_FController::class, 'ShowPage'])->name('front.shop');
-    Route::get('/product-detail/{slug?}', [ProductDetail_FController::class, 'ShowPage'])->name('front.product-detail');
-    Route::post('/product-detail/{pid}/{pdid}', [ProductDetail_FController::class, 'GetImages']);
+    Route::get('/produkte/{category?}', [Shop_FController::class, 'ShowPage'])->name('front.shop');
+    Route::get('/produktdetail/{slug?}', [ProductDetail_FController::class, 'ShowPage'])->name('front.product-detail');
+    Route::post('/produktdetail/{pid}/{pdid}', [ProductDetail_FController::class, 'GetImages']);
 
-    Route::post('/add-product/', [Cart_FController::class, 'GetProductDetail'])->name('get-product-detail');
     // Sepet verilerini alınıp iletişim verilerinin kontrol edildiği sayfa
     Route::get('/basket', [FirstStep_FController::class, 'ShowPage'])->name('front.payment.first-step');
-    Route::get('/cargo-address', [SecondStep_FController::class, 'ShowPage'])->name('front.payment.second-step');
+    Route::get('/kargo-Adresse', [SecondStep_FController::class, 'ShowPage'])->name('front.payment.second-step');
 
     // Kredi kartı bilgilerinin alındığı ve önceki sayfadan gelen iletişim bilgilerinin aktarıldığı sayfa
     Route::post('/credit-card', [ThirdStep_FController::class, 'ShowPage'])->name('front.payment.third-step');
 
     // Ödeme Kontrol ve teşekkür/hata sayfası
-    Route::get('/thank-you', [FourthStep_FController::class, 'ShowPage'])->name('front.payment.fourth-step');
-    Route::post('/thank-you', [FourthStep_FController::class, 'Payment'])->name('payment.post');
+    Route::get('/danke', [FourthStep_FController::class, 'ShowPage'])->name('front.payment.fourth-step');
+    Route::post('/danke', [FourthStep_FController::class, 'Payment'])->name('payment.post');
     Route::post('/3ds-callback', [FourthStep_FController::class, 'Callback3DS'])->name('callback-3ds');
 
     // Gallery Sayfası
-    Route::get('/gallery', [Gallery_FController::class, 'ShowPage'])->name('front.gallery');
+    Route::get('/gallerie', [Gallery_FController::class, 'ShowPage'])->name('front.gallery');
 });
 #endregion
 

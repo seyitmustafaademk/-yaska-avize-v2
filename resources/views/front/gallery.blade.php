@@ -17,6 +17,13 @@
 @section('content')
     <div class="container">
         <div class="row my-5 pt-5">
+            @foreach($homepage_gallery as $homepage_gallery_item)
+                <div class="img-wrapper my-3 col-6 col-md-2 col-lg-3">
+                    <a data-fancybox="gallery mx-3" href="{{ asset($homepage_gallery_item['url']) }}">
+                        <img src="{{ $homepage_gallery_item['url'] }}">
+                    </a>
+                </div>
+            @endforeach
             @foreach($gallery as $image)
                 <div class="img-wrapper my-3 col-6 col-md-2 col-lg-3">
                     <a data-fancybox="gallery mx-3" href="{{ asset($image-> media_url) }}">

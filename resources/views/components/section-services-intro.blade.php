@@ -1,6 +1,6 @@
 <div>
     @if($services_intro != null)
-        <section class="detail-video py-lg-5">
+        <section class="detail-video">
             <div class="container-fluid g-0 overflow-hidden py-5 py-lg-0">
                 <div class="row justify-content-between align-items-center" style="background: #0d0d16;">
                     <div class="col-lg-6 pt-4 pt-lg-0">

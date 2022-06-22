@@ -46,75 +46,30 @@
 
     <x-section-services-shipping/>
 
-    @if($faqs != null)
-    <section class="faq pb-5">
-        <div class="container py-5">
+{{--    <x-section-homepage-faq/>--}}
+    <section class="faq-new">
+        <div class="container">
             <div class="text-title text-center pb-5">
-                <span class="text-gray-dark">{{ $faqs['top_title'] }}</span>
+                <span>{{ $faqs['top_title'] }}</span>
                 <h1>{{ $faqs['title'] }}</h1>
-                <p class="text-gray-dark">{{ $faqs['description'] }}</p>
+                <p>{{ $faqs['description'] }}</p>
             </div>
-            <div class="row">
-                <div class="accordion row" id="accordionPanelsStayOpenExample">
-                    @foreach($faqs['faq'] as $faqs)
-                        <div class="accordion-item col-lg-6 px-1">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne-{{$loop->index}}" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne-{{$loop->index}}">
-                                    {{ $faqs['faq_title'] }}
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseOne-{{$loop->index}}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne-{{$loop->index}}">
-                                <div class="accordion-body">
-                                    {!! $faqs['faq_description'] !!}
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-{{--                <div class="col-lg-6">
-                    <div class="accordion" id="accordionPanelsStayOpenExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
-                                    Met onze in-house kennis en kunde op
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                                <div class="accordion-body">
-                                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingFor">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFor">
-                                    Met onze in-house kennis en kunde op
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseFor" class="accordion-collapse collapse">
-                                <div class="accordion-body">
-                                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingFive">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive">
-                                    Met onze in-house kennis en kunde op
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
-                                <div class="accordion-body">
-                                    <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                                </div>
-                            </div>
+
+            <div class="accordion">
+                @foreach($faqs['faq'] as $key => $faq)
+                    <div class="accordion-item">
+                        <button id="accordion-button-1" aria-expanded="false">
+                            <span class="accordion-title">{{ $faq['faq_title'] }}</span>
+                            <span class="icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="accordion-content">
+                            <p>{!! $faq['faq_description'] !!}</p>
                         </div>
                     </div>
-                </div>--}}
+                @endforeach
             </div>
         </div>
     </section>
-    @endif
 
     {{-- User Comments --}}
     @if($comments != null)
@@ -133,8 +88,8 @@
                                     <div class="testimonial-body-item-top">
                                         <img src="{{ asset('assets/img/comment-icon.png') }}" alt="Comment Icon" width="50" height="auto">
                                         <div class="ms-3">
-                                            <span>{{ $comment['user_name'] }}</span>
-                                            <span class="text-primary d-block">{{ $comment['user_footer'] }}</span>
+                                            <span>{{ $comment['customer_name'] }}</span>
+                                            <span class="text-primary d-block">{{ $comment['customer_title'] }}</span>
                                         </div>
                                     </div>
                                     <img src="{{ asset('assets/img/special_star.png') }}" alt="" class="img-fluid py-3">

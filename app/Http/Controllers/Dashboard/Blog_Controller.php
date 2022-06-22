@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class Blog_Controller extends Controller
 {
-    public function ShowPage(Request $request)
+    public function ShowPage()
     {
         $data = [
             '__title' => 'Add Content',
@@ -15,10 +15,5 @@ class Blog_Controller extends Controller
         ];
 
         return view('dashboard.blog.add-content', $data);
-    }
-
-    public function InsertPost(Request $request)
-    {
-        return $request->all();
     }
 }

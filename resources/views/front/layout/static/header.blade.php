@@ -66,14 +66,14 @@
                             <div class="position-relative order-1 order-xl-5 sepetim">
                                 <div class="position-absolute mt-3 py-3 rounded-0 sepetmain d-none px-3 bg-light top-100">
                                     <div class="sepetimt position-relative mb-3">
-                                        <span class="pt-4">Overview</span>
+                                        <span class="pt-4">Überblick</span>
                                         <span class="position-absolute pointer top-0 start-100 translate-middle sepet-iclose-icon">X</span>
                                     </div>
                                     <div class="sepp-add-item">
 
                                     </div>
                                     <div class="pt-4 d-flex justify-content-between">
-                                        <a href="{{ route('front.payment.first-step') }}" id="sepete-git" class="btn w-100 py-3" style="background-color: #d4b068!important; color: white!important;">Check Out</a>
+                                        <a href="{{ route('front.payment.first-step') }}" id="sepete-git" class="btn w-100 py-3" style="background-color: #d4b068!important; color: white!important;">Auschecken</a>
                                     </div>
                                 </div>
                             </div>

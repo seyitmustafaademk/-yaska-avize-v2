@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Nette\Utils\Image;
 
 class EditContent_Controller extends Controller
 {
@@ -51,7 +52,7 @@ class EditContent_Controller extends Controller
         $images = $dom->getElementsByTagName('img');
         $now_date = Carbon::now();
 
-        $first = false;
+/*        $first = false;
         $first_image = null;
         foreach ($images as $k => $img) {
             try {
@@ -78,15 +79,62 @@ class EditContent_Controller extends Controller
 
         }
 
-        $description = $dom->saveHTML();
+        $description = $dom->saveHTML();*/
+
+        $result = $this->GetSummernoteData($description, $title);
 
         Post::where('id', '=', $id)->update([
             'title' => $title,
             'category_id' => $category_id,
-            'content' => $description,
+            'content' => $result['summernote'],
             'slug' => $slug,
-            'image' => $first_image,
+            'image' => $result['first_image'],
         ]);
         return redirect()->route('admin.blog.list');
+    }
+
+    public function GetSummernoteData($summernote, $title)
+    {
+        $dom = new \DomDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHtml('<?xml encoding="utf-8" ?>' . $summernote, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_use_internal_errors(false);
+        $images = $dom->getElementsByTagName('img');
+        $now_date = Carbon::now();
+
+        $first = false;
+        $first_image = null;
+        foreach ($images as $k => $img) {
+
+            try {
+                $data = $img->getAttribute('src');
+                list($type, $data) = explode(';', $data);
+                list(, $data) = explode(',', $data);
+
+                $data = base64_decode($data);
+                $image_name = Str::slug(microtime(true) . "-$k-$title");
+                $image_path = "uploads\blog-content\\" . Str::slug($now_date . '-' . strtolower($title)) . "\\$image_name.png";
+
+                if (!$first){
+                    $first = true;
+                    $first_image = $image_path;
+                }
+                Storage::disk('public_folder')->put($image_path, $data);
+
+
+                $image_path = str_replace('\\', '/', $image_path);
+                $img->removeAttribute('src');
+                $img->setAttribute('src', asset($image_path));
+            }catch (\Exception $exception){
+
+            }
+        }
+
+        $description = $dom->saveHTML();
+
+        return [
+            'summernote' => $description,
+            'first_image' => $first_image,
+        ];
     }
 }

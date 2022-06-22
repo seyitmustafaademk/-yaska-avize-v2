@@ -16,21 +16,21 @@
         .swiper-slide-thumb-active {
             opacity: 1;
         }
-        .item-productHeroBottom img {
-            width: 150px !important;
-            height: 130px !important;
-        }
-        .item-productHeroTop img {
-            height: 650px !important;
-        }
+        /*.item-productHeroBottom img {*/
+        /*    width: 150px !important;*/
+        /*    height: 130px !important;*/
+        /*}*/
+        /*.item-productHeroTop img {*/
+        /*    height: 650px !important;*/
+        /*}*/
     </style>
 @endsection
 
 @section('content')
     <section class="product-detail-hero">
-        <div class="container-fluid gx-0 overflow-hidden">
-            <div class="row justify-content-center justify-content-xl-between align-items-center">
-                <div class="col-xl-5 ps-xl-3 position-relative bg-white pb-lg-5 text-center bg-light">
+        <div class="container-fluid px-xl-5 gx-0 overflow-hidden">
+            <div class="row justify-content-center justify-content-xl-between align-items-start pt-5">
+                <div class="col-xl-5 position-relative bg-white pb-lg-5 text-center bg-light">
                     <div class="productHero position-relative">
                         <!-- ### Swiper Hero Top ### -->
 
@@ -52,7 +52,7 @@
                         <div thumbsSlider="" class="swiper swiper-productHeroBottom">
                             <div class="swiper-wrapper">
                                 @foreach($images as $image)
-                                    <div class="swiper-slide item-productHeroBottom">
+                                    <div class="swiper-slide item-productHeroBottom pt-3">
                                         <img src="/{{ $image['url'] }}"/>
                                     </div>
                                 @endforeach
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-6 py-lg-5">
+                <div class="col-xl-6">
                     <div class="product-detail-title text-center text-xl-start">
                         <a href="#" onclick="window.history.go(-1); return false;" class="fs-5 fw-bold text-dark">
                             <i class="bi bi-arrow-left me-2"></i> {{ $products->category }}
@@ -71,24 +71,44 @@
                     </div>
 
                     <div class="product-detail-inner py-3 px-2 px-lg-0 text-center text-xl-start">
-                        <div class="product-detail-table-info row align-items-baseline justify-content-center justify-content-xl-start">
-                            <div class="product-detail-style col-md-3">
-                                <span class="fw-bold d-block text-uppercase diameter-text">Produktdurchmesser</span>
-                                <ul class="nav nav-pills mt-2 mb-3 justify-content-center justify-content-xl-start flex-wrap" id="pills-tab" role="tablist">
-                                    @php
-                                        $diameter_ids = array_filter(explode(',', $products->pd_id));
-                                        $diameters = array_filter(explode(',', $products->diameter));
-                                    @endphp
-                                    @for($i=0; $i< count($diameter_ids); $i++)
-                                        <li class="nav-item" role="presentation">
-                                            <button data-id="{{ $diameter_ids[$i] }}" data-p_id="{{ $products->id }}"
-                                                    class="nav-link active  diameter-btn" id="pills-{{ $diameter_ids[$i] }}-tab" data-bs-toggle="pill"
-                                                    data-bs-target="#pills-{{ $diameter_ids[$i] }}" type="button" role="tab">{{ $diameters[$i] }}</button>
-                                        </li>
-                                    @endfor
-                                </ul>
+                        <div class="product-detail-table-info row align-items-baseline justify-content-center justify-content-xl-between">
+                            <div class="product-detail-style col-lg-6">
+                                <div class="{{ $products->category == 'Antiquität' ? 'd-none' : '' }}">
+                                    <span class="fw-bold d-block text-uppercase diameter-text">Produktdurchmesser</span>
+                                    <ul class="nav nav-pills mt-2 mb-3 justify-content-center justify-content-xl-start flex-wrap" id="pills-tab" role="tablist">
+                                        @php
+                                            $diameter_ids = array_filter(explode(',', $products->pd_id));
+                                            $diameters = array_filter(explode(',', $products->diameter));
+                                        @endphp
+                                        @for($i=0; $i< count($diameter_ids); $i++)
+                                            <li class="nav-item" role="presentation">
+                                                <button data-id="{{ $diameter_ids[$i] }}" data-p_id="{{ $products->id }}"
+                                                        class="nav-link active  diameter-btn" id="pills-{{ $diameter_ids[$i] }}-tab" data-bs-toggle="pill"
+                                                        data-bs-target="#pills-{{ $diameter_ids[$i] }}" type="button" role="tab">{{ $diameters[$i] }}</button>
+                                            </li>
+                                        @endfor
+                                    </ul>
+                                </div>
+
+                                <div class="d-md-flex justify-content-center justify-content-xl-start price-status pt-md-5 my-3">
+                                    <div class="pricing">
+                                        <span class="display-3 fw-bold priceSpan"></span>
+                                        <span class="display-3 fw-bold">€</span>
+                                    </div>
+                                    <div class="d-flex justify-content-center justify-content-md-start align-items-center mx-md-4 ps-md-4 pt-3 pt-lg-0">
+                                        <div id="stock-color" style="background-color: #3bf27b; width: 35px; height: 35px; line-height: 1.5; border-radius: 50%;"></div>
+                                        <span class="text-uppercase diameter-text ps-2 fw-bold" id="stock-text">verfügbar</span>
+                                    </div>
+                                </div>
+                                <p class="fs-09 diameter-text">Differenzbe•euertgem. €{{ number_format($products->cargo_price, 2, ',', '.') }} USCG zzgl. <br>
+                                    Sofort verfOgloar, Lieferzeit {{ $products->cargo_time  }} Tage
+                                </p>
+                                <div class="d-flex flex-column align-items-center justify-content-center align-items-xl-start mb-3 mb-xl-0">
+                                    <a class="btn btnPricing text-uppercase cart-btn pointer"><i class="bi bi-basket2-fill pe-2"></i>Zum Warenkorb</a>
+                                    <a href="{{ route('front.contact', $products->slug ) }}" class="btn btnCustomer btn-outline-dark text-uppercase mt-3"><i class="bi bi-send pe-2"></i>Frag den Verkäufer</a>
+                                </div>
                             </div>
-                            <div class="tab-content col-xl-6" id="pills-tabContent">
+                            <div class="tab-content col-lg-6 pe-xl-5" id="pills-tabContent">
                                 <div class="tab-pane fade show active tab-webkit" id="pills-" role="tabpanel">
                                     <span class="border-0 diameter-text text-uppercase fw-bold">Weitere Einzelheiten</span>
                                     <table class="table table-striped table-responsive mt-2 text-start" style="height: 200px; overflow-y: scroll;">
@@ -134,27 +154,16 @@
                                                 <td>Speditionslieferung </td>
                                                 <td>{{ $products->cargo_time }}</td>
                                             </tr>
+                                            @foreach(json_decode(json_decode($products->more_materials, TRUE), TRUE)  ?? [] as $key => $item)
+                                                <tr>
+                                                    <td>{{ $key }}</td>
+                                                    <td id="product-number-value">{{ $item }}</td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                        </div>
-                        <div class="d-md-flex justify-content-center justify-content-xl-start price-status pt-md-5 my-3">
-                            <div class="pricing">
-                                <span class="display-3 fw-bold priceSpan"></span>
-                                <span class="display-3 fw-bold">€</span>
-                            </div>
-                            <div class="d-flex justify-content-center justify-content-md-start align-items-center mx-md-4 ps-md-4 pt-3 pt-lg-0">
-                                <div id="stock-color" style="background-color: #3bf27b; width: 35px; height: 35px; line-height: 1.5; border-radius: 50%;"></div>
-                                <span class="text-uppercase diameter-text ps-2 fw-bold" id="stock-text">verfügbar</span>
-                            </div>
-                        </div>
-                        <p class="fs-09 diameter-text">Differenzbe•euertgem. €{{ number_format($products->cargo_price, 2, ',', '.') }} USCG zzgl. <br>
-                            Sofort verfOgloar, Lieferzeit {{ $products->cargo_time  }} Tage
-                        </p>
-                        <div>
-                            <a class="btn btnPricing text-uppercase cart-btn pointer"><i class="bi bi-basket2-fill pe-2"></i>in den Warenkorb legen</a>
-                            <a href="https://wa.me/+491775652848" class="btn btnCustomer btn-outline-dark text-uppercase ms-lg-3 mt-3 mt-lg-0"><i class="bi bi-send pe-2"></i>Frag den Verkäufer</a>
                         </div>
 
                     </div>
@@ -164,11 +173,11 @@
 
     </section>
 
-    @isset($products->desc_title)
+    @isset($products->description_title)
         <section class="py-5">
             <div class="container text-center">
-                <h1 class="display-3 fw-bold text-uppercase">{{ $products->desc_title }}</h1>
-                <p>{{ $products->description }}</p>
+                <h1 class="display-3 fw-bold text-uppercase">{{ $products->description_title }}</h1>
+                <p>{!! $products->description_content !!}</p>
             </div>
         </section>
     @endisset
@@ -208,7 +217,7 @@
                 cart_btn.data('pd_id', pdid);
 
                 $.ajax({
-                    url: '/product-detail/' + pid + '/' + pdid,
+                    url: '/produktdetail/' + pid + '/' + pdid,
                     type: "POST",
                     data: {
                         '_token': "{{ csrf_token() }}",

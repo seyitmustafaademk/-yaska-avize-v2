@@ -19,13 +19,13 @@
                         <hr>
                         <br>
                         <div class="form-group">
-                            <label for="user_name">Username</label>
-                            <input type="text" class="form-control" name="user_name" id="user_name">
+                            <label for="customer_name">Customer Name</label>
+                            <input type="text" class="form-control" name="customer_name" id="customer_name">
                         </div>
 
                         <div class="form-group">
-                            <label for="user_footer">User Footer</label>
-                            <input type="text" class="form-control" name="user_footer" id="user_footer">
+                            <label for="customer_title">Customer Title</label>
+                            <input type="text" class="form-control" name="customer_title" id="customer_title">
                         </div>
                         <div class="form-group">
                             <label for="user_comment">Comment</label>
@@ -53,8 +53,9 @@
                     <tr>
                         <th>#</th>
                         <th>Action</th>
-                        <th>Title</th>
-                        <th>Description</th>
+                        <th>Customer Name</th>
+                        <th>Customer Title</th>
+                        <th>Comment</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -68,8 +69,8 @@
                                         <i class="fa fa-trash-alt"></i>
                                     </a>
                                 </td>
-                                <td>{{ $comment['user_name'] }}</td>
-                                <td>{{ $comment['user_footer'] }}</td>
+                                <td>{{ $comment['customer_name'] }}</td>
+                                <td>{{ $comment['customer_title'] }}</td>
                                 <td>{{ $comment['user_comment'] }}</td>
                             </tr>
                         @endforeach
@@ -79,8 +80,9 @@
                     <tr>
                         <th>#</th>
                         <th>Action</th>
-                        <th>Title</th>
-                        <th>Description</th>
+                        <th>Customer Name</th>
+                        <th>Customer Title</th>
+                        <th>Comment</th>
                     </tr>
                     </tfoot>
                 </table>

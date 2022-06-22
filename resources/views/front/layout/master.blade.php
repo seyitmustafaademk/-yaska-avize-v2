@@ -11,6 +11,7 @@
     {{-- CSS only --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +41,7 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 @yield('footer-bottom')
 
-<!-- cookie warning toast -->
+{{--<!-- cookie warning toast -->
 <div class="fixed-bottom p-4">
     <div class="toast bg-dark text-white w-100 mw-100" role="alert" data-autohide="false">
         <div class="toast-body p-4 d-flex flex-column">
@@ -58,62 +59,26 @@
             </div>
         </div>
     </div>
+</div>--}}
+
+
+<div id="custom-cookie-wrapper" class="cookie-wrapper position-fixed bottom-0 shadow bg-white w-100 d-none" style="z-index: 9999">
+    <div class="cookie-container container py-3">
+        <div class="cookie-content d-flex flex-wrap justify-content-evenly align-items-center text-center text-lg-start">
+            <div class="cookie-text">
+                <p>
+                    Diese Website verwendet Cookies, um sicherzustellen, dass Sie die beste Erfahrung auf unserer Website erhalten.
+                </p>
+                <p>
+                    Indem Sie diese Website weiterhin nutzen, akzeptieren Sie unsere Verwendung von Cookies.
+                </p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="btn-cookie-accept" class="cookie-button-accept btn btn-success py-2 fw-semibold rounded-0" style="width: 250px; max-width:100%;">Annehmen</button>
+            </div>
+        </div>
+    </div>
 </div>
-<script>
-    function setCookie(name,value,days) {
-        var expires = "";
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days*24*60*60*1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-    }
-    function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for(var i=0;i < ca.length;i++) {
-            var c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1,c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-        }
-        return null;
-    }
-
-    function eraseCookie(name) {
-        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    }
-
-    function cookieConsent() {
-        if (!getCookie('allowCookies')) {
-            $('.toast').toast('show')
-        }
-    }
-
-    $('#btnDeny').click(()=>{
-        eraseCookie('allowCookies')
-        $('.toast').toast('hide')
-    })
-
-    $('#btnAccept').click(()=>{
-        setCookie('allowCookies','1',7)
-        $('.toast').toast('hide')
-    })
-
-    // load
-    cookieConsent()
-
-    // for demo / testing only
-    $('#btnReset').click(()=>{
-        // clear cookie to show toast after acceptance
-        eraseCookie('allowCookies')
-        $('.toast').toast('show')
-    })
-
-    $('.toast').toast('show');
-
-
-</script>
 
 <script>
     $('.openCart').click(function (){
