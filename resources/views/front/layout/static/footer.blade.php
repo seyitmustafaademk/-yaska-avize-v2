@@ -75,10 +75,10 @@
                     <div class="col-6 col-md-4 col-xl-3 footerItem pt-3 pt-xl-0">
                         <h3 class="footer-title">Rechtliches</h3>
                         <ul>
-                            <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modal-daten">Datenschutzerklärung</a></li>
-                            <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modal-impressum">Impressum</a></li>
-                            <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modal-cookies">Cookies</a></li>
-                            <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#modal-agb">AGB</a></li>
+                            <li><a href="{{ route('front.about-us', 'datenschutzerklärung') }}">Datenschutzerklärung</a></li>
+                            <li><a href="{{ route('front.about-us', 'impressum') }}">Impressum</a></li>
+                            <li><a href="{{ route('front.about-us', 'cookies') }}">Cookies</a></li>
+                            <li><a href="{{ route('front.about-us', 'agb') }}">AGB</a></li>
                         </ul>
                     </div>
                     <div class="col-6 col-md-4 col-xl-3 footerItem pt-3 pt-xl-0">
@@ -94,7 +94,7 @@
                         </ul>
                     </div>
                     <div class="col-6 col-md-4 col-xl-3 footerItem pt-3 pt-xl-0">
-                        <h3 class="footer-title">SHOP</h3>
+                        <h3 class="footer-title">Produkte</h3>
                         <ul>
                             <li><a href="{{ route('front.shop', 'Antiquität') }}">Antiquität <span class="fw-light">Kronleuchter</span></a></li>
                             <li><a href="{{ route('front.shop', 'Modern') }}">Modern <span class="fw-lighter">Kronleuchter</span></a></li>
@@ -483,7 +483,7 @@
                 <div class="modal-body">
                     <div class="impressum-inner">
                         <div>
-                            <div class="">
+                            <div>
                                 <h3>1. ALLGEMEINES</h3>
                                 <p>Die Kron-Leuchter GmbH betreibt im Internet u.a. unter der Domain &bdquo;Kron-Leuchter.com&ldquo;
                                     eine &uuml;ber das Internet nutzbare Softwareanwendung (im Folgenden: Dienst), die

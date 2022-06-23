@@ -168,6 +168,34 @@ class Cart
         return $paid_price;
     }
 
+    public function GetPaidPriceWithoutCargoPrice(){
+        $paid_price = 0;
+        foreach ($this->GetCart() as $value){
+            $price = 0;
+            $price += floatval($value['count']) * floatval($value['packet']->pd_list_price);
+            if (strtolower($value['packet']->p_category) != 'antika'){
+                $price = $price * 1.19;
+            }
+            $paid_price += $price;
+        }
+        return $paid_price;
+    }
+
+    public function SetCartWithoutCargo($without_cargo)
+    {
+        if ($without_cargo){
+            Session::put('without_cargo', true);
+        }
+        else {
+            Session::put('without_cargo', false);
+        }
+    }
+
+    public function GetCartWithoutCargo()
+    {
+        return Session::get('without_cargo');
+    }
+
     /************************************************/
     /************************************************/
     /************************************************/

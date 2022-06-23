@@ -16,7 +16,7 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Description</label>
-                        <textarea type="text" class="form-control" name="description" id="description">{{ $content['description'] ?? null }}</textarea>
+                        <textarea type="text" class="form-control" name="description" id="summernote">{{ $content['description'] ?? null }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="file_primary_image">Image</label>

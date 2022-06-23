@@ -220,7 +220,6 @@ class EditAboutUs_Controller extends Controller
     public function ShowSection2()
     {
         $content = PageContent::where('page_name', '=', 'about-us')->where('section_name', '=', 'section_2')->first();
-
         $content = empty($content) ? null : json_decode($content->content, TRUE);
 
         $data = [
@@ -250,7 +249,7 @@ class EditAboutUs_Controller extends Controller
             'founder_title' => $request->founder_title,
         ], TRUE);
 
-        $created = PageContent::updateOrCreate(
+        PageContent::updateOrCreate(
             [
                 'page_name' => 'about-us',
                 'section_name' => 'section_2',
@@ -268,11 +267,77 @@ class EditAboutUs_Controller extends Controller
         $content = PageContent::where('page_name', '=', 'about-us')->where('section_name', '=', 'section_3')->first();
         $content = empty($content) ? null : json_decode($content->content, TRUE);
 
+//        return $content;
+
         $data = [
             '__title' => 'Raportajlar',
             'content' => $content,
         ];
         return view('dashboard.edit-pages.about-us.section3', $data);
+    }
+
+    public function EditSection3(Request $request)
+    {
+//        return $request->all();
+
+        $content = PageContent::where('page_name', '=', 'about-us')->where('section_name', '=', 'section_3')->first();
+        $content = empty($content) ? null : json_decode($content->content, TRUE);
+
+        $old_videos = $content['videos'] ?? [];
+
+        if ($request->hasFile('interview_video')){
+            \File::deleteDirectory(public_path('uploads/about-us/section-2'));
+            $upload_videos = $this->FileUploadAndCreate($request->interview_video, '/about-us/section-3');
+            $old_videos[] = [
+                'interview_title' => $request->interview_title,
+                'interview_description' => $request->interview_description,
+                'video' => $upload_videos
+            ];
+        }
+
+        $content = json_encode([
+            'top_title' => $request->top_title,
+            'title' => $request->title,
+            'description' => $request->description,
+            'videos' => $old_videos,
+        ], TRUE);
+
+
+        PageContent::updateOrCreate(
+            [
+                'page_name' => 'about-us',
+                'section_name' => 'section_3',
+            ],
+            [
+                'content' => $content,
+            ]
+        );
+
+        return redirect()->route('admin.edit-pages.about-us.section-3');
+    }
+
+    public function DeleteSection3($id)
+    {
+        $content = PageContent::where('page_name', '=', 'about-us')->where('section_name', '=', 'section_3')->first();
+        $content = empty($content) ? null : json_decode($content->content, TRUE);
+
+        foreach ($content['videos'] as $key => $video) {
+            if ($key == $id - 1){
+                unset($content['videos'][$key]);
+            }
+        }
+
+        PageContent::updateOrCreate(
+            [
+                'page_name' => 'about-us',
+                'section_name' => 'section_3',
+            ],
+            [
+                'content' => $content,
+            ]
+        );
+
+        return redirect()->route('admin.edit-pages.about-us.section-3');
     }
 
     function FileUploadAndCreate($file, $folder_name){

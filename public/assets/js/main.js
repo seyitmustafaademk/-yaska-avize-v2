@@ -145,7 +145,6 @@ $(".questionDivClose").click(() => {
     $(".questionDiv").hide(100);
 });
 
-Sho3
 
 // Swiper Hero
 
@@ -184,6 +183,7 @@ var swiper3 = new Swiper(".differentSwiper", {
 /**************************************************************************************/
 /**************************************************************************************/
 // COOKIE POPUP KODLARI GELECEK
+
 $(document).ready(function (){
     var cookie_wrapper = $('#custom-cookie-wrapper');
     var temp_cookie = Cookies.get('cookie');

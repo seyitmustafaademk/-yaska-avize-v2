@@ -23,6 +23,7 @@ class FirstStep_Controller extends Controller
             'cart' => $this->cart->GetCart(),
             'price' => $this->cart->GetPrice(),
             'paid_price' => $this->cart->GetPaidPrice(),
+            'paid_price_without_cargo' => $this->cart->GetPaidPriceWithoutCargoPrice(),
         ];
 
         return view('front.payment.first-step', $data);

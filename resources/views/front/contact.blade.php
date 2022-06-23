@@ -115,7 +115,7 @@
                                     <div class="form-check">
                                         <input name="privacy_policy" class="form-check-input" type="checkbox" id="flexCheckDefault">
                                         <label class="form-check-label fs-09" for="flexCheckDefault">
-                                            Ich habe die <a href="#" class="text-primary">Datenschutzerklärung</a> zur Kenntnis genommen
+                                            Ich habe die <a href="{{ route('front.about-us', 'datenschutzerklärung') }}" class="text-primary">Datenschutzerklärung</a> zur Kenntnis genommen
                                         </label>
                                     </div>
                                 </div>

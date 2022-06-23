@@ -157,9 +157,9 @@
                 </div>
             </div>
 
-            <!--  -->
-            <video src="/{{ 'assets/img/home/avizevideo.mp4' }}" class="position-absolute top-0 start-0 w-100 h-100" type="video/mp4"
-                   autoplay muted loop style="object-fit: cover; z-index: 1;"></video>
+            <video src="{{ asset('assets/img/home/video1.mp4') }}" class="position-absolute top-0 start-0 w-100 h-100" type="video/mp4"
+                   autoplay muted loop style="object-fit: cover; z-index: 1;">
+            </video>
 
         </section>
         <section id="section10" class="demo mb-4">

@@ -127,7 +127,7 @@
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="fs-4 text-uppercase">Gesamt</small>
-                                <span class="fs-2 fw-500">{{ number_format($paid_price, 2, ',', '.') }}€</span>
+                                <span class="fs-2 fw-500">{{ number_format($without_cargo ? $paid_price_without_cargo : $paid_price, 2, ',', '.') }}€</span>
                             </div>
                             <button type="submit" form="unique-form" class="btn mainBtn w-100">Mach weiter</button>
                             <hr style="height: 3px; border-radius: 10%;">

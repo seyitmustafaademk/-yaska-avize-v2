@@ -102,6 +102,7 @@
                     @endif
                 </div>
             </div>
+
             <div class="col-xl-4 paymentSidebar pt-3">
                 <div class="paymentSidebar-inner theiaStickySidebar ">
                     <div class="paymentBar bg-white p-4 mb-4 rounded-3">
@@ -109,30 +110,34 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <small class="text-uppercase">Zwischensumme</small>
                             <span class="fs-3 fw-500">{{ number_format($price, 2, ',', '.') }}€</span>
-
                         </div>
-                        <div class="d-flex justify-content-between align-items-center" id="cargo_short_text">
+                        <div class="d-flex justify-content-between align-items-center" id="cargo-price-wrapper">
                             <small class="text-uppercase">Ladung</small>
-                            <span class="fs-3 fw-500">{{ number_format($item['packet']->p_cargo_price, 2, ',', '.') }}€</span>
-
+                            <span class="fs-3 fw-500">{{ number_format( $paid_price - $paid_price_without_cargo , 2, ',', '.') }}€</span>
                         </div>
 
 
                         <div class="d-flex justify-content-between align-items-center">
                             <small class="fs-4 text-uppercase">Gesamt</small>
-                            <input type="hidden" id="kargo_dahil" value="{{ $paid_price + $item['packet']->p_cargo_price }}">
-                            <input type="hidden" id="kargo_haric" value="{{ $paid_price }}">
                             <span class="fs-2 fw-500" id="">
-                                <div style="float: left;" id="price_text">{{ number_format($paid_price + $item['packet']->p_cargo_price, 2, ',', '.')  }}</div> €
+                                <div style="float: left;" id="price_text">{{ number_format($paid_price, 2, ',', '.')  }}</div> €
                             </span>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-uppercase">
-                                Versand will ich nicht <input type="checkbox" id="cargo_istemiyorum" onchange="cargo()">
-                            </small>
 
+                        <div class="d-flex justify-content-between align-items-center">
+                            <input type="hidden" id="paid-price" value="{{ $paid_price }}">
+                            <input type="hidden" id="paid-price-without" value="{{ $paid_price_without_cargo }}">
+                            <input type="hidden" id="cargo-price" value="{{ $paid_price - $paid_price_without_cargo }}">
+                            <form id="cargo-from" action="{{ route('front.payment.second-step') }}" method="POST">
+                                @csrf
+                                <small class="text-uppercase">
+                                    Versand will ich nicht <input form="cargo-from" type="checkbox" name="without_cargo" id="check-without-cargo" onchange="WithoutCargo()">
+                                </small>
+                            </form>
                         </div>
-                        <a href="{{ route('front.payment.second-step') }}" class="btn mainBtn w-100">Kaufen</a>
+
+
+                        <button form="cargo-from" type="submit" class="btn mainBtn w-100">Kaufen</button>
                         <hr style="height: 3px; border-radius: 10%;">
                         <div class="pt-4">
                             <small>1-2 Tage ab Versandtag
@@ -147,17 +152,22 @@
 </section>
 @endsection
 <script>
-    function cargo() {
-        var checkBox = document.getElementById("cargo_istemiyorum");
-        var kargo_dahil = document.getElementById("kargo_dahil").value;
-        var kargo_haric = document.getElementById("kargo_haric").value;
-        if (checkBox.checked == true) {
-            document.getElementById("price_text").innerHTML = kargo_haric;
-            document.getElementById("cargo_short_text").innerHTML = "";
+
+    function WithoutCargo() {
+        var checkBox = $('#check-without-cargo');
+        var cargo_price_wrapper = $('#cargo-price-wrapper');
+
+        var paid_price = $('#paid-price').val();
+        var paid_price_without_cargo = $('#paid-price-without').val();
+
+
+        if (checkBox.is(':checked')) {
+            $('#price_text').text(paid_price_without_cargo);
+            cargo_price_wrapper.addClass('d-none');
 
         } else {
-            document.getElementById("price_text").innerHTML = kargo_dahil;
-            document.getElementById("cargo_short_text").innerHTML = '<small class="text-uppercase">Cargo</small><span class="fs-3 fw-500">{{ number_format($item['packet']->p_cargo_price, 2, ',', '.') }}€</span>';
+            $('#price_text').text(paid_price);
+            cargo_price_wrapper.removeClass('d-none');
 
         }
     }

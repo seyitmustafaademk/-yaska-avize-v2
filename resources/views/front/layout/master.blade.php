@@ -38,28 +38,8 @@
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 @yield('footer-center')
-<script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 @yield('footer-bottom')
-
-{{--<!-- cookie warning toast -->
-<div class="fixed-bottom p-4">
-    <div class="toast bg-dark text-white w-100 mw-100" role="alert" data-autohide="false">
-        <div class="toast-body p-4 d-flex flex-column">
-            <h4>Cookie-Warnung</h4>
-            <p>
-                Diese Website speichert Daten wie Cookies, um die Website-Funktionalität einschließlich Analysen und Personalisierung zu ermöglichen. Durch die Nutzung dieser Website akzeptieren Sie automatisch, dass wir Cookies verwenden.
-            </p>
-            <div class="ml-auto">
-                <button type="button" class="btn btn-outline-light mr-3" id="btnDeny">
-                    Leugnen
-                </button>
-                <button type="button" class="btn btn-light" id="btnAccept">
-                    Annehmen
-                </button>
-            </div>
-        </div>
-    </div>
-</div>--}}
 
 
 <div id="custom-cookie-wrapper" class="cookie-wrapper position-fixed bottom-0 shadow bg-white w-100 d-none" style="z-index: 9999">

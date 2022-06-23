@@ -172,8 +172,9 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/edit-pages/shop/section1', [EditShop_Controller::class, 'ShowPage'])->name('admin.edit-pages.shop.section-1');
     Route::post('/edit-pages/shop/section1', [EditShop_Controller::class, 'Insert']);
 
-    Route::get('/edit-pages/about-us/section1', [EditAboutUs_Controller::class, 'ShowSection3'])->name('admin.edit-pages.about-us.section-3');
-    Route::post('/edit-pages/about-us/section1', [EditAboutUs_Controller::class, 'EditSection3']);
+    Route::get('/edit-pages/about-us/section3', [EditAboutUs_Controller::class, 'ShowSection3'])->name('admin.edit-pages.about-us.section-3');
+    Route::post('/edit-pages/about-us/section3', [EditAboutUs_Controller::class, 'EditSection3']);
+    Route::get('/edit-pages/about-us/section3-delete/{id}', [EditAboutUs_Controller::class, 'DeleteSection3'])->name('admin.edit-pages.about-us.section-3-delete');
     #endregion
 });
 
@@ -209,7 +210,7 @@ use App\Http\Controllers\Front\Gallery_Controller as Gallery_FController;
 
 Route::prefix('/')->group(function () {
     Route::get('/', [Homepage_FController::class, 'ShowPage'])->name('front.homepage');
-    Route::get('/uber-uns', [AboutUs_FController::class, 'ShowPage'])->name('front.about-us');
+    Route::get('/uber-uns/{tab_panel?}', [AboutUs_FController::class, 'ShowPage'])->name('front.about-us');
 
     Route::get('/kontakt/{slug?}', [Contact_FController::class, 'ShowPage'])->name('front.contact');
 
@@ -234,7 +235,7 @@ Route::prefix('/')->group(function () {
 
     // Sepet verilerini alınıp iletişim verilerinin kontrol edildiği sayfa
     Route::get('/basket', [FirstStep_FController::class, 'ShowPage'])->name('front.payment.first-step');
-    Route::get('/kargo-Adresse', [SecondStep_FController::class, 'ShowPage'])->name('front.payment.second-step');
+    Route::match(['get', 'post'], '/kargo-Adresse', [SecondStep_FController::class, 'ShowPage'])->name('front.payment.second-step');
 
     // Kredi kartı bilgilerinin alındığı ve önceki sayfadan gelen iletişim bilgilerinin aktarıldığı sayfa
     Route::post('/credit-card', [ThirdStep_FController::class, 'ShowPage'])->name('front.payment.third-step');
